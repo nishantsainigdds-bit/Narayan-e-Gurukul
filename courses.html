@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Courses - Narayan e-Gurukul</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: #f4f6fb;
+    }
+
+    /* UNIQUE HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(14, 47, 105, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 15px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: 0.4s;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 26px;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: #facc15;
+    }
+
+    .logo i {
+      font-size: 32px;
+      color: #facc15;
+      background: rgba(250, 204, 21, 0.1);
+      padding: 5px;
+      border-radius: 10px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      position: relative;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    nav a:not(.nav-btn)::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #facc15;
+      transition: 0.3s;
+    }
+
+    nav a:not(.nav-btn):hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #facc15;
+    }
+
+    .nav-btn {
+      background: #facc15;
+      color: #0e2f69 !important;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      margin-left: 30px;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
+    }
+
+    .nav-btn:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* RESPONSIVE HEADER */
+    @media (max-width: 900px) {
+      header {
+        padding: 15px 5%;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0e2f69;
+        padding: 30px 0;
+        text-align: center;
+        z-index: 1000;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        gap: 20px;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav a {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .nav-btn {
+        margin-left: 0;
+      }
+    }
+
+    /* Banner */
+    .banner {
+      background: linear-gradient(135deg, #0e2f69, #1746a2);
+      color: white;
+      padding: 60px;
+      text-align: center;
+    }
+
+    .banner h1 {
+      font-size: 40px;
+    }
+
+    /* Course Section */
+    .course-container {
+      padding: 60px 8%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .course-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .course-card h3 {
+      margin-top: 0;
+      color: #0e2f69;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #0e2f69;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #0e2f69;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #facc15;
+      color: black;
+    }
+
+    /* PREMIUM DETAILED FOOTER */
+    footer {
+      background: #0e2f69;
+      color: white;
+      padding: 80px 8% 40px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 50px;
+    }
+
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 25px;
+      position: relative;
+      color: #facc15;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #facc15;
+    }
+
+    .footer-column p {
+      line-height: 1.6;
+      font-size: 15px;
+      opacity: 0.8;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 15px;
+    }
+
+    .footer-column ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      opacity: 0.8;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-column ul li a:hover {
+      opacity: 1;
+      color: #facc15;
+      padding-left: 5px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .footer-socials a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 20px;
+    }
+
+    .footer-socials a:hover {
+      background: #facc15;
+      color: #0e2f69;
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.6;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 60px 5% 30px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-column h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .footer-column ul li a {
+        justify-content: center;
+      }
+
+      .footer-socials {
+        justify-content: center;
+      }
+    }
+
+    /* WHY US */
+    .why-us {
+      padding: 70px 8%;
+      text-align: center;
+      background: #f9fafc;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .why-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    /* EDUCATORS */
+    .educators {
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .edu-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .edu-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      width: 200px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .edu-card img {
+      width: 80px;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      padding: 70px 8%;
+      background: #f4f6fb;
+      text-align: center;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* APP SECTION */
+    .app-section {
+      padding: 70px 8%;
+      background: linear-gradient(135deg, #0e2f69, #1746a2);
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="main-header">
+    <a href="index.html" class="logo">
+      <i class="ri-graduation-cap-fill"></i>
+      Narayan<span> e-Gurukul</span>
+    </a>
+
+    <div class="menu-toggle" id="mobile-menu">
+      <i class="ri-menu-3-line"></i>
+    </div>
+
+    <nav id="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="login.html" class="nav-btn">Get Started</a>
+    </nav>
+  </header>
+
+  <section class="banner">
+    <h1>Explore Our Premium Courses</h1>
+    <p>Choose your goal and start learning today 🚀</p>
+  </section>
+
+  <section class="why-us">
+    <h2>Why Choose Narayan?</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>🎥 Live & Recorded Classes</h3>
+        <p>Learn anytime with unlimited access to video lectures.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>📝 Free Notes & PDFs</h3>
+        <p>Download structured notes prepared by expert faculty.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>📊 Weekly Test Series</h3>
+        <p>Improve performance with real exam-level mock tests.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>💰 Affordable Fees</h3>
+        <p>High quality education at student-friendly pricing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="educators">
+    <h2>Meet Our Top Educators</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+        <h3>Physics Expert</h3>
+        <p>10+ Years Experience</p>
+      </div>
+
+      <div class="edu-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png">
+        <h3>Chemistry Mentor</h3>
+        <p>8+ Years Experience</p>
+      </div>
+
+      <div class="edu-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+        <h3>Maths Specialist</h3>
+        <p>12+ Years Experience</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>What Our Students Say</h2>
+
+    <div class="testimonial-card">
+      <p>"edHills helped me crack JEE with structured preparation!"</p>
+      <h4>- AIR 542 Student ⭐⭐⭐⭐⭐</h4>
+    </div>
+
+    <div class="testimonial-card">
+      <p>"Best platform for NEET preparation. Affordable & high quality."</p>
+      <h4>- NEET Qualified Student ⭐⭐⭐⭐⭐</h4>
+    </div>
+  </section>
+
+  <section class="app-section">
+    <div>
+      <h2>Download Our Mobile App</h2>
+      <p>Learn anytime, anywhere with our smart learning app.</p>
+      <a href="#" class="btn">Download Now</a>
+    </div>
+  </section>
+
+
+  <section class="course-container">
+
+    <div class="course-card">
+      <h3>JEE (Class 11 + 12)</h3>
+      <p>Complete PCM preparation with live & recorded classes.</p>
+      <div class="price">₹1500</div>
+      <a href="enroll-jee.html" class="btn">Enroll Now</a>
+    </div>
+
+    <div class="course-card">
+      <h3>NEET Preparation</h3>
+      <p>Full PCB syllabus with test series & notes.</p>
+      <div class="price">₹1500</div>
+      <a href="enroll-neet.html" class="btn">Enroll Now</a>
+    </div>
+
+    <div class="course-card">
+      <h3>CUET Crash Course</h3>
+      <p>Fast-track preparation for CUET entrance exam.</p>
+      <div class="price">₹999</div>
+      <a href="enroll-cuet.html" class="btn">Enroll Now</a>
+    </div>
+
+    <div class="course-card">
+      <h3>SSC & Banking</h3>
+      <p>Quant, Reasoning & English complete coverage.</p>
+      <div class="price">₹799</div>
+      <a href="enroll-ssc.html" class="btn">Enroll Now</a>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <a href="index.html" class="logo" style="margin-bottom: 20px; display: inline-flex;">
+          <i class="ri-graduation-cap-fill"></i>
+          Narayan<span> e-Gurukul</span>
+        </a>
+        <p>Empowering students with high-quality education and smart learning tools. Join edHills to clear your dream
+          entrance exams with ease.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="ri-facebook-fill"></i></a>
+          <a href="#"><i class="ri-twitter-x-fill"></i></a>
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-youtube-fill"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html"><i class="ri-home-line"></i> Home</a></li>
+          <li><a href="courses.html"><i class="ri-book-open-line"></i> Courses</a></li>
+          <li><a href="#"><i class="ri-notification-badge-line"></i> Updates</a></li>
+          <li><a href="login.html"><i class="ri-user-heart-line"></i> Student Portal</a></li>
+          <li><a href="admin-login.html" style="opacity: 0.5;"><i class="ri-admin-line"></i> Admin Login</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Syllabus</h3>
+        <ul>
+          <li><a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a></li>
+          <li><a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a></li>
+          <li><a href="cuet-syllabus.html"><i class="ri-graduation-cap-line"></i> CUET 2026</a></li>
+          <li><a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Contact Info</h3>
+        <ul>
+          <li><a href="mailto:info@edhills.com"><i class="ri-mail-send-line"></i> info@edhills.com</a></li>
+          <li><a href="#"><i class="ri-map-pin-2-line"></i> New Delhi, India</a></li>
+          <li><a href="#"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
+          <li><a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 edHills Learning Platform. All Rights Reserved. Designed for Excellence.</p>
+    </div>
+  </footer>
+
+  <script>
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
+
+    mobileMenu.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      const icon = mobileMenu.querySelector('i');
+      if (navMenu.classList.contains('active')) {
+        icon.classList.remove('ri-menu-3-line');
+        icon.classList.add('ri-close-line');
+      } else {
+        icon.classList.remove('ri-close-line');
+        icon.classList.add('ri-menu-3-line');
+      }
+    });
+  </script>
+
+</body>
+
+
+</html>

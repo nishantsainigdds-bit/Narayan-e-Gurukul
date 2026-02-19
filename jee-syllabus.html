@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JEE Main 2026 Syllabus - Narayan e-Gurukul</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background: #f4f6fb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* UNIQUE HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(14, 47, 105, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.4s;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 26px;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #facc15;
+        }
+
+        .logo i {
+            font-size: 32px;
+            color: #facc15;
+            background: rgba(250, 204, 21, 0.1);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            position: relative;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav a:not(.nav-btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #facc15;
+            transition: 0.3s;
+        }
+
+        nav a:not(.nav-btn):hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #facc15;
+        }
+
+        .nav-btn {
+            background: #facc15;
+            color: #0e2f69 !important;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-left: 30px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* RESPONSIVE HEADER */
+        @media (max-width: 900px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #0e2f69;
+                padding: 30px 0;
+                text-align: center;
+                z-index: 1000;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                gap: 20px;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                margin: 0;
+                font-size: 18px;
+            }
+
+            .nav-btn {
+                margin-left: 0;
+            }
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: linear-gradient(135deg, #0e2f69, #1746a2);
+            color: white;
+            padding: 80px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
+        }
+
+        .page-header h1 {
+            margin: 0 0 15px;
+            font-size: 42px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 20px;
+            font-weight: 300;
+            position: relative;
+        }
+
+        /* SYLLABUS CONTAINER */
+        .syllabus-container {
+            max-width: 1100px;
+            margin: -40px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .btn-download {
+            background: #facc15;
+            color: #0e2f69;
+            padding: 16px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(250, 204, 21, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        .btn-download:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.4);
+        }
+
+        /* PREMIUM ACCORDION SUBJECT SECTIONS */
+        .subject-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .subject-section:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .subject-header {
+            background: white;
+            color: #0e2f69;
+            padding: 25px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .subject-section.active .subject-header {
+            background: #0e2f69;
+            color: white;
+        }
+
+        .subject-header h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .subject-header i.arrow {
+            font-size: 24px;
+            transition: 0.4s;
+        }
+
+        .subject-section.active i.arrow {
+            transform: rotate(180deg);
+        }
+
+        .subject-content {
+            padding: 40px;
+            display: none;
+            border-top: 1px solid #f0f2f5;
+            background: #fafbfc;
+        }
+
+        .subject-section.active .subject-content {
+            display: block;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .topic-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .topic-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            border-bottom: 3px solid #facc15;
+            transition: 0.3s;
+        }
+
+        .topic-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .topic-item h4 {
+            margin: 0 0 10px;
+            color: #0e2f69;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .topic-item p {
+            margin: 0;
+            font-size: 15px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* PREMIUM DETAILED FOOTER */
+        footer {
+            background: #0e2f69;
+            color: white;
+            padding: 80px 8% 40px;
+            font-family: 'Outfit', sans-serif;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            color: #facc15;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #facc15;
+        }
+
+        .footer-column p {
+            line-height: 1.6;
+            font-size: 15px;
+            opacity: 0.8;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-column ul li a:hover {
+            opacity: 1;
+            color: #facc15;
+            padding-left: 5px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .footer-socials a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 20px;
+        }
+
+        .footer-socials a:hover {
+            background: #facc15;
+            color: #0e2f69;
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 60px 5% 30px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-column ul li a {
+                justify-content: center;
+            }
+
+            .footer-socials {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="main-header">
+        <a href="index.html" class="logo">
+            <i class="ri-graduation-cap-fill"></i>
+            Narayan<span> e-Gurukul</span>
+        </a>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="ri-menu-3-line"></i>
+        </div>
+
+        <nav id="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="login.html" class="nav-btn">Get Started</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1><i class="ri-file-list-3-line"></i> JEE Main 2026 Syllabus</h1>
+        <p>Comprehensive Physics, Chemistry & Mathematics Syllabus for JEE Aspirants</p>
+    </div>
+
+    <div class="syllabus-container">
+
+        <div class="download-section">
+            <a href="#" class="btn-download" onclick="alert('PDF Download Started...')">
+                <i class="ri-download-cloud-2-line"></i> Download Syllabus PDF
+            </a>
+        </div>
+
+        <!-- PHYSICS -->
+        <div class="subject-section">
+            <div class="subject-header">
+                <h3><i class="ri-flashlight-line"></i> Physics</h3>
+                <i class="ri-arrow-down-s-line arrow"></i>
+            </div>
+            <div class="subject-content">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <h4>Kinematics</h4>
+                        <p>Motion in 1D & 2D, Projectile Motion, Relative Velocity</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Laws of Motion</h4>
+                        <p>Newton's Laws, Friction, Circular Motion</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Electrostatics</h4>
+                        <p>Electric Field, Potential, Gauss's Law, Capacitors</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Optics</h4>
+                        <p>Ray Optics, Wave Optics, Instruments</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Thermodynamics</h4>
+                        <p>Laws of Thermodynamics, Kinetic Theory of Gases</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Modern Physics</h4>
+                        <p>Dual Nature, Atoms & Nuclei, Semiconductors</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHEMISTRY -->
+        <div class="subject-section">
+            <div class="subject-header">
+                <h3><i class="ri-flask-line"></i> Chemistry</h3>
+                <i class="ri-arrow-down-s-line arrow"></i>
+            </div>
+            <div class="subject-content">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <h4>Physical Chemistry</h4>
+                        <p>Mole Concept, Thermodynamics, Equilibrium, Kinetics</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Inorganic Chemistry</h4>
+                        <p>Periodic Table, Chemical Bonding, Coordination Compounds</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Organic Chemistry</h4>
+                        <p>General Organic Chemistry, Hydrocarbons, Aldehydes & Ketones</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Electrochemistry</h4>
+                        <p>Conductance, Nernst Equation, Cells</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MATHEMATICS -->
+        <div class="subject-section">
+            <div class="subject-header">
+                <h3><i class="ri-function-line"></i> Mathematics</h3>
+                <i class="ri-arrow-down-s-line arrow"></i>
+            </div>
+            <div class="subject-content">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <h4>Calculus</h4>
+                        <p>Limits, Continuity, Differentiation, Integration, Differential Equations</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Algebra</h4>
+                        <p>Complex Numbers, Quadratic Equations, Sequences & Series, Matrices</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Coordinate Geometry</h4>
+                        <p>Straight Lines, Circles, Conic Sections</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Vectors & 3D</h4>
+                        <p>Vector Algebra, 3D Geometry, Planes</p>
+                    </div>
+                    <div class="topic-item">
+                        <h4>Trigonometry</h4>
+                        <p>Identities, Equations, Inverse Trigonometric Functions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <a href="index.html" class="logo" style="margin-bottom: 20px; display: inline-flex;">
+                    <i class="ri-graduation-cap-fill"></i>
+                    Narayan<span> e-Gurukul</span>
+                </a>
+                <p>Empowering students with high-quality education and smart learning tools. Join edHills to clear your
+                    dream entrance exams with ease.</p>
+                <div class="footer-socials">
+                    <a href="#"><i class="ri-facebook-fill"></i></a>
+                    <a href="#"><i class="ri-twitter-x-fill"></i></a>
+                    <a href="#"><i class="ri-instagram-line"></i></a>
+                    <a href="#"><i class="ri-youtube-fill"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html"><i class="ri-home-line"></i> Home</a></li>
+                    <li><a href="courses.html"><i class="ri-book-open-line"></i> Courses</a></li>
+                    <li><a href="#"><i class="ri-notification-badge-line"></i> Updates</a></li>
+                    <li><a href="login.html"><i class="ri-user-heart-line"></i> Student Portal</a></li>
+                    <li><a href="admin-login.html" style="opacity: 0.5;"><i class="ri-admin-line"></i> Admin Login</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Syllabus</h3>
+                <ul>
+                    <li><a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a></li>
+                    <li><a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a></li>
+                    <li><a href="cuet-syllabus.html"><i class="ri-graduation-cap-line"></i> CUET 2026</a></li>
+                    <li><a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><a href="mailto:info@edhills.com"><i class="ri-mail-send-line"></i> info@edhills.com</a></li>
+                    <li><a href="#"><i class="ri-map-pin-2-line"></i> New Delhi, India</a></li>
+                    <li><a href="#"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
+                    <li><a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 edHills Learning Platform. All Rights Reserved. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenu.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('ri-menu-3-line');
+                icon.classList.add('ri-close-line');
+            } else {
+                icon.classList.remove('ri-close-line');
+                icon.classList.add('ri-menu-3-line');
+            }
+        });
+
+        // Syllabus Accordion Interaction
+        const subjectHeaders = document.querySelectorAll('.subject-header');
+
+        // Open first section by default
+        if (subjectHeaders.length > 0) {
+            subjectHeaders[0].parentElement.classList.add('active');
+        }
+
+        subjectHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const parent = header.parentElement;
+
+                // Optional: Close other sections (Exclusive Accordion)
+                // document.querySelectorAll('.subject-section').forEach(sec => {
+                //     if(sec !== parent) sec.classList.remove('active');
+                // });
+
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
