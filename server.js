@@ -10,16 +10,23 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB Connection
-// Replace with your actual MongoDB connection string
-const mongoURI = 'mongodb://localhost:27017/edhills'; 
+// Root Route for health check
+app.get('/', (req, res) => {
+  res.send('Narayan e-Gurukul Backend is Running! 🚀');
+});
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB Connected'))
-.catch(err => console.log(err));
+// MongoDB Connection
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/edhills'; 
+
+mongoose.connect(mongoURI)
+.then(() => console.log('✅ MongoDB Connected Successfully'))
+.catch(err => {
+  console.error('❌ MongoDB Connection Error details:');
+  console.error(err);
+  console.log('---');
+  console.log('Please make sure your MongoDB service is running!');
+  console.log('Command to start MongoDB: "net start MongoDB" (on Windows)');
+});
 
 // Models
 const User = require('./models/User');
