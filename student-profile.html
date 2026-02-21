@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | Narayan e-Gurukul</title>
+    <meta name="description"
+        content="View your complete student profile with all registered details on Narayan e-Gurukul.">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --bg: #eef2ff;
+            --white: #ffffff;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+        }
+
+        /* ───── NAVBAR ───── */
+        nav {
+            background: var(--primary);
+            padding: 0 6%;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 21px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-logo i {
+            color: var(--accent);
+            font-size: 26px;
+        }
+
+        .nav-logo span {
+            color: var(--accent);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-chip {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 50px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .demo-chip {
+            background: rgba(250, 204, 21, 0.15);
+            border: 1px solid rgba(250, 204, 21, 0.35);
+            color: var(--accent);
+        }
+
+        .nav-logout {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: 0.25s;
+        }
+
+        .nav-logout:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        /* ───── DEMO NOTICE ───── */
+        #demoBanner {
+            display: none;
+            background: linear-gradient(90deg, #7e22ce, #a855f7);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #demoBanner a {
+            background: white;
+            color: #7e22ce;
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        #demoBanner a:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* ───── HERO ───── */
+        .hero {
+            background: linear-gradient(135deg, #0e2f69 0%, #1746a2 60%, #2563eb 100%);
+            padding: 52px 6% 100px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -80px;
+            width: 360px;
+            height: 360px;
+            background: rgba(250, 204, 21, 0.07);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-avatar {
+            width: 96px;
+            height: 96px;
+            background: linear-gradient(135deg, var(--accent), #fb923c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            font-weight: 800;
+            color: var(--primary);
+            flex-shrink: 0;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            animation: avatarPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes avatarPop {
+            from {
+                transform: scale(0) rotate(-10deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .hero-text h1 {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            animation: slideUp 0.5s ease 0.15s both;
+        }
+
+        .hero-text p {
+            font-size: 15px;
+            opacity: 0.75;
+            animation: slideUp 0.5s ease 0.25s both;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            animation: slideUp 0.5s ease 0.35s both;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-badge.active-badge {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.4);
+            color: #86efac;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(18px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ───── CARDS SECTION ───── */
+        .page-body {
+            max-width: 920px;
+            margin: -60px auto 60px;
+            padding: 0 20px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(14, 47, 105, 0.10);
+            overflow: hidden;
+            margin-bottom: 24px;
+            animation: slideUp 0.6s ease 0.2s both;
+        }
+
+        .card-header {
+            padding: 22px 32px;
+            border-bottom: 1px solid #f0f4ff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #dbeafe;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .card-header h2 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card-header p {
+            font-size: 13px;
+            color: #999;
+            margin-top: 1px;
+        }
+
+        /* ───── INFO GRID ───── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 24px 32px 32px;
+        }
+
+        .info-field {
+            background: #f8faff;
+            border: 1.5px solid #e8eeff;
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .info-field:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 6px 20px rgba(23, 70, 162, 0.07);
+            transform: translateY(-2px);
+        }
+
+        .field-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            flex-shrink: 0;
+        }
+
+        .fi-blue {
+            background: #dbeafe;
+            color: #1746a2;
+        }
+
+        .fi-green {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .fi-purple {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
+
+        .fi-yellow {
+            background: #fef9c3;
+            color: #ca8a04;
+        }
+
+        .fi-pink {
+            background: #fce7f3;
+            color: #db2777;
+        }
+
+        .fi-slate {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .field-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .field-label {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 4px;
+        }
+
+        .field-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .field-value.masked {
+            letter-spacing: 5px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .reveal-btn {
+            background: none;
+            border: none;
+            color: #bbb;
+            font-size: 17px;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .reveal-btn:hover {
+            color: var(--secondary);
+        }
+
+        /* ───── STATUS CARD ───── */
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border-top: 1px solid #f0f4ff;
+        }
+
+        .stat-item {
+            padding: 22px;
+            text-align: center;
+            border-right: 1px solid #f0f4ff;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .stat-num.green {
+            color: var(--success);
+        }
+
+        .stat-num.yellow {
+            color: #ca8a04;
+        }
+
+        /* ───── ACTION BUTTONS ───── */
+        .action-row {
+            display: flex;
+            gap: 14px;
+            padding: 0 32px 32px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 26px;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(23, 70, 162, 0.25);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-accent:hover {
+            background: #fbbf24;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #fff0f0;
+            color: var(--danger);
+            border: 1.5px solid #fecaca;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* ───── TOAST ───── */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--primary);
+            color: white;
+            padding: 13px 26px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+            opacity: 0;
+            z-index: 9999;
+            white-space: nowrap;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #toast.error {
+            background: var(--danger);
+        }
+
+        /* ───── RESPONSIVE ───── */
+        @media (max-width: 640px) {
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid #f0f4ff;
+            }
+
+            .action-row {
+                flex-direction: column;
+                padding: 0 24px 24px;
+            }
+
+            .card-header,
+            .info-grid {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <i class="ri-graduation-cap-fill"></i>
+            Narayan<span> e-Gurukul</span>
+        </a>
+        <div class="nav-right">
+            <div class="nav-chip" id="navChip">
+                <i class="ri-user-fill"></i>
+                <span id="navName">Loading...</span>
+            </div>
+            <button class="nav-logout" onclick="logout()">
+                <i class="ri-logout-box-r-line"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <!-- DEMO NOTICE -->
+    <div id="demoBanner">
+        <i class="ri-information-line"></i>
+        <span>👀 You're viewing a <strong>Demo Profile</strong>. No real account found in this browser.</span>
+        <a href="register.html"><i class="ri-user-add-line"></i> Create Real Account</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-avatar" id="heroAvatar">?</div>
+            <div class="hero-text">
+                <h1 id="heroName">Loading...</h1>
+                <p id="heroEmail">Loading...</p>
+                <div class="hero-badges">
+                    <span class="hero-badge active-badge"><i class="ri-checkbox-circle-fill"></i> Verified
+                        Student</span>
+                    <span class="hero-badge" id="heroBadgeClass"><i class="ri-book-open-line"></i> —</span>
+                    <span class="hero-badge" id="heroBadgeRoll"><i class="ri-hashtag"></i> —</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE BODY -->
+    <div class="page-body">
+
+        <!-- ── REGISTERED DETAILS CARD ── -->
+        <div class="section-card">
+            <div class="card-header">
+                <div class="card-header-icon"><i class="ri-file-user-line"></i></div>
+                <div>
+                    <h2>Registered Details</h2>
+                    <p>All details saved from your registration form</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+
+                <!-- Full Name -->
+                <div class="info-field">
+                    <div class="field-icon fi-blue"><i class="ri-user-fill"></i></div>
+                    <div class="field-body">
+                        <div class="field-label">Full Name</div>
+                        <div class="field-value" id="fName">—</div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="info-field">
+                    <div class="field-icon fi-purple"><i class="ri-mail-fill"></i></div>
+                    <div class="field-body">
+                        <div class="field-label">Email ID</div>
+                        <div class="field-value" id="fEmail">—</div>
+                    </div>
+                </div>
+
+                <!-- Mobile -->
+                <div class="info-field">
+                    <div class="field-icon fi-green"><i class="ri-phone-fill"></i></div>
+                    <div class="field-body">
+                        <div class="field-label">Mobile No.</div>
+                        <div class="field-value" id="fPhone">—</div>
+                    </div>
+                </div>
+
+                <!-- Class -->
+                <div class="info-field">
+                    <div class="field-icon fi-yellow"><i class="ri-book-open-fill"></i></div>
+                    <div class="field-body">
+                        <div class="field-label">Standard / Class</div>
+                        <div class="field-value" id="fClass">—</div>
+                    </div>
+                </div>
+
+                <!-- Roll No -->
+                <div class="info-field">
+                    <div class="field-icon fi-pink"><i class="ri-hashtag"></i></div>
+                    <div class="field-body">
+                        <div class="field-label">Roll Number</div>
+                        <div class="field-value" id="fRoll">—</div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="info-field">
+                    <div class="field-icon fi-slate"><i class="ri-lock-fill"></i></div>
+                    <div class="field-body">
+                        <div class="field-label">Password</div>
+                        <div class="field-value masked" id="fPassword">••••••••</div>
+                    </div>
+                    <button class="reveal-btn" id="revealBtn" onclick="togglePw()" title="Show/Hide Password">
+                        <i class="ri-eye-line" id="eyeIcon"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="status-bar">
+                <div class="stat-item">
+                    <div class="stat-num green">✓</div>
+                    <div class="stat-label">Account Active</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num yellow" id="statClass">—</div>
+                    <div class="stat-label">Current Class</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num" id="statRoll">—</div>
+                    <div class="stat-label">Roll Number</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── ACTIONS CARD ── -->
+        <div class="section-card">
+            <div class="card-header">
+                <div class="card-header-icon" style="background:#fef9c3;color:#ca8a04;">
+                    <i class="ri-settings-3-line"></i>
+                </div>
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>Manage your account and navigate</p>
+                </div>
+            </div>
+            <div class="action-row">
+                <a href="student-dashboard.html" class="btn btn-primary">
+                    <i class="ri-dashboard-3-fill"></i> Go to Dashboard
+                </a>
+                <a href="register.html" class="btn btn-accent">
+                    <i class="ri-user-add-line"></i> New Account
+                </a>
+                <button class="btn btn-danger" onclick="clearAndReset()">
+                    <i class="ri-delete-bin-line"></i> Clear Data
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast">
+        <i class="ri-checkbox-circle-fill" id="toastIcon" style="font-size:18px;color:#facc15;"></i>
+        <span id="toastMsg">Done!</span>
+    </div>
+
+    <script>
+        /* ─────────── localStorage key ─────────── */
+        const LS_KEY = 'currentUser';
+        let rawPw = '';
+        let pwVisible = false;
+
+        /* ─────────── DEMO DATA ─────────── */
+        const DEMO = {
+            name: ' E-Gurukul',
+            email: 'egurukul@gmail.com',
+            phone: '+91 9468974044',
+            class: 'Class 12th',
+            rollNumber: 'EGURUKUL-001',
+            password: 'egurukul'
+        };
+
+        /* ─────────── LOAD ON PAGE START ─────────── */
+        window.onload = () => {
+            let user = JSON.parse(localStorage.getItem(LS_KEY));
+            let isDemo = false;
+
+            if (!user) {
+                isDemo = true;
+                user = DEMO;
+
+                /* Show demo banner */
+                document.getElementById('demoBanner').style.display = 'flex';
+
+                /* Mark nav */
+                const chip = document.getElementById('navChip');
+                chip.classList.add('demo-chip');
+                chip.innerHTML = '<i class="ri-eye-line"></i> Demo Mode';
+            }
+
+            rawPw = user.password || '';
+
+            /* ── HERO ── */
+            const parts = (user.name || 'S').trim().split(' ');
+            const initials = parts.length >= 2
+                ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+                : parts[0][0].toUpperCase();
+
+            document.getElementById('heroAvatar').textContent = initials;
+            document.getElementById('heroName').textContent = user.name || '—';
+            document.getElementById('heroEmail').textContent = user.email || '—';
+            document.getElementById('heroBadgeClass').innerHTML = `<i class="ri-book-open-line"></i> ${user.class || '—'}`;
+            document.getElementById('heroBadgeRoll').innerHTML = `<i class="ri-hashtag"></i> ${user.rollNumber || '—'}`;
+
+            /* ── NAV ── */
+            if (!isDemo) document.getElementById('navName').textContent = user.name?.split(' ')[0] || 'Student';
+
+            /* ── FIELDS ── */
+            document.getElementById('fName').textContent = user.name || '—';
+            document.getElementById('fEmail').textContent = user.email || '—';
+            document.getElementById('fPhone').textContent = user.phone || 'Not provided';
+            document.getElementById('fClass').textContent = user.class || '—';
+            document.getElementById('fRoll').textContent = user.rollNumber || '—';
+
+            /* ── STATS ── */
+            document.getElementById('statClass').textContent = (user.class || '—').replace('Class ', '');
+            document.getElementById('statRoll').textContent = user.rollNumber || '—';
+
+            /* ── TOAST ── */
+            toast(isDemo
+                ? '👀 Demo Mode — no account found'
+                : `Welcome back, ${user.name?.split(' ')[0] || 'Student'}! 🎉`
+            );
+        };
+
+        /* ─────────── PASSWORD TOGGLE ─────────── */
+        function togglePw() {
+            const field = document.getElementById('fPassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+            pwVisible = !pwVisible;
+
+            if (pwVisible) {
+                field.textContent = rawPw || '(not set)';
+                field.classList.remove('masked');
+                eyeIcon.className = 'ri-eye-off-line';
+            } else {
+                field.textContent = '••••••••';
+                field.classList.add('masked');
+                eyeIcon.className = 'ri-eye-line';
+            }
+        }
+
+        /* ─────────── LOGOUT ─────────── */
+        function logout() {
+            localStorage.removeItem(LS_KEY);
+            toast('Logged out successfully!');
+            setTimeout(() => window.location.href = 'register.html', 1000);
+        }
+
+        /* ─────────── CLEAR DATA ─────────── */
+        function clearAndReset() {
+            if (confirm('Clear all stored data and reset? This cannot be undone.')) {
+                localStorage.clear();
+                toast('All data cleared!', true);
+                setTimeout(() => window.location.href = 'register.html', 1200);
+            }
+        }
+
+        /* ─────────── TOAST HELPER ─────────── */
+        function toast(msg, isError = false) {
+            const el = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            document.getElementById('toastMsg').textContent = msg;
+            el.classList.toggle('error', isError);
+            icon.style.color = isError ? '#fff' : '#facc15';
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3500);
+        }
+    </script>
+
+</body>
+
+</html>
