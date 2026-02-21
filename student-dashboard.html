@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | Narayan e-Gurukul</title>
-    <meta name="description" content="Access your personalized learning dashboard at Narayan e-Gurukul.">
+    <title>Student Dashboard | e-Gurukul</title>
+    <meta name="description" content="Access your personalized learning dashboard at e-Gurukul.">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -239,6 +239,12 @@
 
         .stat-card:hover {
             transform: translateY(-5px);
+            border-color: var(--secondary);
+            background: #f8fbff;
+        }
+
+        .stat-card {
+            cursor: pointer;
         }
 
         .stat-icon {
@@ -502,6 +508,52 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+            animation: bounce 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #128c7e;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
     </style>
 </head>
 
@@ -512,7 +564,7 @@
         <div class="sidebar-header">
             <a href="index.html" class="sidebar-logo">
                 <i class="ri-graduation-cap-fill"></i>
-                <span>Narayan<span> e-Gurukul</span></span>
+                <span>e-Gurukul</span>
             </a>
         </div>
 
@@ -525,15 +577,19 @@
                 <i class="ri-book-3-line"></i>
                 <span>My Courses</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="schedule.html" class="nav-item">
                 <i class="ri-calendar-todo-line"></i>
                 <span>Schedule</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="performance.html" class="nav-item">
                 <i class="ri-bar-chart-box-line"></i>
                 <span>Performance</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="study-material.html" class="nav-item">
+                <i class="ri-file-text-line"></i>
+                <span>Study Material</span>
+            </a>
+            <a href="support.html" class="nav-item">
                 <i class="ri-message-3-line"></i>
                 <span>Support</span>
             </a>
@@ -579,7 +635,7 @@
 
         <!-- STATS -->
         <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card" onclick="window.location.href='courses.html'">
                 <div class="stat-icon bg-blue"><i class="ri-book-open-fill"></i></div>
                 <div class="stat-info">
                     <h3 id="statCourseCount">4</h3>
@@ -593,14 +649,14 @@
                     <p>Study Hours</p>
                 </div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" onclick="window.location.href='performance.html'">
                 <div class="stat-icon bg-orange"><i class="ri-medal-fill"></i></div>
                 <div class="stat-info">
                     <h3>88%</h3>
                     <p>Avg. Score</p>
                 </div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" onclick="window.location.href='performance.html'">
                 <div class="stat-icon bg-green"><i class="ri-checkbox-circle-fill"></i></div>
                 <div class="stat-info">
                     <h3>15</h3>
@@ -650,46 +706,93 @@
                 </div>
             </div>
 
-            <!-- Right: Schedule -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2>Today's Schedule</h2>
+            <!-- Right: Schedule & Support -->
+            <div class="right-col" style="display: flex; flex-direction: column; gap: 30px;">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Today's Schedule</h2>
+                        <a href="schedule.html" class="view-all">View Full Schedule</a>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="time-box">
+                            <span>10:30</span>
+                            <small>AM</small>
+                        </div>
+                        <div class="schedule-content">
+                            <h5>Physics Live Class</h5>
+                            <p>Topic: Thermodynamics</p>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="time-box">
+                            <span>01:00</span>
+                            <small>PM</small>
+                        </div>
+                        <div class="schedule-content">
+                            <h5>Doubt Clearing</h5>
+                            <p>Maths - Calculus</p>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item" style="opacity: 0.6;">
+                        <div class="time-box">
+                            <span>04:30</span>
+                            <small>PM</small>
+                        </div>
+                        <div class="schedule-content">
+                            <h5>Mock Test</h5>
+                            <p>NEET Full Syllabus</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="schedule-item">
-                    <div class="time-box">
-                        <span>10:30</span>
-                        <small>AM</small>
+                <!-- Quick Support Card -->
+                <div class="dashboard-card"
+                    style="background: linear-gradient(135deg, #0e2f69, #1746a2); color: white; border: none;">
+                    <div class="card-header">
+                        <h2 style="color: white; margin-bottom: 0;">Quick Help & Support</h2>
                     </div>
-                    <div class="schedule-content">
-                        <h5>Physics Live Class</h5>
-                        <p>Topic: Thermodynamics</p>
-                    </div>
-                </div>
-
-                <div class="schedule-item">
-                    <div class="time-box">
-                        <span>01:00</span>
-                        <small>PM</small>
-                    </div>
-                    <div class="schedule-content">
-                        <h5>Doubt Clearing</h5>
-                        <p>Maths - Calculus</p>
-                    </div>
-                </div>
-
-                <div class="schedule-item" style="opacity: 0.6;">
-                    <div class="time-box">
-                        <span>04:30</span>
-                        <small>PM</small>
-                    </div>
-                    <div class="schedule-content">
-                        <h5>Mock Test</h5>
-                        <p>NEET Full Syllabus</p>
+                    <p style="font-size: 13px; opacity: 0.8; margin-bottom: 20px;">Need help? Contact our support team
+                        instantly.</p>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <a href="https://wa.me/919468974044" target="_blank"
+                            style="background: rgba(255,255,255,0.1); padding: 12px 5px; border-radius: 12px; text-decoration: none; color: white; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; display: block;">
+                            <i class="ri-whatsapp-line"
+                                style="font-size: 20px; display: block; margin-bottom: 5px; color: #22c55e;"></i>
+                            <span style="font-size: 10px; font-weight: 600;">WhatsApp</span>
+                        </a>
+                        <a href="tel:+919468974044"
+                            style="background: rgba(255,255,255,0.1); padding: 12px 5px; border-radius: 12px; text-decoration: none; color: white; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; display: block;">
+                            <i class="ri-customer-service-2-line"
+                                style="font-size: 20px; display: block; margin-bottom: 5px; color: #facc15;"></i>
+                            <span style="font-size: 10px; font-weight: 600;">Call</span>
+                        </a>
+                        <a href="mailto:egurukul@gmail.com"
+                            style="background: rgba(255,255,255,0.1); padding: 12px 5px; border-radius: 12px; text-decoration: none; color: white; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; display: block;">
+                            <i class="ri-mail-line"
+                                style="font-size: 20px; display: block; margin-bottom: 5px; color: #ff6b6b;"></i>
+                            <span style="font-size: 10px; font-weight: 600;">Email</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="toggleAiChat()"
+                            style="background: rgba(255,255,255,0.1); padding: 12px 5px; border-radius: 12px; text-decoration: none; color: white; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; display: block;">
+                            <i class="ri-robot-2-line"
+                                style="font-size: 20px; display: block; margin-bottom: 5px; color: #6366f1;"></i>
+                            <span style="font-size: 10px; font-weight: 600;">AI Guru</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Floating Support -->
+        <a href="https://wa.me/919468974044" target="_blank" class="whatsapp-float">
+            <i class="ri-whatsapp-line"></i>
+        </a>
+
+        <!-- Inject Chatbot Script -->
+        <script src="ai-guru.js"></script>
     </main>
 
     <script>
@@ -783,3 +886,4 @@
 </body>
 
 </html>
+

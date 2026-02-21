@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Schedule | e-Gurukul</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --bg-sidebar: #0a1e3d;
+            --bg-main: #f4f7fe;
+            --white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR (Consistent with Dashboard) */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-logo i {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .sidebar-logo span span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 14px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--accent);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px 50px;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header-flex h1 {
+            font-size: 32px;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        /* SCHEDULE UI */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 15px;
+        }
+
+        .day-column {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 15px;
+            box-shadow: var(--card-shadow);
+            min-height: 500px;
+        }
+
+        .day-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .day-header h3 {
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .day-header p {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .current-day {
+            border: 2px solid var(--secondary);
+            transform: scale(1.02);
+        }
+
+        .current-day .day-header h3 {
+            color: var(--secondary);
+        }
+
+        .task-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--secondary);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .task-card h4 {
+            font-size: 13px;
+            margin-bottom: 4px;
+            color: var(--primary);
+        }
+
+        .task-card p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .task-time {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .type-live {
+            border-left-color: #ef4444;
+        }
+
+        .type-test {
+            border-left-color: #f59e0b;
+        }
+
+        .type-study {
+            border-left-color: #22c55e;
+        }
+
+        @media (max-width: 1200px) {
+            .schedule-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <i class="ri-graduation-cap-fill"></i>
+                <span>e-Gurukul</span>
+            </a>
+        </div>
+        <nav class="nav-menu">
+            <a href="student-dashboard.html" class="nav-item">
+                <i class="ri-dashboard-3-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="courses.html" class="nav-item">
+                <i class="ri-book-3-line"></i>
+                <span>My Courses</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="ri-calendar-todo-line"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="performance.html" class="nav-item">
+                <i class="ri-bar-chart-box-line"></i>
+                <span>Performance</span>
+            </a>
+            <a href="study-material.html" class="nav-item">
+                <i class="ri-file-text-line"></i>
+                <span>Study Material</span>
+            </a>
+            <a href="support.html" class="nav-item">
+                <i class="ri-message-3-line"></i>
+                <span>Support</span>
+            </a>
+            <a href="student-profile.html" class="nav-item">
+                <i class="ri-user-settings-line"></i>
+                <span>Account Profile</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-flex">
+            <div>
+                <h1>Daily Study Planner</h1>
+                <p style="color: var(--text-muted);">Stay organized and hit your study goals.</p>
+            </div>
+            <button
+                style="background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; cursor: pointer;">
+                <i class="ri-add-line"></i> Create Task
+            </button>
+        </div>
+
+        <div class="schedule-grid">
+            <!-- MON -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h3>Monday</h3>
+                    <p>FEB 23</p>
+                </div>
+                <div class="task-card type-live">
+                    <h4>Physics Live</h4>
+                    <p>Rotational Mechanics</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 10:00 AM</div>
+                </div>
+                <div class="task-card type-study">
+                    <h4>Self Study</h4>
+                    <p>Maths: Problem Set 4</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 02:00 PM</div>
+                </div>
+            </div>
+
+            <!-- TUE -->
+            <div class="day-column current-day">
+                <div class="day-header">
+                    <h3>Tuesday</h3>
+                    <p>FEB 24</p>
+                </div>
+                <div class="task-card type-test">
+                    <h4>Weekly Quiz</h4>
+                    <p>Biology: Ecology</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 09:00 AM</div>
+                </div>
+                <div class="task-card type-live">
+                    <h4>Chemistry Lab</h4>
+                    <p>Organic Comp. Viz</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 11:30 AM</div>
+                </div>
+            </div>
+
+            <!-- WED -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h3>Wednesday</h3>
+                    <p>FEB 25</p>
+                </div>
+                <div class="task-card type-study">
+                    <h4>Revision</h4>
+                    <p>Inorganic Chemistry</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 04:00 PM</div>
+                </div>
+            </div>
+
+            <!-- THU -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h3>Thursday</h3>
+                    <p>FEB 26</p>
+                </div>
+                <div class="task-card type-live">
+                    <h4>Maths Seminar</h4>
+                    <p>Calculus Tricks</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 10:30 AM</div>
+                </div>
+            </div>
+
+            <!-- FRI -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h3>Friday</h3>
+                    <p>FEB 27</p>
+                </div>
+                <div class="task-card type-test">
+                    <h4>Mock Test</h4>
+                    <p>JEE Full Patterns</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 02:00 PM</div>
+                </div>
+            </div>
+
+            <!-- SAT -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h3>Saturday</h3>
+                    <p>FEB 28</p>
+                </div>
+                <div class="task-card type-study">
+                    <h4>Doubt Clearing</h4>
+                    <p>Physics: Optics</p>
+                    <div class="task-time"><i class="ri-time-line"></i> 11:00 AM</div>
+                </div>
+            </div>
+
+            <!-- SUN -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h3>Sunday</h3>
+                    <p>MAR 01</p>
+                </div>
+                <div style="text-align: center; margin-top: 50px; opacity: 0.5;">
+                    <i class="ri-cup-line" style="font-size: 40px;"></i>
+                    <p style="font-size: 14px; margin-top: 10px;">Rest Day / Buffer</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'register.html';
+        }
+    </script>
+</body>
+
+</html>
+

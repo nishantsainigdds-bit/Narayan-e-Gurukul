@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Material - JEE & NEET | e-Gurukul</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --bg: #f4f6fb;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(14, 47, 105, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 26px;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .logo i {
+            font-size: 32px;
+            color: var(--accent);
+            background: rgba(250, 204, 21, 0.1);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .nav-btn {
+            background: var(--accent);
+            color: var(--primary) !important;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* PAGE HERO */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            opacity: 0.9;
+            font-size: 18px;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 1200px;
+            margin: -40px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: #eff6ff;
+            color: var(--secondary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .item-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .item-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-list li:last-child {
+            border-bottom: none;
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: var(--secondary);
+        }
+
+        .card-footer {
+            margin-top: auto;
+        }
+
+        .btn-full {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background: #facc15;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-full:hover {
+            background: #0e2f69;
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 8% 30px;
+            text-align: center;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .footer-socials a {
+            color: white;
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            header {
+                padding: 15px 5%;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <i class="ri-graduation-cap-fill"></i>
+            <span>e-Gurukul</span>
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="jee-syllabus.html">JEE Syllabus</a>
+            <a href="login.html" class="nav-btn">Portal</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Premium Study Material</h1>
+        <p>Daily Practice Problems (DPP), Handwritten Notes & Mock Tests</p>
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            <!-- JEE MAIN SECTION -->
+            <div class="card">
+                <div class="card-icon"><i class="ri-pencil-ruler-2-line"></i></div>
+                <h2>JEE Main 2026</h2>
+                <p>Curated and tested material for Physics, Chemistry & Maths.</p>
+                <ul class="item-list">
+                    <li>
+                        <span>Physics: Kinematics Notes</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                    <li>
+                        <span>Maths: Calculus DPP #1</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                    <li>
+                        <span>Chemistry: Periodic Table</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                    <li>
+                        <span>JEE Previous Year Qs</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                </ul>
+                <div class="card-footer">
+                    <a href="jee-materials.html" class="btn-full">Access All JEE
+                        Materials</a>
+                </div>
+            </div>
+
+            <!-- NEET SECTION -->
+            <div class="card">
+                <div class="card-icon"><i class="ri-microscope-line"></i></div>
+                <h2>NEET UG 2026</h2>
+                <p>Complete Biology, Physics & Chemistry resources.</p>
+                <ul class="item-list">
+                    <li>
+                        <span>Biology: Human Physiology</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                    <li>
+                        <span>Physics: Optics Notes</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                    <li>
+                        <span>Organic Chemistry DPP</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                    <li>
+                        <span>NEET Mock Test - 01</span>
+                        <a href="#" class="download-btn"><i class="ri-download-line"></i> PDF</a>
+                    </li>
+                </ul>
+                <div class="card-footer">
+                    <a href="neet-materials.html" class="btn-full">Access All NEET
+                        Materials</a>
+                </div>
+            </div>
+
+            <!-- DAILY UPDATES SECTION -->
+            <div class="card">
+                <div class="card-icon"><i class="ri-notification-3-line"></i></div>
+                <h2>Daily DPP & Quizzes</h2>
+                <p>Test your knowledge daily with new challenges.</p>
+                <div style="background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                    <h4 style="margin-top: 0; color: var(--primary);">Today's Challenge</h4>
+                    <p style="font-size: 14px; margin-bottom: 15px;">Physics: Laws of Motion 10 Mixed MCQs</p>
+                    <a href="#" style="color: var(--secondary); font-weight: 600; text-decoration: none;">Start Quiz <i
+                            class="ri-arrow-right-line"></i></a>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-full" style="background: var(--primary); color: white;">View Quiz History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+            <a href="#"><i class="ri-twitter-x-fill"></i></a>
+            <a href="#"><i class="ri-instagram-line"></i></a>
+            <a href="#"><i class="ri-youtube-fill"></i></a>
+        </div>
+        <p>&copy; 2026 e-Gurukul. Empowering Future Leaders.</p>
+    </footer>
+</body>
+
+</html>
+

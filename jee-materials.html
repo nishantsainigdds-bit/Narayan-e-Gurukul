@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Premium Materials | e-Gurukul</title>
+    <meta name="description" content="Access premium JEE Main & Advanced study materials, notes, and DPPs.">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #0e2f69 0%, #1746a2 100%);
+            --card-shadow: 0 10px 30px rgba(14, 47, 105, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* ──── HEADER ──── */
+        header {
+            background: var(--white);
+            padding: 0 6%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 28px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .portal-btn {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        /* ──── HERO ──── */
+        .page-hero {
+            background: var(--gradient);
+            padding: 80px 6% 120px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--bg);
+            clip-path: polygon(0 100%, 100% 100%, 100% 0);
+        }
+
+        .page-hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .page-hero p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ──── SUBJECT SELECTOR ──── */
+        .subject-nav {
+            max-width: 1200px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .subject-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .subject-card:hover,
+        .subject-card.active {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .subject-card i {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .icon-p {
+            color: #3b82f6;
+        }
+
+        .icon-c {
+            color: #10b981;
+        }
+
+        .icon-m {
+            color: #f59e0b;
+        }
+
+        .subject-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* ──── MATERIALS GRID ──── */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header h2 i {
+            background: #eef2ff;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 20px;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .material-item {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .material-item:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transform: scale(1.02);
+        }
+
+        .badge-premium {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+        }
+
+        .item-type {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .item-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.4;
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .item-info i {
+            font-size: 16px;
+        }
+
+        .btn-download {
+            background: #f1f5f9;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-download:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ──── FLOATING HELP ──── */
+        .help-banner {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 60px;
+        }
+
+        .help-text h4 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .help-text p {
+            color: #64748b;
+        }
+
+        .help-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* ──── FOOTER ──── */
+        footer {
+            background: white;
+            padding: 60px 6% 30px;
+            border-top: 1px solid #eef2ff;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 17px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #f1f5f9;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-hero h1 {
+                font-size: 32px;
+            }
+
+            .subject-nav {
+                grid-template-columns: 1fr;
+            }
+
+            .help-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <i class="ri-graduation-cap-fill"></i>
+            <span>e-Gurukul</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="study-material.html" style="color: var(--primary);">Study Material</a>
+            <a href="jee-syllabus.html">Syllabus</a>
+            <a href="login.html" class="portal-btn">Student Portal</a>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <h1>JEE Premium Materials</h1>
+        <p>Expert-curated handwritten notes, complete DPP sets, and detailed mock tests for JEE 2026/2027.</p>
+    </div>
+
+    <div class="subject-nav">
+        <div class="subject-card active" onclick="filterBy('physics')">
+            <i class="ri-lightbulb-flash-line icon-p"></i>
+            <h3>Physics</h3>
+        </div>
+        <div class="subject-card" onclick="filterBy('chemistry')">
+            <i class="ri-flask-line icon-c"></i>
+            <h3>Chemistry</h3>
+        </div>
+        <div class="subject-card" onclick="filterBy('maths')">
+            <i class="ri-functions icon-m"></i>
+            <h3>Mathematics</h3>
+        </div>
+    </div>
+
+    <main class="main-container">
+
+        <!-- ── LATEST STUDY NOTES ── -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2><i class="ri-sticky-note-line"></i> Handwritten Chapter Notes</h2>
+            </div>
+            <div class="materials-grid">
+                <div class="material-item">
+                    <span class="badge-premium">PREMIUM</span>
+                    <span class="item-type">PHYSICS</span>
+                    <h4 class="item-title">Rotational Dynamics - Full Concept Map</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 4.2 MB</span>
+                        <span><i class="ri-eye-line"></i> 1.2k+</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+                <div class="material-item">
+                    <span class="item-type">MATHS</span>
+                    <h4 class="item-title">Definite Integration: Short Tricks & PYQs</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 3.5 MB</span>
+                        <span><i class="ri-eye-line"></i> 850+</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+                <div class="material-item">
+                    <span class="badge-premium">PREMIUM</span>
+                    <span class="item-type">CHEMISTRY</span>
+                    <h4 class="item-title">GOC: Electronic Effects & Stability</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 5.1 MB</span>
+                        <span><i class="ri-eye-line"></i> 2.4k+</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+                <div class="material-item">
+                    <span class="item-type">PHYSICS</span>
+                    <h4 class="item-title">Electrostatics: Gauss Law & Potentials</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 2.8 MB</span>
+                        <span><i class="ri-eye-line"></i> 640+</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DPP COLLECTIONS ── -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2><i class="ri-file-list-3-line"></i> Daily Practice Problems (DPPs)</h2>
+            </div>
+            <div class="materials-grid">
+                <div class="material-item">
+                    <span class="item-type">COMBO</span>
+                    <h4 class="item-title">Week 04: Full Syllabus Revision Set</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-zip-line"></i> 12.5 MB</span>
+                        <span><i class="ri-survey-line"></i> 30 Qs/Sub</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download ZIP</a>
+                </div>
+                <div class="material-item">
+                    <span class="badge-premium">PREMIUM</span>
+                    <span class="item-type">MATHS</span>
+                    <h4 class="item-title">Coordinate Geometry MCQ Masterkit</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 1.8 MB</span>
+                        <span><i class="ri-list-check"></i> Advanced Level</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+                <div class="material-item">
+                    <span class="item-type">CHEMISTRY</span>
+                    <h4 class="item-title">Chemical Bonding: Shape & Hybridization</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 2.1 MB</span>
+                        <span><i class="ri-check-line"></i> Solved</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+                <div class="material-item">
+                    <span class="item-type">PHYSICS</span>
+                    <h4 class="item-title">Mechanics: Impulse & Momentum Problems</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 3.2 MB</span>
+                        <span><i class="ri-timer-line"></i> 45 Mins</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MOCK TESTS ── -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2><i class="ri-medal-fill"></i> JEE Mock Test Series</h2>
+            </div>
+            <div class="materials-grid">
+                <div class="material-item" style="border: 2px solid var(--accent);">
+                    <span class="badge-premium">MUST DO</span>
+                    <span class="item-type">TEST #08</span>
+                    <h4 class="item-title">Full Mock Test: JEE Main Pattern (2026)</h4>
+                    <div class="item-info">
+                        <span><i class="ri-timer-line"></i> 3 Hours</span>
+                        <span><i class="ri-layout-grid-line"></i> 300 Marks</span>
+                    </div>
+                    <a href="#" class="btn-download" style="background: var(--accent); color: var(--primary);"><i
+                            class="ri-play-line"></i> Start Online Test</a>
+                </div>
+                <div class="material-item">
+                    <span class="item-type">TEST #07</span>
+                    <h4 class="item-title">Part Test: PCM Mixed 11th Syllabus</h4>
+                    <div class="item-info">
+                        <span><i class="ri-file-pdf-line"></i> 0.9 MB</span>
+                        <span><i class="ri-survey-line"></i> Offline PDF</span>
+                    </div>
+                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="help-banner">
+            <div class="help-text">
+                <h4>Can't find what you're looking for?</h4>
+                <p>Request specific chapter notes or DPPs from our content team.</p>
+            </div>
+            <a href="support.html" class="help-btn">Request Content</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col" style="grid-column: span 2;">
+                <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                    <i class="ri-graduation-cap-fill"></i> <span>e-Gurukul</span>
+                </a>
+                <p style="color: #64748b; font-size: 14px; margin-top: 15px;">Setting new standards in digital education
+                    for engineering & medical entrance exams across India.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Browse Courses</a></li>
+                    <li><a href="jee-syllabus.html">JEE Syllabus</a></li>
+                    <li><a href="neet-syllabus.html">NEET Syllabus</a></li>
+                    <li><a href="support.html">Support Help</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#"><i class="ri-instagram-line"></i> Instagram</a></li>
+                    <li><a href="#"><i class="ri-youtube-line"></i> YouTube</a></li>
+                    <li><a href="mailto:egurukul@gmail.com"><i class="ri-mail-line"></i> Email Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 e-Gurukul. Designed for your success.
+        </div>
+    </footer>
+
+    <script>
+        function filterBy(subject) {
+            // Visual toggle
+            const cards = document.querySelectorAll('.subject-card');
+            cards.forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Logic can be added here to filter items dynamically
+            console.log("Filtering by: " + subject);
+        }
+    </script>
+</body>
+
+</html>
+

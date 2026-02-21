@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Narayan e-Gurukul</title>
+  <title>e-Gurukul</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -587,7 +587,7 @@
   <header id="main-header">
     <a href="index.html" class="logo">
       <i class="ri-graduation-cap-fill"></i>
-      Narayan<span> e-Gurukul</span>
+      <span>e-Gurukul</span>
     </a>
 
     <div class="menu-toggle" id="mobile-menu">
@@ -597,7 +597,8 @@
     <nav id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
-      <a href="login.html" class="nav-btn">Get Started</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="login.html" class="nav-btn" id="loginBtn">Get Started</a>
     </nav>
   </header>
 
@@ -634,6 +635,28 @@
         <p><i class="ri-graduation-cap-line"></i> New batch for CUET 2026 registrations open.</p>
         <span class="update-date">2 days ago</span>
       </div>
+    </div>
+  </section>
+
+  <!-- STUDY MATERIAL SECTION -->
+  <section class="updates" style="background: #eff6ff;">
+    <h2><i class="ri-book-3-line"></i> Latest Study Material</h2>
+    <div class="update-list">
+      <div class="update-item">
+        <p><i class="ri-file-pdf-2-line" style="color: #e11d48;"></i> JEE Main 2026: Physics Laws of Motion Notes</p>
+        <span class="update-date">New</span>
+      </div>
+      <div class="update-item">
+        <p><i class="ri-file-list-check-line" style="color: #2563eb;"></i> NEET UG 2026: Biology DPP - Cell Biology</p>
+        <span class="update-date">Updated</span>
+      </div>
+      <div class="update-item">
+        <p><i class="ri-video-line" style="color: #ff0000;"></i> JEE Main 2026: Physics Full Playlist (by PW)</p>
+        <span class="update-date">Popular</span>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="study-material.html" class="btn">View All Resources</a>
     </div>
   </section>
 
@@ -706,9 +729,9 @@
       <div class="footer-column">
         <a href="index.html" class="logo" style="margin-bottom: 20px; display: inline-flex;">
           <i class="ri-graduation-cap-fill"></i>
-          Narayan<span> e-Gurukul</span>
+          <span>e-Gurukul</span>
         </a>
-        <p>Empowering students with high-quality education and smart learning tools. Join edHills to clear your dream
+        <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream
           entrance exams with ease.</p>
         <div class="footer-socials">
           <a href="#"><i class="ri-facebook-fill"></i></a>
@@ -742,29 +765,20 @@
       <div class="footer-column">
         <h3>Contact Info</h3>
         <ul>
-          <li><a href="mailto:info@edhills.com"><i class="ri-mail-send-line"></i> info@edhills.com</a></li>
-          <li><a href="#"><i class="ri-map-pin-2-line"></i> New Delhi, India</a></li>
-          <li><a href="#"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
+          <li><a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a></li>
+          <li><a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a></li>
+          <li><a href="support.html"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
           <li><a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2026 Narayan e-Gurukul. All Rights Reserved. Designed for Excellence.</p>
+      <p>&copy; 2026 e-Gurukul. All Rights Reserved. Designed for Excellence.</p>
     </div>
   </footer>
 
-  <!-- LOGIN POPUP -->
-  <div class="popup-overlay" id="loginPopup">
-    <div class="popup-content">
-      <span class="close-popup" onclick="closePopup()">×</span>
-      <h2><i class="ri-login-circle-line"></i> Login to Continue</h2>
-      <p>Get exclusive access to free mock tests and notes!</p>
-      <br>
-      <a href="login.html" class="btn">Login / Register</a>
-    </div>
-  </div>
+
 
   <script>
     // Show Popup after 15 seconds

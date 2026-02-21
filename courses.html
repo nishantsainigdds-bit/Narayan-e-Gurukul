@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Courses - Narayan e-Gurukul</title>
+  <title>Courses - e-Gurukul</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -418,7 +418,7 @@
   <header id="main-header">
     <a href="index.html" class="logo">
       <i class="ri-graduation-cap-fill"></i>
-      Narayan<span> e-Gurukul</span>
+      <span>e-Gurukul</span>
     </a>
 
     <div class="menu-toggle" id="mobile-menu">
@@ -428,7 +428,8 @@
     <nav id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
-      <a href="login.html" class="nav-btn">Get Started</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="login.html" class="nav-btn" id="loginBtn">Get Started</a>
     </nav>
   </header>
 
@@ -438,7 +439,7 @@
   </section>
 
   <section class="why-us">
-    <h2>Why Choose Narayan?</h2>
+    <h2>Why Choose e-Gurukul?</h2>
     <div class="why-grid">
       <div class="why-card">
         <h3>🎥 Live & Recorded Classes</h3>
@@ -489,7 +490,7 @@
     <h2>What Our Students Say</h2>
 
     <div class="testimonial-card">
-      <p>"edHills helped me crack JEE with structured preparation!"</p>
+      <p>"e-Gurukul helped me crack JEE with structured preparation!"</p>
       <h4>- AIR 542 Student ⭐⭐⭐⭐⭐</h4>
     </div>
 
@@ -545,9 +546,9 @@
       <div class="footer-column">
         <a href="index.html" class="logo" style="margin-bottom: 20px; display: inline-flex;">
           <i class="ri-graduation-cap-fill"></i>
-          Narayan<span> e-Gurukul</span>
+          <span>e-Gurukul</span>
         </a>
-        <p>Empowering students with high-quality education and smart learning tools. Join edHills to clear your dream
+        <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream
           entrance exams with ease.</p>
         <div class="footer-socials">
           <a href="#"><i class="ri-facebook-fill"></i></a>
@@ -581,16 +582,16 @@
       <div class="footer-column">
         <h3>Contact Info</h3>
         <ul>
-          <li><a href="mailto:info@edhills.com"><i class="ri-mail-send-line"></i> info@edhills.com</a></li>
-          <li><a href="#"><i class="ri-map-pin-2-line"></i> New Delhi, India</a></li>
-          <li><a href="#"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
+          <li><a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a></li>
+          <li><a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a></li>
+          <li><a href="support.html"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
           <li><a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2026 edHills Learning Platform. All Rights Reserved. Designed for Excellence.</p>
+      <p>&copy; 2026 e-Gurukul Learning Platform. All Rights Reserved. Designed for Excellence.</p>
     </div>
   </footer>
 
@@ -609,6 +610,22 @@
         icon.classList.add('ri-menu-3-line');
       }
     });
+
+    // Login Check
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) header.style.padding = '10px 8%';
+      else header.style.padding = '15px 8%';
+    });
+
+    window.onload = () => {
+      const user = localStorage.getItem('currentUser');
+      const loginBtn = document.getElementById('loginBtn');
+      if (user && loginBtn) {
+        loginBtn.href = 'student-dashboard.html';
+        loginBtn.innerHTML = '<i class="ri-dashboard-line"></i> Dashboard';
+      }
+    };
   </script>
 
 </body>
