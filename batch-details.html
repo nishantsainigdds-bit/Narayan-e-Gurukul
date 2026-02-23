@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Details | e-Gurukul</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-sidebar: #0a1e3d;
+            --bg-main: #f4f7fe;
+            --white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ───── SIDEBAR ───── */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-logo i {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .sidebar-logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 14px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--accent);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+        }
+
+        .sidebar-footer {
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fca5a5;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            color: var(--danger);
+        }
+
+        /* ───── MAIN CONTENT ───── */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px 50px;
+            transition: 0.34s;
+        }
+
+        /* Batch Header */
+        .batch-header-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(14, 47, 105, 0.2);
+        }
+
+        .batch-header-card::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .batch-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .batch-label {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(250, 204, 21, 0.2);
+            color: var(--accent);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .batch-header-content h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .batch-meta {
+            display: flex;
+            gap: 25px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .batch-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tab-btn i {
+            font-size: 18px;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Tab Content Sections */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--secondary);
+        }
+
+        /* Description Styles */
+        .description-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .feature-item i {
+            color: var(--success);
+        }
+
+        /* Subjects Styles */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1.5px solid #edf2f7;
+            transition: 0.3s;
+        }
+
+        .subject-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .subject-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: var(--secondary);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Resources Styles */
+        .resource-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: #f8fafc;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            border: 1px solid #edf2f7;
+        }
+
+        .resource-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .res-pdf {
+            color: #ef4444;
+        }
+
+        .res-video {
+            color: #3b82f6;
+        }
+
+        .resource-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .resource-details span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .download-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Announcements Styles */
+        .announcement-item {
+            padding: 20px;
+            border-left: 4px solid var(--secondary);
+            background: #f8fafc;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 20px;
+        }
+
+        .ann-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .ann-header h4 {
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .ann-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .ann-content {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-logo span,
+            .nav-item span,
+            .sidebar-footer span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .tabs-nav {
+                flex-wrap: wrap;
+            }
+
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .batch-header-card {
+                padding: 30px;
+            }
+
+            .batch-header-content h1 {
+                font-size: 24px;
+            }
+
+            .batch-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <i class="ri-graduation-cap-fill"></i>
+                <span>e-Gurukul</span>
+            </a>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="student-dashboard.html" class="nav-item">
+                <i class="ri-dashboard-3-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="my-batches.html" class="nav-item active">
+                <i class="ri-folders-line"></i>
+                <span>My Batches</span>
+            </a>
+            <a href="courses.html" class="nav-item">
+                <i class="ri-book-3-line"></i>
+                <span>Explore Courses</span>
+            </a>
+            <a href="schedule.html" class="nav-item">
+                <i class="ri-calendar-todo-line"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="performance.html" class="nav-item">
+                <i class="ri-bar-chart-box-line"></i>
+                <span>Performance</span>
+            </a>
+            <a href="study-material.html" class="nav-item">
+                <i class="ri-file-text-line"></i>
+                <span>Study Material</span>
+            </a>
+            <a href="support.html" class="nav-item">
+                <i class="ri-message-3-line"></i>
+                <span>Support</span>
+            </a>
+            <a href="student-profile.html" class="nav-item">
+                <i class="ri-user-settings-line"></i>
+                <span>Account Profile</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="logout-btn" onclick="logout()">
+                <i class="ri-logout-box-r-line"></i>
+                <span>Logout Session</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+        <!-- BATCH HEADER -->
+        <div class="batch-header-card" id="batchHeader">
+            <div class="batch-header-content">
+                <span class="batch-label" id="batchType">Free Batch</span>
+                <h1 id="batchTitle">Loading Batch...</h1>
+                <div class="batch-meta">
+                    <span id="batchSubjectMeta"><i class="ri-book-read-line"></i> Physics</span>
+                    <span id="batchLessonMeta"><i class="ri-video-line"></i> 45 Lessons</span>
+                    <span id="batchStudentMeta"><i class="ri-group-line"></i> 1,200+ Students</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABS NAV -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('description')">
+                <i class="ri-information-line"></i>
+                <span>Description</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('subjects')">
+                <i class="ri-book-3-line"></i>
+                <span>Subjects</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('resources')">
+                <i class="ri-file-list-3-line"></i>
+                <span>Resources</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('announcements')">
+                <i class="ri-notification-3-line"></i>
+                <span>Announcements</span>
+            </button>
+        </div>
+
+        <!-- TAB CONTENT: DESCRIPTION -->
+        <div id="description" class="tab-content active">
+            <div class="content-card">
+                <h2 class="section-title"><i class="ri-article-line"></i> About this Batch</h2>
+                <div class="description-text">
+                    <p id="fullDescription">Welcome to this comprehensive free foundational batch. This program is
+                        designed to help students master the core concepts of their syllabus with precision and clarity.
+                        Our expert faculty has curated a curriculum that bridges the gap between basic understanding and
+                        advanced application.</p>
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item"><i class="ri-checkbox-circle-fill"></i> Live Interactive Classes</div>
+                    <div class="feature-item"><i class="ri-checkbox-circle-fill"></i> Chapter-wise DPPs</div>
+                    <div class="feature-item"><i class="ri-checkbox-circle-fill"></i> Weekly Concept Quizzes</div>
+                    <div class="feature-item"><i class="ri-checkbox-circle-fill"></i> Lifetime Access to Recordings
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: SUBJECTS -->
+        <div id="subjects" class="tab-content">
+            <div class="content-card">
+                <h2 class="section-title"><i class="ri-list-check-3"></i> Curriculum Coverage</h2>
+                <div class="subject-grid" id="subjectGrid">
+                    <!-- Dynamic Subjects -->
+                    <div class="subject-card">
+                        <div class="subject-icon"><i class="ri-microscope-line"></i></div>
+                        <h4>Physics</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">15 Chapters Covered</p>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon"><i class="ri-test-tube-line"></i></div>
+                        <h4>Chemistry</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">12 Chapters Covered</p>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon"><i class="ri-functions-line"></i></div>
+                        <h4>Mathematics</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">18 Chapters Covered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: RESOURCES -->
+        <div id="resources" class="tab-content">
+            <div class="content-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h2 class="section-title" style="margin-bottom: 0;"><i class="ri-folder-download-line"></i>
+                        Downloadable Materials</h2>
+                    <select
+                        style="padding: 8px 12px; border-radius: 8px; border: 1px solid #edf2f7; font-family: inherit; font-size: 13px;">
+                        <option>All Topics</option>
+                        <option>Notes Only</option>
+                        <option>DPPs Only</option>
+                    </select>
+                </div>
+
+                <div id="resourceContainer">
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-icon res-pdf"><i class="ri-file-pdf-2-line"></i></div>
+                            <div class="resource-details">
+                                <h4>Laws of Motion - Hand Written Notes</h4>
+                                <span>PDF • 4.2 MB • Physics</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn"><i class="ri-download-2-line"></i></a>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-icon res-pdf"><i class="ri-file-pdf-2-line"></i></div>
+                            <div class="resource-details">
+                                <h4>Chemical Bonding - Chapter Notes</h4>
+                                <span>PDF • 3.8 MB • Chemistry</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn"><i class="ri-download-2-line"></i></a>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-icon res-video"><i class="ri-video-line"></i></div>
+                            <div class="resource-details">
+                                <h4>Integration Basics - Video Lecture</h4>
+                                <span>Video • 45m • Maths</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn"><i class="ri-play-line"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: ANNOUNCEMENTS -->
+        <div id="announcements" class="tab-content">
+            <div class="content-card">
+                <h2 class="section-title"><i class="ri-megaphone-line"></i> Latest Updates</h2>
+                <div class="announcement-item">
+                    <div class="ann-header">
+                        <h4>New DPP Uploaded</h4>
+                        <span class="ann-date">Today at 9:00 AM</span>
+                    </div>
+                    <p class="ann-content">Hello Students, New Daily Practice Problem (DPP) for Kinematics has been
+                        uploaded. Please solve it before the next live session.</p>
+                </div>
+                <div class="announcement-item">
+                    <div class="ann-header">
+                        <h4>Live Class Rescheduled</h4>
+                        <span class="ann-date">Yesterday</span>
+                    </div>
+                    <p class="ann-content">The Chemistry live class for 'Atomic Structure' has been rescheduled to
+                        tomorrow at 5:00 PM due to technical maintenance.</p>
+                </div>
+                <div class="announcement-item">
+                    <div class="ann-header">
+                        <h4>Monthly Mock Test results out</h4>
+                        <span class="ann-date">2 days ago</span>
+                    </div>
+                    <p class="ann-content">Congratulations to all test takers! The detailed analysis for Sunday's mock
+                        test is now available in your Performance tab.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const LS_KEY = 'currentUser';
+
+        const batchData = {
+            'Foundation Concepts: Physics': {
+                description: 'Master the core principles of Physics with this foundational batch. We cover everything from basic mathematical tools to advanced mechanics, ensuring a strong base for JEE and NEET preparation.',
+                features: ['Live Concept Sessions', 'Handwritten Physics Notes', 'Numerical Solving Tricks', 'NCERT Based DPPs'],
+                subjects: [
+                    { name: 'Mathematical Tools', icon: 'ri-functions-line', info: 'Calculus & Vectors' },
+                    { name: 'Kinematics', icon: 'ri-ruler-2-line', info: 'Motion in 1D & 2D' },
+                    { name: 'Laws of Motion', icon: 'ri-force-line', info: 'Newton\'s Laws & Friction' }
+                ],
+                resources: [
+                    { name: 'Vectors & Scalars - Complete Notes', type: 'pdf', info: 'PDF • 5.5 MB', icon: 'ri-file-pdf-2-line', color: 'res-pdf' },
+                    { name: 'Kinematics DPP - Set 1', type: 'pdf', info: 'PDF • 2.1 MB', icon: 'ri-file-pdf-2-line', color: 'res-pdf' },
+                    { name: 'Introduction to Calculus in Physics', type: 'video', info: 'Video • 52m', icon: 'ri-video-line', color: 'res-video' }
+                ],
+                announcements: [
+                    { title: 'Physics Live Class Today', date: 'Today at 4:30 PM', content: 'We will be starting "Motion in a Plane" today. Please revise Vectors before joining.' },
+                    { title: 'New DPP Uploaded: Vectors', date: 'Yesterday', content: 'The first DPP for the Vectors chapter is now available in the resources section.' }
+                ],
+                meta: { subjects: 'Physics', lessons: '45 Lessons', students: '1,200+ Students' }
+            },
+            'Foundation Concepts: Chemistry': {
+                description: 'Deep dive into the world of atoms, molecules, and chemical reactions. This batch focuses on building a rock-solid foundation in Physical, Organic, and Inorganic Chemistry.',
+                features: ['Visual Reaction Mechanisms', 'Formula Cheat Sheets', 'Periodic Table Mastery', 'Lab Experiment Visuals'],
+                subjects: [
+                    { name: 'Some Basic Concepts', icon: 'ri-flask-line', info: 'Mole Concept & Stoichiometry' },
+                    { name: 'Atomic Structure', icon: 'ri-bubble-chart-line', info: 'Quantum Numbers & Orbitals' },
+                    { name: 'Chemical Bonding', icon: 'ri-share-line', info: 'VSEPR Theory & Hybridization' }
+                ],
+                resources: [
+                    { name: 'Mole Concept - Master Formula Sheet', type: 'pdf', info: 'PDF • 3.2 MB', icon: 'ri-file-pdf-2-line', color: 'res-pdf' },
+                    { name: 'Atomic Structure DPP - 01', type: 'pdf', info: 'PDF • 1.8 MB', icon: 'ri-file-pdf-2-line', color: 'res-pdf' },
+                    { name: 'Electronic Configuration Trick', type: 'video', info: 'Video • 35m', icon: 'ri-video-line', color: 'res-video' }
+                ],
+                announcements: [
+                    { title: 'Chemistry Quiz Sunday', date: 'Upcoming: Feb 28', content: 'A full-length quiz on Mole Concept will be conducted this Sunday. Prepare well!' },
+                    { title: 'New Notes: Chemical Bonding', date: 'Today', content: 'High-quality visualization notes for Chemical Bonding have been added.' }
+                ],
+                meta: { subjects: 'Chemistry', lessons: '40 Lessons', students: '950+ Students' }
+            }
+        };
+
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            const batchTitle = params.get('batch') || 'Foundation Concepts: Physics';
+            const batchType = params.get('type') || 'free';
+
+            // Clean title if it has extra spaces
+            const cleanTitle = batchTitle.trim();
+
+            document.getElementById('batchTitle').textContent = cleanTitle;
+            const typeLabel = document.getElementById('batchType');
+            typeLabel.textContent = batchType.charAt(0).toUpperCase() + batchType.slice(1) + ' Batch';
+
+            if (batchType === 'paid') {
+                typeLabel.style.background = 'rgba(250, 204, 21, 0.2)';
+                typeLabel.style.color = 'var(--accent)';
+                typeLabel.style.borderColor = 'rgba(250, 204, 21, 0.3)';
+            } else {
+                typeLabel.style.background = 'rgba(34, 197, 94, 0.2)';
+                typeLabel.style.color = '#86efac';
+                typeLabel.style.borderColor = 'rgba(34, 197, 94, 0.3)';
+            }
+
+            // Populate specific batch data
+            if (batchData[cleanTitle]) {
+                const data = batchData[cleanTitle];
+
+                // Header Meta
+                if (data.meta) {
+                    document.getElementById('batchSubjectMeta').innerHTML = `<i class="ri-book-read-line"></i> ${data.meta.subjects}`;
+                    document.getElementById('batchLessonMeta').innerHTML = `<i class="ri-video-line"></i> ${data.meta.lessons}`;
+                    document.getElementById('batchStudentMeta').innerHTML = `<i class="ri-group-line"></i> ${data.meta.students}`;
+                }
+
+                // Description
+                document.getElementById('fullDescription').textContent = data.description;
+                const featureContainer = document.querySelector('.feature-list');
+                featureContainer.innerHTML = data.features.map(f => `<div class="feature-item"><i class="ri-checkbox-circle-fill"></i> ${f}</div>`).join('');
+
+                // Subjects
+                const subjectGrid = document.getElementById('subjectGrid');
+                subjectGrid.innerHTML = data.subjects.map(s => `
+                    <div class="subject-card">
+                        <div class="subject-icon"><i class="${s.icon}"></i></div>
+                        <h4>${s.name}</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">${s.info}</p>
+                    </div>
+                `).join('');
+
+                // Resources
+                const resourceContainer = document.getElementById('resourceContainer');
+                resourceContainer.innerHTML = data.resources.map(r => `
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-icon ${r.color}"><i class="${r.icon}"></i></div>
+                            <div class="resource-details">
+                                <h4>${r.name}</h4>
+                                <span>${r.info}</span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-btn"><i class="${r.type === 'video' ? 'ri-play-line' : 'ri-download-2-line'}"></i></a>
+                    </div>
+                `).join('');
+
+                // Announcements
+                const annContainer = document.querySelector('#announcements .content-card');
+                annContainer.innerHTML = `<h2 class="section-title"><i class="ri-megaphone-line"></i> Latest Updates</h2>` +
+                    data.announcements.map(a => `
+                    <div class="announcement-item">
+                        <div class="ann-header">
+                            <h4>${a.title}</h4>
+                            <span class="ann-date">${a.date}</span>
+                        </div>
+                        <p class="ann-content">${a.content}</p>
+                    </div>
+                `).join('');
+            }
+        };
+
+        function switchTab(tabId) {
+            // Remove active class from all buttons and sections
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(section => section.classList.remove('active'));
+
+            // Add active class to selected
+            const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn =>
+                btn.getAttribute('onclick').includes(tabId)
+            );
+            activeBtn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function logout() {
+            localStorage.removeItem(LS_KEY);
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>

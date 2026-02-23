@@ -541,15 +541,15 @@
                     { title: 'Advanced NEET Masterclass', subjects: 'Biology, Physics, Chemistry', progress: 30, lessons: '15/50', type: 'paid' }
                 ];
                 freeBatches = [
-                    { title: 'Foundation Concepts: Physics', subjects: 'Physics Only', progress: 90, lessons: '18/20', type: 'free' },
-                    { title: 'Maths Quick Revision Series', subjects: 'Maths Only', progress: 10, lessons: '2/20', type: 'free' }
+                    { title: 'Foundation Concepts: Physics ', subjects: 'Physics Only', progress: 0, lessons: '0/20', type: 'free' },
+                    { title: 'Foundation Concepts: Chemistry', subjects: 'Chemistry Only', progress: 0, lessons: '0/20', type: 'free' }
                 ];
             } else if (studentClass && studentClass.includes('10')) {
                 paidBatches = [
                     { title: 'Board Exam Mastery Batch', subjects: 'All Subjects', progress: 65, lessons: '40/60', type: 'paid' }
                 ];
                 freeBatches = [
-                    { title: 'Science Lab: Virtual Series', subjects: 'Science', progress: 20, lessons: '4/20', type: 'free' }
+                    { title: 'Foundation Concepts: Biology', subjects: 'Biology Only', progress: 0, lessons: '0/20', type: 'free' }
                 ];
             } else {
                 // Default for others/guest
@@ -590,7 +590,7 @@
                             </div>
                         </div>
                         <div class="batch-footer">
-                            <a href="#" class="batch-btn btn-enter">Enter Batch</a>
+                            <a href="batch-details.html?batch=${encodeURIComponent(batch.title)}&type=${batch.type}" class="batch-btn btn-enter">Enter Batch</a>
                             <a href="#" class="batch-btn btn-outline">Schedule</a>
                         </div>
                     </div>
