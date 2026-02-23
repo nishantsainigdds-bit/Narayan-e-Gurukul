@@ -427,7 +427,8 @@
 
     <nav id="nav-menu">
       <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
+      <a href="courses.html">Explore Courses</a>
+      <a href="my-batches.html" id="myBatchesNavLink" style="display: none;">My Batches</a>
       <a href="study-material.html">Study Material</a>
       <a href="login.html" class="nav-btn" id="loginBtn">Get Started</a>
     </nav>
@@ -621,9 +622,15 @@
     window.onload = () => {
       const user = localStorage.getItem('currentUser');
       const loginBtn = document.getElementById('loginBtn');
-      if (user && loginBtn) {
-        loginBtn.href = 'student-dashboard.html';
-        loginBtn.innerHTML = '<i class="ri-dashboard-line"></i> Dashboard';
+      const myBatchesLink = document.getElementById('myBatchesNavLink');
+      if (user) {
+        if (loginBtn) {
+          loginBtn.href = 'student-dashboard.html';
+          loginBtn.innerHTML = '<i class="ri-dashboard-line"></i> Dashboard';
+        }
+        if (myBatchesLink) {
+          myBatchesLink.style.display = 'inline-flex';
+        }
       }
     };
   </script>

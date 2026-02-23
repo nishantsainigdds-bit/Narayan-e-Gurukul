@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Batches | e-Gurukul</title>
+    <meta name="description" content="Manage your enrolled paid and free batches at e-Gurukul.">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-sidebar: #0a1e3d;
+            --bg-main: #f4f7fe;
+            --white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.9);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ───── SIDEBAR ───── */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-logo i {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .sidebar-logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 14px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--accent);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+        }
+
+        .sidebar-footer {
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fca5a5;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            color: var(--danger);
+        }
+
+        /* ───── MAIN CONTENT ───── */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px 50px;
+            transition: 0.34s;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .welcome-section p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-top: 4px;
+        }
+
+        /* Batch Sections */
+        .batch-section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header h2 i {
+            font-size: 24px;
+        }
+
+        .batch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .batch-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: 0.3s;
+            border: 1px solid #f1f5f9;
+        }
+
+        .batch-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .batch-banner {
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .batch-banner i {
+            font-size: 40px;
+            opacity: 0.2;
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+        }
+
+        .batch-tag {
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            width: fit-content;
+        }
+
+        .batch-tag.paid {
+            background: rgba(250, 204, 21, 0.2);
+            color: var(--accent);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+        }
+
+        .batch-tag.free {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .batch-content {
+            padding: 24px;
+        }
+
+        .batch-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .batch-info {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .batch-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .batch-progress {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .batch-footer {
+            display: flex;
+            gap: 12px;
+        }
+
+        .batch-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .btn-enter {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-enter:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: #f8fafc;
+            color: var(--primary);
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-logo span,
+            .nav-item span,
+            .sidebar-footer span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+                width: 280px;
+            }
+
+            .sidebar.mobile-open span {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <i class="ri-graduation-cap-fill"></i>
+                <span>e-Gurukul</span>
+            </a>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="student-dashboard.html" class="nav-item">
+                <i class="ri-dashboard-3-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="my-batches.html" class="nav-item active">
+                <i class="ri-folders-line"></i>
+                <span>My Batches</span>
+            </a>
+            <a href="courses.html" class="nav-item">
+                <i class="ri-book-3-line"></i>
+                <span>Explore Courses</span>
+            </a>
+            <a href="schedule.html" class="nav-item">
+                <i class="ri-calendar-todo-line"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="performance.html" class="nav-item">
+                <i class="ri-bar-chart-box-line"></i>
+                <span>Performance</span>
+            </a>
+            <a href="study-material.html" class="nav-item">
+                <i class="ri-file-text-line"></i>
+                <span>Study Material</span>
+            </a>
+            <a href="support.html" class="nav-item">
+                <i class="ri-message-3-line"></i>
+                <span>Support</span>
+            </a>
+            <a href="student-profile.html" class="nav-item">
+                <i class="ri-user-settings-line"></i>
+                <span>Account Profile</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="logout-btn" onclick="logout()">
+                <i class="ri-logout-box-r-line"></i>
+                <span>Logout Session</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="welcome-section">
+                <h1>My Batches</h1>
+                <p>Track and access your enrolled learning programs.</p>
+            </div>
+
+            <div class="user-actions" style="display: flex; gap: 20px; align-items: center;">
+                <div class="notification-bell"
+                    style="width: 45px; height: 45px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: var(--card-shadow); cursor: pointer;">
+                    <i class="ri-notification-3-line" style="font-size: 20px; color: var(--primary);"></i>
+                </div>
+                <a href="student-profile.html"
+                    style="display: flex; align-items: center; gap: 12px; background: white; padding: 6px 15px 6px 6px; border-radius: 50px; box-shadow: var(--card-shadow); text-decoration: none; color: inherit;">
+                    <div style="width: 38px; height: 38px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;"
+                        id="userInitials">U</div>
+                    <span id="userName" style="font-weight: 600; font-size: 14px;">Student</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- PAID BATCHES SECTION -->
+        <div class="batch-section">
+            <div class="section-header">
+                <h2><i class="ri-vip-crown-fill" style="color: var(--accent);"></i> Paid Batches</h2>
+            </div>
+            <div class="batch-grid" id="paidBatchesContainer">
+                <!-- Dynamic Content -->
+                <div class="empty-state">
+                    <i class="ri-lock-2-line"></i>
+                    <h3>No Paid Batches Yet</h3>
+                    <p>Enroll in a premium course to start your advanced learning journey.</p>
+                    <a href="courses.html" class="batch-btn btn-enter"
+                        style="display: inline-block; width: auto; padding: 12px 30px;">Explore Premium Courses</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FREE BATCHES SECTION -->
+        <div class="batch-section">
+            <div class="section-header">
+                <h2><i class="ri-gift-fill" style="color: var(--success);"></i> Free Batches</h2>
+            </div>
+            <div class="batch-grid" id="freeBatchesContainer">
+                <!-- Dynamic Content -->
+                <div class="empty-state">
+                    <i class="ri-inbox-line"></i>
+                    <h3>No Free Batches Yet</h3>
+                    <p>Join our free foundational courses to build your basics.</p>
+                    <a href="courses.html" class="batch-btn btn-enter"
+                        style="display: inline-block; width: auto; padding: 12px 30px;">Browse Free Resources</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const LS_KEY = 'currentUser';
+
+        window.onload = () => {
+            const user = JSON.parse(localStorage.getItem(LS_KEY)) || { name: 'Student' };
+
+            // Name and Initials
+            document.getElementById('userName').textContent = user.name;
+            const nameParts = user.name.trim().split(' ');
+            document.getElementById('userInitials').textContent = nameParts.length >= 2
+                ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
+                : nameParts[0][0].toUpperCase();
+
+            loadBatches(user.class);
+        };
+
+        function loadBatches(studentClass) {
+            const paidContainer = document.getElementById('paidBatchesContainer');
+            const freeContainer = document.getElementById('freeBatchesContainer');
+
+            // Mock Data for demonstration
+            let paidBatches = [];
+            let freeBatches = [];
+
+            if (studentClass && studentClass.includes('12')) {
+                paidBatches = [
+                    { title: 'JEE Ultimate Crash Course', subjects: 'Physics, Chemistry, Maths', progress: 45, lessons: '12/48', type: 'paid' },
+                    { title: 'Advanced NEET Masterclass', subjects: 'Biology, Physics, Chemistry', progress: 30, lessons: '15/50', type: 'paid' }
+                ];
+                freeBatches = [
+                    { title: 'Foundation Concepts: Physics', subjects: 'Physics Only', progress: 90, lessons: '18/20', type: 'free' },
+                    { title: 'Maths Quick Revision Series', subjects: 'Maths Only', progress: 10, lessons: '2/20', type: 'free' }
+                ];
+            } else if (studentClass && studentClass.includes('10')) {
+                paidBatches = [
+                    { title: 'Board Exam Mastery Batch', subjects: 'All Subjects', progress: 65, lessons: '40/60', type: 'paid' }
+                ];
+                freeBatches = [
+                    { title: 'Science Lab: Virtual Series', subjects: 'Science', progress: 20, lessons: '4/20', type: 'free' }
+                ];
+            } else {
+                // Default for others/guest
+                paidBatches = [
+                    { title: 'Complete Aptitude Training', subjects: 'Reasoning, Quant', progress: 15, lessons: '5/30', type: 'paid' }
+                ];
+                freeBatches = [
+                    { title: 'Introductory Learning Path', subjects: 'General Knowledge', progress: 50, lessons: '5/10', type: 'free' }
+                ];
+            }
+
+            renderBatches(paidBatches, paidContainer);
+            renderBatches(freeBatches, freeContainer);
+        }
+
+        function renderBatches(batches, container) {
+            if (batches.length === 0) return; // Keep the empty state defined in HTML
+
+            container.innerHTML = batches.map(batch => `
+                <div class="batch-card">
+                    <div class="batch-banner">
+                        <div class="batch-tag ${batch.type}">${batch.type.toUpperCase()}</div>
+                        <i class="${batch.type === 'paid' ? 'ri-vip-diamond-line' : 'ri-seedling-line'}"></i>
+                    </div>
+                    <div class="batch-content">
+                        <h3 class="batch-title">${batch.title}</h3>
+                        <div class="batch-info">
+                            <span><i class="ri-book-read-line"></i> ${batch.subjects}</span>
+                            <span><i class="ri-video-line"></i> ${batch.lessons} Lessons Completed</span>
+                        </div>
+                        <div class="batch-progress">
+                            <div class="progress-label">
+                                <span>Course Progress</span>
+                                <span>${batch.progress}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${batch.progress}%;"></div>
+                            </div>
+                        </div>
+                        <div class="batch-footer">
+                            <a href="#" class="batch-btn btn-enter">Enter Batch</a>
+                            <a href="#" class="batch-btn btn-outline">Schedule</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function logout() {
+            localStorage.removeItem(LS_KEY);
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>
