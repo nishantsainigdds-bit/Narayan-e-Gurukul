@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library Dashboard | e-Gurukul</title>
+    <meta name="description"
+        content="Access vast resources, books, and study materials in the e-Gurukul Digital Library.">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-sidebar: #0a1e3d;
+            --bg-main: #f4f7fe;
+            --white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --gradient-lib: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ───── SIDEBAR ───── */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-logo i {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .sidebar-logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 14px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--accent);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+        }
+
+        /* ───── MAIN CONTENT ───── */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px 50px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 400px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .search-box i {
+            color: var(--text-muted);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .lib-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .bg-books {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .bg-videos {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .bg-notes {
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .bg-downloads {
+            background: #faf5ff;
+            color: #7e22ce;
+        }
+
+        .stat-info h3 {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .stat-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ───── LIBRARY GRID ───── */
+        .lib-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+        }
+
+        .book-item {
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .book-item:hover {
+            transform: scale(1.05);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 180px;
+            background: #f1f5f9;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--secondary);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-item h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .book-item p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ───── CATEGORY CHIPS ───── */
+        .category-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .cat-chip {
+            padding: 10px 20px;
+            background: white;
+            border-radius: 50px;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cat-chip:hover,
+        .cat-chip.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ───── NOTICES / SIDEBAR ITEMS ───── */
+        .notice-item {
+            padding: 15px;
+            border-radius: 15px;
+            background: #f8fafc;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .notice-item h5 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .notice-item p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar span,
+            .sidebar-logo span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .lib-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lib-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <i class="ri-graduation-cap-fill"></i>
+                <span>e-Gurukul</span>
+            </a>
+        </div>
+        <nav class="nav-menu">
+            <a href="student-dashboard.html" class="nav-item">
+                <i class="ri-dashboard-3-line"></i>
+                <span>Main Dashboard</span>
+            </a>
+            <a href="library.html" class="nav-item active">
+                <i class="ri-library-line"></i>
+                <span>Library Dashboard</span>
+            </a>
+            <a href="bookshelf.html" class="nav-item">
+                <i class="ri-book-open-line"></i>
+                <span>My Bookshelf</span>
+            </a>
+            <a href="pyq-archive.html" class="nav-item">
+                <i class="ri-folder-zip-line"></i>
+                <span>PYQ Archive</span>
+            </a>
+            <a href="favorites.html" class="nav-item">
+                <i class="ri-bookmark-3-line"></i>
+                <span>Favorites</span>
+            </a>
+            <a href="study-material.html" class="nav-item">
+                <i class="ri-arrow-left-line"></i>
+                <span>Back to Materials</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div>
+                <h1 style="font-size: 26px; color: var(--primary);">Digital Library</h1>
+                <p style="color: var(--text-muted); font-size: 14px;">Explore 50,000+ educational resources</p>
+            </div>
+            <div class="search-box">
+                <i class="ri-search-line"></i>
+                <input type="text" placeholder="Search books, notes, or authors...">
+            </div>
+        </div>
+
+        <div class="category-scroll">
+            <div class="cat-chip active">All Resources</div>
+            <div class="cat-chip">Physics</div>
+            <div class="cat-chip">Chemistry</div>
+            <div class="cat-chip">Mathematics</div>
+            <div class="cat-chip">Biology</div>
+            <div class="cat-chip">Previous Year Papers</div>
+            <div class="cat-chip">NCERT Solutions</div>
+        </div>
+
+        <div class="lib-stats">
+            <div class="stat-card">
+                <div class="stat-icon bg-books"><i class="ri-book-3-line"></i></div>
+                <div class="stat-info">
+                    <h3>1.2k+</h3>
+                    <p>Total E-Books</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-videos"><i class="ri-video-chat-line"></i></div>
+                <div class="stat-info">
+                    <h3>450+</h3>
+                    <p>Video Tutors</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-notes"><i class="ri-sticky-note-line"></i></div>
+                <div class="stat-info">
+                    <h3>3.5k</h3>
+                    <p>Revision Notes</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-downloads"><i class="ri-download-cloud-2-line"></i></div>
+                <div class="stat-info">
+                    <h3>500+</h3>
+                    <p>Daily Downloads</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lib-grid">
+            <div class="left-col">
+                <section class="section-card">
+                    <div class="section-header">
+                        <h2>Recently Added Books</h2>
+                        <a href="#"
+                            style="color: var(--secondary); font-size: 13px; font-weight: 600; text-decoration: none;">View
+                            All</a>
+                    </div>
+                    <div class="book-list">
+                        <div class="book-item">
+                            <div class="book-cover" style="background: #fee2e2;"><i class="ri-microscope-line"
+                                    style="color: #ef4444;"></i></div>
+                            <h4>Concepts of Physics</h4>
+                            <p>H.C. Verma</p>
+                        </div>
+                        <div class="book-item">
+                            <div class="book-cover" style="background: #e0f2fe;"><i class="ri-functions"
+                                    style="color: #0ea5e9;"></i></div>
+                            <h4>Advanced Calculus</h4>
+                            <p>I.A. Maron</p>
+                        </div>
+                        <div class="book-item">
+                            <div class="book-cover" style="background: #f0fdf4;"><i class="ri-flask-line"
+                                    style="color: #22c55e;"></i></div>
+                            <h4>Organic Chem.</h4>
+                            <p>Morrison Boyd</p>
+                        </div>
+                        <div class="book-item">
+                            <div class="book-cover" style="background: #faf5ff;"><i class="ri-dna-line"
+                                    style="color: #a855f7;"></i></div>
+                            <h4>Biology NCERT</h4>
+                            <p>Latest Edition</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-card">
+                    <div class="section-header">
+                        <h2>Top Preparation Guides</h2>
+                    </div>
+                    <div class="book-list">
+                        <div class="book-item">
+                            <div class="book-cover"><i class="ri-article-line"></i></div>
+                            <h4>JEE Masterkit</h4>
+                            <p>e-Gurukul Special</p>
+                        </div>
+                        <div class="book-item">
+                            <div class="book-cover"><i class="ri-shield-flash-line" style="color: #facc15;"></i></div>
+                            <h4>NEET Booster</h4>
+                            <p>High Yield Notes</p>
+                        </div>
+                        <div class="book-item">
+                            <div class="book-cover"><i class="ri-timer-2-line"></i></div>
+                            <h4>Time Manager</h4>
+                            <p>Exam Strategy</p>
+                        </div>
+                        <div class="book-item">
+                            <div class="book-cover"><i class="ri-mind-map"></i></div>
+                            <h4>Mind Maps</h4>
+                            <p>All Subjects</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="right-col">
+                <section class="section-card">
+                    <div class="section-header">
+                        <h2>Library Updates</h2>
+                    </div>
+                    <div class="notice-item">
+                        <h5>New JEE 2026 PYQs</h5>
+                        <p>Solved papers from Jan shift are now available in the archive.</p>
+                    </div>
+                    <div class="notice-item" style="border-left-color: #facc15;">
+                        <h5>Premium NCERT Maps</h5>
+                        <p>Biology high-resolution mind maps uploaded today.</p>
+                    </div>
+                    <div class="notice-item" style="border-left-color: #22c55e;">
+                        <h5>HC Verma Solutions</h5>
+                        <p>Full video solutions module added to Physics section.</p>
+                    </div>
+                </section>
+
+                <section class="section-card" style="background: var(--gradient-lib); color: white;">
+                    <h3 style="margin-bottom: 10px;">Become a Member</h3>
+                    <p style="font-size: 13px; opacity: 0.9; margin-bottom: 20px;">Get unlimited access to premium books
+                        and exclusive doubt solving sessions.</p>
+                    <a href="#"
+                        style="background: var(--accent); color: var(--primary); padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: 700; display: inline-block; font-size: 14px;">Upgrade
+                        Now</a>
+                </section>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
