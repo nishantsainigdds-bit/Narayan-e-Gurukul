@@ -337,11 +337,17 @@
             line-height: 1.5;
         }
 
+        .topic-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
         .topic-video-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 15px;
             background: #fff1f2;
             color: #be123c;
             padding: 8px 15px;
@@ -357,6 +363,28 @@
             background: #be123c;
             color: white;
             border-color: #be123c;
+            transform: scale(1.05);
+        }
+
+        .topic-pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0fdf4;
+            color: #15803d;
+            padding: 8px 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.3s;
+            border: 1px solid #bbf7d0;
+        }
+
+        .topic-pdf-btn:hover {
+            background: #15803d;
+            color: white;
+            border-color: #15803d;
             transform: scale(1.05);
         }
 
@@ -531,53 +559,66 @@
             <div class="subject-content">
                 <div class="topic-list">
                     <div class="topic-item">
-                        <h4>Kinematics</h4>
+                        <h4>Kinematics and NLM</h4>
                         <p>Motion in 1D & 2D, Projectile Motion, Relative Velocity</p>
-                        <a href="https://www.youtube.com/live/hY9zZrYuDVk?si=1zT17NfLLfQSd67U" target="_blank"
-                            class="topic-video-btn">
-                            <i class="ri-play-circle-fill"></i> One Shot
-                        </a>
-                    </div>
-                    <div class="topic-item">
-                        <h4>Laws of Motion</h4>
-                        <p>Newton's Laws, Friction, Circular Motion</p>
-                        <a href="https://youtu.be/tDZgkJCBII8?si=ZHXBRysabOCu7Ykb" target="_blank"
-                            class="topic-video-btn">
-                            <i class="ri-play-circle-fill"></i> One Shot
-                        </a>
-                    </div>
-                    <div class="topic-item">
-                        <h4>Electrostatics</h4>
-                        <p>Electric Field, Potential, Gauss's Law, Capacitors</p>
-                        <a href="https://www.youtube.com/results?search_query=JEE+Main+Physics+Electrostatics+Full+Playlist"
-                            target="_blank" class="topic-video-btn">
-                            <i class="ri-play-circle-fill"></i> One Shot
-                        </a>
+                        <div class="topic-btn-group">
+                            <a href="https://www.youtube.com/live/hY9zZrYuDVk?si=1zT17NfLLfQSd67U" target="_blank" class="topic-video-btn">
+                                <i class="ri-play-circle-fill"></i> Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1bNbCPMIvrGVqwSaKBXUGK8pvWxrw18Qj/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                <i class="ri-file-pdf-2-line"></i> PDF
+                            </a>
+                        </div>
                     </div>
                     <div class="topic-item">
                         <h4>Optics</h4>
                         <p>Ray Optics, Wave Optics, Instruments</p>
-                        <a href="https://www.youtube.com/results?search_query=JEE+Main+Physics+Optics+Full+Playlist"
-                            target="_blank" class="topic-video-btn">
-                            <i class="ri-play-circle-fill"></i> Watch Playlist
-                        </a>
+                        <div class="topic-btn-group">
+                            <a href="https://youtu.be/tDZgkJCBII8?si=ZHXBRysabOCu7Ykb" target="_blank" class="topic-video-btn">
+                                <i class="ri-play-circle-fill"></i> Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1siMMvlnRbc9JMBAFWkVWBUAIHI6bGJVC/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                <i class="ri-file-pdf-2-line"></i> PDF
+                            </a>
+                        </div>
                     </div>
                     <div class="topic-item">
-                        <h4>Thermodynamics</h4>
-                        <p>Laws of Thermodynamics, Kinetic Theory of Gases</p>
-                        <a href="https://www.youtube.com/results?search_query=JEE+Main+Physics+Thermodynamics+Full+Playlist"
-                            target="_blank" class="topic-video-btn">
-                            <i class="ri-play-circle-fill"></i> Watch Playlist
-                        </a>
+                        <h4>Electrostatics</h4>
+                        <p>Electric Field, Potential, Gauss's Law, Capacitors</p>
+                        <div class="topic-btn-group">
+                            <a href="https://www.youtube.com/results?search_query=JEE+Main+Physics+Electrostatics+Full+Playlist" target="_blank" class="topic-video-btn">
+                                <i class="ri-play-circle-fill"></i> Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/19Q9_3503tnSBLUTe7aWSav3DAPdVhLrZ/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                <i class="ri-file-pdf-2-line"></i> PDF
+                            </a>
+                        </div>
                     </div>
                     <div class="topic-item">
-                        <h4>Modern Physics</h4>
-                        <p>Dual Nature, Atoms & Nuclei, Semiconductors</p>
-                        <a href="https://www.youtube.com/results?search_query=JEE+Main+Physics+Modern+Physics+Full+Playlist"
-                            target="_blank" class="topic-video-btn">
-                            <i class="ri-play-circle-fill"></i> Watch Playlist
-                        </a>
+                        <h4>Complete 11th </h4>
+                        <p>All Chapters are Covered</p>
+                        <div class="topic-btn-group">
+                            <a href="https://www.youtube.com/results?search_query=JEE+Main+Physics+Optics+Full+Playlist" target="_blank" class="topic-video-btn">
+                                <i class="ri-play-circle-fill"></i> Video
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1VlJtxVg4KHpxcls8-4mEjB2LacWaJ0bV?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                <i class="ri-file-pdf-2-line"></i> PDF
+                            </a>
+                        </div>
                     </div>
+                    <div class="topic-item">
+                        <h4>Complete 12th</h4>
+                        <p>All Chapters are Covered</p>
+                        <div class="topic-btn-group">
+                            <a href="https://www.youtube.com/results?search_query=JEE+Main+Physics+Thermodynamics+Full+Playlist" target="_blank" class="topic-video-btn">
+                                <i class="ri-play-circle-fill"></i> Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1pzZtJWQ5RJs69m7O2MRG475dkfhrBmT6/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                <i class="ri-file-pdf-2-line"></i> PDF
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
 
 
@@ -591,39 +632,41 @@
                     <div class="subject-content">
                         <div class="topic-list">
                             <div class="topic-item">
-                                <h4>Physical Chemistry</h4>
-                                <p>Mole Concept, Thermodynamics, Equilibrium, Kinetics</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Physical+Chemistry+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <h4>Complete Physical Chemistry</h4>
+                                <p>All Chapters are Covered</p>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Physical+Chemistry+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1pgEgROO1PvK8MdGhyf3NuOiZUIDhfmPR/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                             <div class="topic-item">
-                                <h4>Inorganic Chemistry</h4>
-                                <p>Periodic Table, Chemical Bonding, Coordination Compounds</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Inorganic+Chemistry+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <h4>Complete Inorganic Chemistry</h4>
+                                <p>All Chapters are Covered</p>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Inorganic+Chemistry+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1fFq2AVGqJitid_tgasarxvZXnIIKF4fp/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                             <div class="topic-item">
-                                <h4>Organic Chemistry</h4>
-                                <p>General Organic Chemistry, Hydrocarbons, Aldehydes & Ketones</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Organic+Chemistry+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <h4>Complete Organic Chemistry</h4>
+                                <p>All Chapters are Covered</p>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Organic+Chemistry+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1iSDW_JubvPQyDn52lHneBoCK9BQvgCpk/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
-                            <div class="topic-item">
-                                <h4>Electrochemistry</h4>
-                                <p>Conductance, Nernst Equation, Cells</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Electrochemistry+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- MATHEMATICS -->
@@ -637,42 +680,62 @@
                             <div class="topic-item">
                                 <h4>Calculus</h4>
                                 <p>Limits, Continuity, Differentiation, Integration, Differential Equations</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Calculus+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Calculus+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="#" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                             <div class="topic-item">
-                                <h4>Algebra</h4>
-                                <p>Complex Numbers, Quadratic Equations, Sequences & Series, Matrices</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Algebra+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <h4>Basic Math</h4>
+                                <p>Basic Mathematics, Trigonometric Ratio and Equation, Quadratic Equation</p>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Algebra+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1sgVQ9CP5MtAmtIwo-1dLBJjZeGQjZiJb/view?usp=drive_link" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                             <div class="topic-item">
                                 <h4>Coordinate Geometry</h4>
                                 <p>Straight Lines, Circles, Conic Sections</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Coordinate+Geometry+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Coordinate+Geometry+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="#" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                             <div class="topic-item">
                                 <h4>Vectors & 3D</h4>
                                 <p>Vector Algebra, 3D Geometry, Planes</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Vectors+and+3D+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Vectors+and+3D+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="#" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                             <div class="topic-item">
                                 <h4>Trigonometry</h4>
                                 <p>Identities, Equations, Inverse Trigonometric Functions</p>
-                                <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Trigonometry+Full+Playlist"
-                                    target="_blank" class="topic-video-btn">
-                                    <i class="ri-play-circle-fill"></i> Watch Playlist
-                                </a>
+                                <div class="topic-btn-group">
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Main+Mathematics+Trigonometry+Full+Playlist" target="_blank" class="topic-video-btn">
+                                        <i class="ri-play-circle-fill"></i> Video
+                                    </a>
+                                    <a href="#" target="_blank" class="topic-pdf-btn">
+                                        <i class="ri-file-pdf-2-line"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
