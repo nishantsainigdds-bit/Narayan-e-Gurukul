@@ -1,577 +1,579 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>Courses - e-Gurukul</title>
+  <title>Explore Courses - e-Gurukul</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Outfit', sans-serif;
-      background: #f4f6fb;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Outfit', sans-serif; background: #f4f6fb; color: #1a1a2e; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; width: 100%; background: rgba(14,47,105,0.97); backdrop-filter: blur(12px); color: white; padding: 14px 6%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 4px 30px rgba(0,0,0,0.15); }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 700; text-decoration: none; color: white; }
+    .logo i { font-size: 30px; color: #facc15; background: rgba(250,204,21,0.12); padding: 6px; border-radius: 10px; }
+    .logo span { color: #facc15; }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { color: rgba(255,255,255,0.88); text-decoration: none; font-weight: 500; font-size: 15px; position: relative; transition: .3s; display: inline-flex; align-items: center; gap: 5px; }
+    nav a:not(.nav-btn)::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#facc15; transition:.3s; }
+    nav a:not(.nav-btn):hover::after { width:100%; }
+    nav a:hover { color: #facc15; }
+    .nav-btn { background: #facc15; color: #0e2f69 !important; padding: 9px 22px; border-radius: 50px; font-weight: 700; transition: .3s; }
+    .nav-btn:hover { background: white; transform: translateY(-2px); }
+    .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
+    @media(max-width:900px){
+      .menu-toggle { display: block; }
+      nav { display:none; flex-direction:column; position:absolute; top:100%; left:0; width:100%; background:#0e2f69; padding:28px 0; text-align:center; z-index:999; box-shadow:0 10px 20px rgba(0,0,0,.2); gap:18px; }
+      nav.active { display:flex; }
     }
 
-    /* UNIQUE HEADER */
-    header {
-      position: sticky;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(14, 47, 105, 0.95);
-      backdrop-filter: blur(10px);
-      color: white;
-      padding: 15px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      transition: 0.4s;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      box-sizing: border-box;
-    }
+    /* PAGE BANNER */
+    .page-banner { background: linear-gradient(135deg, #0e2f69 0%, #1746a2 60%, #0e2f69 100%); color: white; padding: 70px 6% 80px; position: relative; overflow: hidden; }
+    .page-banner::before { content:''; position:absolute; top:-60px; right:-60px; width:300px; height:300px; border-radius:50%; background:rgba(250,204,21,0.08); }
+    .page-banner::after { content:''; position:absolute; bottom:-80px; left:10%; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,0.05); }
+    .banner-inner { position:relative; z-index:1; max-width:700px; }
+    .banner-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(250,204,21,0.15); border:1px solid rgba(250,204,21,0.4); color:#facc15; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 14px; border-radius:50px; margin-bottom:18px; }
+    .page-banner h1 { font-size: clamp(28px,4vw,48px); font-weight:800; line-height:1.2; margin-bottom:14px; }
+    .page-banner h1 span { color:#facc15; }
+    .page-banner p { font-size:17px; opacity:.8; line-height:1.7; margin-bottom:28px; }
+    .banner-stats { display:flex; gap:32px; flex-wrap:wrap; }
+    .bstat { text-align:center; }
+    .bstat h3 { font-size:28px; font-weight:800; color:#facc15; }
+    .bstat p { font-size:13px; opacity:.7; margin-top:2px; }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 26px;
-      font-weight: 700;
-      text-decoration: none;
-      color: white;
-      letter-spacing: -0.5px;
-    }
+    /* SEARCH + FILTER BAR */
+    .filter-bar { background:white; padding:20px 6%; box-shadow:0 4px 20px rgba(0,0,0,0.06); position:sticky; top:62px; z-index:100; }
+    .filter-inner { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .search-box { display:flex; align-items:center; gap:10px; background:#f4f6fb; border:1.5px solid #e5e7eb; border-radius:12px; padding:10px 16px; flex:1; min-width:200px; }
+    .search-box i { color:#888; font-size:18px; }
+    .search-box input { border:none; background:transparent; outline:none; font-family:'Outfit',sans-serif; font-size:15px; width:100%; color:#333; }
+    .filter-tabs { display:flex; gap:8px; flex-wrap:wrap; }
+    .ftab { padding:8px 18px; border-radius:50px; border:1.5px solid #e5e7eb; background:white; font-family:'Outfit',sans-serif; font-size:14px; font-weight:600; color:#555; cursor:pointer; transition:.25s; display:flex; align-items:center; gap:6px; }
+    .ftab:hover { border-color:#0e2f69; color:#0e2f69; }
+    .ftab.active { background:#0e2f69; color:white; border-color:#0e2f69; }
 
-    .logo span {
-      color: #facc15;
-    }
+    /* EXAM CATEGORY TABS */
+    .exam-tabs-section { padding:48px 6% 0; }
+    .section-label { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#0e2f69; background:#eff6ff; padding:5px 14px; border-radius:50px; display:inline-block; margin-bottom:12px; }
+    .section-heading { font-size:clamp(22px,3vw,32px); font-weight:800; color:#0e2f69; margin-bottom:6px; }
+    .section-sub { color:#666; font-size:15px; margin-bottom:28px; }
+    .exam-tabs { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:36px; }
+    .etab { display:flex; align-items:center; gap:10px; padding:12px 20px; border-radius:16px; border:2px solid #e5e7eb; background:white; cursor:pointer; transition:.3s; font-family:'Outfit',sans-serif; }
+    .etab:hover { border-color:#0e2f69; box-shadow:0 4px 16px rgba(14,47,105,0.1); }
+    .etab.active { border-color:#0e2f69; background:#eff6ff; }
+    .etab img { width:36px; height:36px; }
+    .etab-info h4 { font-size:15px; font-weight:700; color:#0e2f69; }
+    .etab-info span { font-size:12px; color:#888; }
 
-    .logo i {
-      font-size: 32px;
-      color: #facc15;
-      background: rgba(250, 204, 21, 0.1);
-      padding: 5px;
-      border-radius: 10px;
-    }
+    /* COURSE GRID */
+    .courses-section { padding:32px 6% 80px; }
+    .course-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:24px; }
+    .course-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.07); transition:.35s; border:1.5px solid transparent; }
+    .course-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(14,47,105,0.13); border-color:#e0e7ff; }
 
-    nav {
-      display: flex;
-      align-items: center;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 30px;
-      font-weight: 500;
-      position: relative;
-      transition: 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    nav a:not(.nav-btn)::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #facc15;
-      transition: 0.3s;
-    }
-
-    nav a:not(.nav-btn):hover::after {
-      width: 100%;
-    }
-
-    nav a:hover {
-      color: #facc15;
-    }
-
-    .nav-btn {
-      background: #facc15;
-      color: #0e2f69 !important;
-      padding: 10px 22px;
-      border-radius: 50px;
-      font-weight: 600;
-      margin-left: 30px;
-      transition: 0.3s;
-      box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
-    }
-
-    .nav-btn:hover {
-      background: white;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: white;
-    }
-
-    /* RESPONSIVE HEADER */
-    @media (max-width: 900px) {
-      header {
-        padding: 15px 5%;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #0e2f69;
-        padding: 30px 0;
-        text-align: center;
-        z-index: 1000;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        gap: 20px;
-      }
-
-      nav.active {
-        display: flex;
-      }
-
-      nav a {
-        margin: 0;
-        font-size: 18px;
-      }
-
-      .nav-btn {
-        margin-left: 0;
-      }
-    }
-
-    /* Banner */
-    .banner {
-      background: linear-gradient(135deg, #0e2f69, #1746a2);
-      color: white;
-      padding: 60px;
-      text-align: center;
-    }
-
-    .banner h1 {
-      font-size: 40px;
-    }
-
-    /* Course Section */
-    .course-container {
-      padding: 60px 8%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .course-card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      transition: 0.3s;
-    }
-
-    .course-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .course-card h3 {
-      margin-top: 0;
-      color: #0e2f69;
-    }
-
-    .price {
-      font-size: 20px;
-      font-weight: bold;
-      margin: 10px 0;
-      color: #0e2f69;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #0e2f69;
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #facc15;
-      color: black;
-    }
-
-    /* PREMIUM DETAILED FOOTER */
-    footer {
-      background: #0e2f69;
-      color: white;
-      padding: 80px 8% 40px;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    .footer-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 50px;
-    }
-
-    .footer-column h3 {
-      font-size: 20px;
-      margin-bottom: 25px;
-      position: relative;
-      color: #facc15;
-    }
-
-    .footer-column h3::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 40px;
-      height: 2px;
-      background: #facc15;
-    }
-
-    .footer-column p {
-      line-height: 1.6;
-      font-size: 15px;
-      opacity: 0.8;
-    }
-
-    .footer-column ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-column ul li {
-      margin-bottom: 15px;
-    }
-
-    .footer-column ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      opacity: 0.8;
-      transition: 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-column ul li a:hover {
-      opacity: 1;
-      color: #facc15;
-      padding-left: 5px;
-    }
-
-    .footer-socials {
-      display: flex;
-      gap: 15px;
-      margin-top: 25px;
-    }
-
-    .footer-socials a {
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      color: white;
-      text-decoration: none;
-      transition: 0.3s;
-      font-size: 20px;
-    }
-
-    .footer-socials a:hover {
-      background: #facc15;
-      color: #0e2f69;
-      transform: translateY(-5px);
-    }
-
-    .footer-bottom {
-      padding-top: 30px;
-      text-align: center;
-      font-size: 14px;
-      opacity: 0.6;
-    }
-
-    .footer-bottom p {
-      margin: 0;
-    }
-
-    @media (max-width: 768px) {
-      footer {
-        padding: 60px 5% 30px;
-      }
-
-      .footer-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .footer-column h3::after {
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .footer-column ul li a {
-        justify-content: center;
-      }
-
-      .footer-socials {
-        justify-content: center;
-      }
-    }
+    .card-top { padding:24px 22px 18px; }
+    .card-badges { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+    .badge { font-size:11px; font-weight:700; padding:4px 10px; border-radius:50px; }
+    .badge-blue { background:#eff6ff; color:#0e2f69; }
+    .badge-yellow { background:#fefce8; color:#ca8a04; }
+    .badge-green { background:#f0fdf4; color:#16a34a; }
+    .badge-red { background:#fef2f2; color:#dc2626; }
+    .card-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:14px; }
+    .card-top h3 { font-size:18px; font-weight:700; color:#0e2f69; margin-bottom:6px; }
+    .card-top p { font-size:13px; color:#666; line-height:1.6; }
+    .card-meta { display:flex; gap:16px; margin-top:14px; flex-wrap:wrap; }
+    .meta-item { display:flex; align-items:center; gap:5px; font-size:12px; color:#888; }
+    .meta-item i { font-size:14px; color:#0e2f69; }
+    .card-divider { height:1px; background:#f0f0f0; margin:0 22px; }
+    .card-bottom { padding:16px 22px 22px; display:flex; align-items:center; justify-content:space-between; }
+    .card-price { display:flex; align-items:baseline; flex-wrap:wrap; }
+    .card-price .price-now { font-size:22px; font-weight:800; color:#0e2f69; }
+    .card-price .price-old { font-size:13px; color:#aaa; text-decoration:line-through; margin-left:6px; }
+    .card-price .discount { font-size:11px; font-weight:700; color:#16a34a; background:#f0fdf4; padding:2px 8px; border-radius:50px; margin-left:6px; }
+    .enroll-btn { background:#0e2f69; color:white; text-decoration:none; padding:10px 20px; border-radius:50px; font-weight:700; font-size:14px; transition:.3s; white-space:nowrap; }
+    .enroll-btn:hover { background:#facc15; color:#0e2f69; }
+    .no-results { text-align:center; padding:60px 20px; color:#888; display:none; }
+    .no-results i { font-size:48px; margin-bottom:16px; display:block; color:#ddd; }
 
     /* WHY US */
-    .why-us {
-      padding: 70px 8%;
-      text-align: center;
-      background: #f9fafc;
-    }
-
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .why-card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    }
+    .why-section { padding:80px 6%; background:white; }
+    .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; margin-top:36px; }
+    .why-card { background:#f8faff; border-radius:18px; padding:28px 22px; text-align:center; transition:.3s; border:1.5px solid transparent; }
+    .why-card:hover { border-color:#0e2f69; transform:translateY(-4px); box-shadow:0 10px 28px rgba(14,47,105,0.1); }
+    .why-card i { font-size:36px; color:#0e2f69; margin-bottom:14px; display:block; }
+    .why-card h4 { font-size:16px; font-weight:700; color:#0e2f69; margin-bottom:8px; }
+    .why-card p { font-size:14px; color:#666; line-height:1.6; }
 
     /* EDUCATORS */
-    .educators {
-      padding: 70px 8%;
-      text-align: center;
-    }
+    .educators-section { padding:80px 6%; background:#f4f6fb; }
+    .educators-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:24px; margin-top:36px; }
+    .edu-card { background:white; border-radius:20px; padding:28px 20px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.07); transition:.3s; }
+    .edu-card:hover { transform:translateY(-6px); box-shadow:0 14px 36px rgba(14,47,105,0.12); }
+    .edu-avatar { width:80px; height:80px; border-radius:50%; margin:0 auto 16px; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:800; color:white; }
+    .edu-card h4 { font-size:16px; font-weight:700; color:#0e2f69; margin-bottom:4px; }
+    .edu-card .subject { font-size:13px; color:#888; margin-bottom:10px; }
+    .edu-card .exp { display:inline-flex; align-items:center; gap:5px; background:#eff6ff; color:#0e2f69; font-size:12px; font-weight:600; padding:4px 12px; border-radius:50px; }
 
-    .edu-grid {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
+    /* FAQ */
+    .faq-section { padding:80px 6%; background:white; }
+    .faq-list { max-width:800px; margin:36px auto 0; display:flex; flex-direction:column; gap:12px; }
+    .faq-item { border:1.5px solid #e5e7eb; border-radius:14px; overflow:hidden; }
+    .faq-q { padding:18px 22px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:600; color:#0e2f69; font-size:15px; transition:.2s; }
+    .faq-q:hover { background:#f8faff; }
+    .faq-q i { font-size:20px; transition:.3s; flex-shrink:0; }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height .4s ease, padding .3s; font-size:14px; color:#555; line-height:1.7; padding:0 22px; }
+    .faq-item.open .faq-a { max-height:200px; padding:0 22px 18px; }
+    .faq-item.open .faq-q i { transform:rotate(45deg); }
 
-    .edu-card {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      width: 200px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
+    /* CTA */
+    .cta-section { padding:80px 6%; background:linear-gradient(135deg,#facc15,#f59e0b); text-align:center; }
+    .cta-section h2 { font-size:clamp(24px,3.5vw,40px); font-weight:800; color:#0e2f69; margin-bottom:12px; }
+    .cta-section p { color:#0e2f69; opacity:.8; font-size:16px; margin-bottom:30px; }
+    .cta-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .cta-btn { background:#0e2f69; color:white; text-decoration:none; padding:13px 30px; border-radius:50px; font-weight:700; font-size:15px; transition:.3s; display:inline-flex; align-items:center; gap:8px; }
+    .cta-btn:hover { background:#1746a2; transform:translateY(-2px); }
+    .cta-btn-w { background:white; color:#0e2f69; text-decoration:none; padding:13px 30px; border-radius:50px; font-weight:700; font-size:15px; transition:.3s; display:inline-flex; align-items:center; gap:8px; }
+    .cta-btn-w:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
 
-    .edu-card img {
-      width: 80px;
-    }
-
-    /* TESTIMONIALS */
-    .testimonials {
-      padding: 70px 8%;
-      background: #f4f6fb;
-      text-align: center;
-    }
-
-    .testimonial-card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      margin: 20px auto;
-      max-width: 600px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    /* APP SECTION */
-    .app-section {
-      padding: 70px 8%;
-      background: linear-gradient(135deg, #0e2f69, #1746a2);
-      color: white;
-      text-align: center;
-    }
+    /* FOOTER */
+    footer { background:#0e2f69; color:white; padding:70px 6% 36px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.1); }
+    @media(max-width:900px){ .footer-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:560px){ .footer-grid { grid-template-columns:1fr; text-align:center; } }
+    .footer-brand p { font-size:14px; opacity:.7; line-height:1.7; max-width:280px; margin-top:14px; }
+    .footer-socials { display:flex; gap:12px; margin-top:20px; }
+    @media(max-width:560px){ .footer-socials { justify-content:center; } }
+    .footer-socials a { width:38px; height:38px; background:rgba(255,255,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; text-decoration:none; font-size:18px; transition:.3s; }
+    .footer-socials a:hover { background:#facc15; color:#0e2f69; transform:translateY(-4px); }
+    .footer-col h4 { font-size:16px; font-weight:700; color:#facc15; margin-bottom:18px; padding-bottom:10px; position:relative; }
+    .footer-col h4::after { content:''; position:absolute; bottom:0; left:0; width:32px; height:2px; background:#facc15; }
+    @media(max-width:560px){ .footer-col h4::after { left:50%; transform:translateX(-50%); } }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:12px; }
+    .footer-col ul li a { color:rgba(255,255,255,0.75); text-decoration:none; font-size:14px; display:inline-flex; align-items:center; gap:8px; transition:.3s; }
+    .footer-col ul li a:hover { color:#facc15; padding-left:4px; }
+    .footer-bottom { padding-top:28px; text-align:center; font-size:13px; opacity:.55; }
   </style>
 </head>
-
 <body>
 
+  <!-- HEADER -->
   <header id="main-header">
-    <a href="index.html" class="logo">
-      <i class="ri-graduation-cap-fill"></i>
-      <span>e-Gurukul</span>
-    </a>
-
-    <div class="menu-toggle" id="mobile-menu">
-      <i class="ri-menu-3-line"></i>
-    </div>
-
+    <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+    <div class="menu-toggle" id="mobile-menu"><i class="ri-menu-3-line"></i></div>
     <nav id="nav-menu">
-      <a href="index.html">Home</a>
-      <a href="courses.html">Explore Courses</a>
-      <a href="my-batches.html" id="myBatchesNavLink" style="display: none;">My Batches</a>
-      <a href="study-material.html">Study Material</a>
-      <a href="login.html" class="nav-btn" id="loginBtn">Get Started</a>
+      <a href="index.html"><i class="ri-home-4-line"></i> Home</a>
+      <a href="courses.html"><i class="ri-book-open-line"></i> Courses</a>
+      <a href="my-batches.html" id="myBatchesNavLink" style="display:none;"><i class="ri-stack-line"></i> My Batches</a>
+      <a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a>
+      <a href="login.html" class="nav-btn" id="loginBtn"><i class="ri-user-line"></i> Get Started</a>
     </nav>
   </header>
 
-  <section class="banner">
-    <h1>Explore Our Premium Courses</h1>
-    <p>Choose your goal and start learning today 🚀</p>
-  </section>
-
-  <section class="why-us">
-    <h2>Why Choose e-Gurukul?</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <h3>🎥 Live & Recorded Classes</h3>
-        <p>Learn anytime with unlimited access to video lectures.</p>
-      </div>
-
-      <div class="why-card">
-        <h3>📝 Free Notes & PDFs</h3>
-        <p>Download structured notes prepared by expert faculty.</p>
-      </div>
-
-      <div class="why-card">
-        <h3>📊 Weekly Test Series</h3>
-        <p>Improve performance with real exam-level mock tests.</p>
-      </div>
-
-      <div class="why-card">
-        <h3>💰 Affordable Fees</h3>
-        <p>High quality education at student-friendly pricing.</p>
+  <!-- PAGE BANNER -->
+  <section class="page-banner">
+    <div class="banner-inner">
+      <div class="banner-tag"><i class="ri-book-open-line"></i> Explore Courses</div>
+      <h1>Find the <span>Perfect Course</span><br>for Your Goal</h1>
+      <p>JEE • NEET • CUET • Boards • SSC — structured programs designed by India's top educators to help you crack your dream exam.</p>
+      <div class="banner-stats">
+        <div class="bstat"><h3>50K+</h3><p>Students Enrolled</p></div>
+        <div class="bstat"><h3>200+</h3><p>Expert Courses</p></div>
+        <div class="bstat"><h3>95%</h3><p>Success Rate</p></div>
+        <div class="bstat"><h3>1000+</h3><p>Live Classes</p></div>
       </div>
     </div>
   </section>
 
-  <section class="educators">
-    <h2>Meet Our Top Educators</h2>
-    <div class="edu-grid">
-      <div class="edu-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
-        <h3>Physics Expert</h3>
-        <p>10+ Years Experience</p>
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <div class="search-box">
+        <i class="ri-search-line"></i>
+        <input type="text" id="searchInput" placeholder="Search courses..." />
       </div>
-
-      <div class="edu-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png">
-        <h3>Chemistry Mentor</h3>
-        <p>8+ Years Experience</p>
-      </div>
-
-      <div class="edu-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
-        <h3>Maths Specialist</h3>
-        <p>12+ Years Experience</p>
+      <div class="filter-tabs">
+        <button class="ftab active" data-filter="all"><i class="ri-apps-line"></i> All</button>
+        <button class="ftab" data-filter="engineering"><i class="ri-flask-line"></i> Engineering</button>
+        <button class="ftab" data-filter="medical"><i class="ri-heart-pulse-line"></i> Medical</button>
+        <button class="ftab" data-filter="university"><i class="ri-graduation-cap-line"></i> University</button>
+        <button class="ftab" data-filter="govt"><i class="ri-government-line"></i> Govt Jobs</button>
       </div>
     </div>
+  </div>
+
+  <!-- EXAM CATEGORY TABS -->
+  <section class="exam-tabs-section">
+    <div class="section-label"><i class="ri-compass-3-line"></i> Explore by Exam</div>
+    <h2 class="section-heading">Choose Your Exam Category</h2>
+    <p class="section-sub">Select an exam to see all available batches and courses</p>
+    <div class="exam-tabs">
+      <div class="etab active" data-exam="all">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="All">
+        <div class="etab-info"><h4>All Courses</h4><span>200+ courses</span></div>
+      </div>
+      <div class="etab" data-exam="jee">
+        <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" alt="JEE">
+        <div class="etab-info"><h4>IIT-JEE</h4><span>Class 11, 12 & Dropper</span></div>
+      </div>
+      <div class="etab" data-exam="neet">
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="NEET">
+        <div class="etab-info"><h4>NEET UG</h4><span>Class 11, 12 & Dropper</span></div>
+      </div>
+      <div class="etab" data-exam="cuet">
+        <img src="https://cdn-icons-png.flaticon.com/512/3281/3281289.png" alt="CUET">
+        <div class="etab-info"><h4>CUET</h4><span>Class 12 Pass</span></div>
+      </div>
+      <div class="etab" data-exam="ssc">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="SSC">
+        <div class="etab-info"><h4>SSC & Banking</h4><span>Govt Job Prep</span></div>
+      </div>
+      <div class="etab" data-exam="board">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Board">
+        <div class="etab-info"><h4>Board Exams</h4><span>Class 10 & 12</span></div>
+      </div>
+    </div>
   </section>
 
-  <section class="testimonials">
-    <h2>What Our Students Say</h2>
+  <!-- COURSES GRID -->
+  <section class="courses-section">
+    <div class="course-grid" id="courseGrid">
 
-    <div class="testimonial-card">
-      <p>"e-Gurukul helped me crack JEE with structured preparation!"</p>
-      <h4>- AIR 542 Student ⭐⭐⭐⭐⭐</h4>
-    </div>
-
-    <div class="testimonial-card">
-      <p>"Best platform for NEET preparation. Affordable & high quality."</p>
-      <h4>- NEET Qualified Student ⭐⭐⭐⭐⭐</h4>
-    </div>
-  </section>
-
-  <section class="app-section">
-    <div>
-      <h2>Download Our Mobile App</h2>
-      <p>Learn anytime, anywhere with our smart learning app.</p>
-      <a href="#" class="btn">Download Now</a>
-    </div>
-  </section>
-
-
-  <section class="course-container">
-
-    <div class="course-card">
-      <h3>JEE (Class 11 + 12)</h3>
-      <p>Complete PCM preparation with live & recorded classes.</p>
-      <div class="price">₹1500</div>
-      <a href="enroll-jee.html" class="btn">Enroll Now</a>
-    </div>
-
-    <div class="course-card">
-      <h3>NEET Preparation</h3>
-      <p>Full PCB syllabus with test series & notes.</p>
-      <div class="price">₹1500</div>
-      <a href="enroll-neet.html" class="btn">Enroll Now</a>
-    </div>
-
-    <div class="course-card">
-      <h3>CUET Crash Course</h3>
-      <p>Fast-track preparation for CUET entrance exam.</p>
-      <div class="price">₹999</div>
-      <a href="enroll-cuet.html" class="btn">Enroll Now</a>
-    </div>
-
-    <div class="course-card">
-      <h3>SSC & Banking</h3>
-      <p>Quant, Reasoning & English complete coverage.</p>
-      <div class="price">₹799</div>
-      <a href="enroll-ssc.html" class="btn">Enroll Now</a>
-    </div>
-
-  </section>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-column">
-        <a href="index.html" class="logo" style="margin-bottom: 20px; display: inline-flex;">
-          <i class="ri-graduation-cap-fill"></i>
-          <span>e-Gurukul</span>
-        </a>
-        <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream
-          entrance exams with ease.</p>
-        <div class="footer-socials">
-          <a href="#"><i class="ri-facebook-fill"></i></a>
-          <a href="#"><i class="ri-twitter-x-fill"></i></a>
-          <a href="#"><i class="ri-instagram-line"></i></a>
-          <a href="#"><i class="ri-youtube-fill"></i></a>
+      <!-- JEE Class 11 -->
+      <div class="course-card" data-category="engineering" data-exam="jee" data-name="jee class 11 physics chemistry maths">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-yellow">Bestseller</span><span class="badge badge-blue">JEE</span></div>
+          <div class="card-icon" style="background:#eff6ff;"><i class="ri-flask-line" style="color:#0e2f69;"></i></div>
+          <h3>JEE Main + Advanced (Class 11)</h3>
+          <p>Complete PCM preparation with live classes, DPPs, mock tests & personal mentorship for Class 11 students.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-file-list-3-line"></i> DPPs Included</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 1 Year</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹1,500</span>
+            <span class="price-old">₹4,999</span>
+            <span class="discount">70% OFF</span>
+          </div>
+          <a href="enroll-jee.html" class="enroll-btn">Enroll Now</a>
         </div>
       </div>
 
-      <div class="footer-column">
-        <h3>Quick Links</h3>
+      <!-- JEE Class 12 -->
+      <div class="course-card" data-category="engineering" data-exam="jee" data-name="jee class 12 physics chemistry maths dropper">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-red">Popular</span><span class="badge badge-blue">JEE</span></div>
+          <div class="card-icon" style="background:#eff6ff;"><i class="ri-atom-line" style="color:#0e2f69;"></i></div>
+          <h3>JEE Main + Advanced (Class 12)</h3>
+          <p>Intensive PCM course for Class 12 students with full syllabus coverage, revision sessions & test series.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-test-tube-line"></i> Mock Tests</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 1 Year</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹1,500</span>
+            <span class="price-old">₹4,999</span>
+            <span class="discount">70% OFF</span>
+          </div>
+          <a href="enroll-jee.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+      <!-- JEE Dropper -->
+      <div class="course-card" data-category="engineering" data-exam="jee" data-name="jee dropper repeater crash course">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-green">Dropper</span><span class="badge badge-blue">JEE</span></div>
+          <div class="card-icon" style="background:#eff6ff;"><i class="ri-rocket-line" style="color:#0e2f69;"></i></div>
+          <h3>JEE Dropper Batch 2026</h3>
+          <p>Specially designed for repeaters — complete revision, advanced problem solving & full mock test series.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-bar-chart-line"></i> Analytics</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 10 Months</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹1,800</span>
+            <span class="price-old">₹5,999</span>
+            <span class="discount">70% OFF</span>
+          </div>
+          <a href="enroll-jee.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+      <!-- NEET Class 11 -->
+      <div class="course-card" data-category="medical" data-exam="neet" data-name="neet class 11 biology physics chemistry">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-yellow">Bestseller</span><span class="badge badge-red">NEET</span></div>
+          <div class="card-icon" style="background:#fef2f2;"><i class="ri-heart-pulse-line" style="color:#dc2626;"></i></div>
+          <h3>NEET UG (Class 11)</h3>
+          <p>Full PCB syllabus with NCERT-focused sessions, biology deep dives, and weekly test series.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-file-list-3-line"></i> DPPs Included</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 1 Year</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹1,500</span>
+            <span class="price-old">₹4,999</span>
+            <span class="discount">70% OFF</span>
+          </div>
+          <a href="enroll-neet.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+      <!-- NEET Class 12 -->
+      <div class="course-card" data-category="medical" data-exam="neet" data-name="neet class 12 biology physics chemistry">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-red">Popular</span><span class="badge badge-red">NEET</span></div>
+          <div class="card-icon" style="background:#fef2f2;"><i class="ri-microscope-line" style="color:#dc2626;"></i></div>
+          <h3>NEET UG (Class 12)</h3>
+          <p>Comprehensive Class 12 NEET preparation with full syllabus, revision modules & previous year papers.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-test-tube-line"></i> Mock Tests</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 1 Year</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹1,500</span>
+            <span class="price-old">₹4,999</span>
+            <span class="discount">70% OFF</span>
+          </div>
+          <a href="enroll-neet.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+      <!-- NEET Dropper -->
+      <div class="course-card" data-category="medical" data-exam="neet" data-name="neet dropper repeater crash course">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-green">Dropper</span><span class="badge badge-red">NEET</span></div>
+          <div class="card-icon" style="background:#fef2f2;"><i class="ri-stethoscope-line" style="color:#dc2626;"></i></div>
+          <h3>NEET Dropper Batch 2026</h3>
+          <p>Targeted dropper program with complete revision, NCERT mastery, and 50+ full mock tests.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-bar-chart-line"></i> Analytics</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 10 Months</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹1,800</span>
+            <span class="price-old">₹5,999</span>
+            <span class="discount">70% OFF</span>
+          </div>
+          <a href="enroll-neet.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+      <!-- CUET -->
+      <div class="course-card" data-category="university" data-exam="cuet" data-name="cuet university entrance crash course">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-green">New Batch</span><span class="badge badge-green">CUET</span></div>
+          <div class="card-icon" style="background:#f0fdf4;"><i class="ri-graduation-cap-line" style="color:#16a34a;"></i></div>
+          <h3>CUET 2026 Crash Course</h3>
+          <p>Fast-track CUET preparation covering all domains — General Test, Language & Domain subjects.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-file-list-3-line"></i> Practice Sets</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 4 Months</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹999</span>
+            <span class="price-old">₹2,999</span>
+            <span class="discount">67% OFF</span>
+          </div>
+          <a href="enroll-cuet.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+      <!-- SSC -->
+      <div class="course-card" data-category="govt" data-exam="ssc" data-name="ssc cgl chsl banking government job">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-yellow">Govt Jobs</span><span class="badge badge-yellow">SSC</span></div>
+          <div class="card-icon" style="background:#fefce8;"><i class="ri-government-line" style="color:#ca8a04;"></i></div>
+          <h3>SSC CGL / CHSL 2026</h3>
+          <p>Complete SSC preparation — Quant, Reasoning, English & GK with previous year papers & mock tests.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-live-line"></i> Live Classes</span>
+            <span class="meta-item"><i class="ri-test-tube-line"></i> Mock Tests</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 6 Months</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹999</span>
+            <span class="price-old">₹2,499</span>
+            <span class="discount">60% OFF</span>
+          </div>
+          <a href="enroll-ssc.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+      <!-- Board Class 10 -->
+      <div class="course-card" data-category="board" data-exam="board" data-name="board class 10 cbse science maths">
+        <div class="card-top">
+          <div class="card-badges"><span class="badge badge-blue">Class 10</span><span class="badge badge-blue">Board</span></div>
+          <div class="card-icon" style="background:#eff6ff;"><i class="ri-book-3-line" style="color:#0e2f69;"></i></div>
+          <h3>Class 10 Board Preparation</h3>
+          <p>Complete CBSE Class 10 preparation — Science, Maths, Social Science & English with sample papers.</p>
+          <div class="card-meta">
+            <span class="meta-item"><i class="ri-video-line"></i> Recorded</span>
+            <span class="meta-item"><i class="ri-file-list-3-line"></i> Notes</span>
+            <span class="meta-item"><i class="ri-time-line"></i> 8 Months</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="price-now">₹799</span>
+            <span class="price-old">₹1,999</span>
+            <span class="discount">60% OFF</span>
+          </div>
+          <a href="courses.html" class="enroll-btn">Enroll Now</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="no-results" id="noResults">
+      <i class="ri-search-line"></i>
+      <p>No courses found. Try a different search or filter.</p>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-section">
+    <div class="section-label"><i class="ri-star-line"></i> Why e-Gurukul</div>
+    <h2 class="section-heading">Everything You Need to Succeed</h2>
+    <p class="section-sub">A complete learning ecosystem built for competitive exam aspirants</p>
+    <div class="why-grid">
+      <div class="why-card"><i class="ri-live-line"></i><h4>Live & Recorded Classes</h4><p>Learn anytime with unlimited access to live sessions and recorded video lectures.</p></div>
+      <div class="why-card"><i class="ri-file-list-3-line"></i><h4>Free Notes & DPPs</h4><p>Download structured notes and daily practice problems prepared by expert faculty.</p></div>
+      <div class="why-card"><i class="ri-test-tube-line"></i><h4>Weekly Test Series</h4><p>Improve performance with real exam-level mock tests and detailed analysis.</p></div>
+      <div class="why-card"><i class="ri-wallet-3-line"></i><h4>Affordable Fees</h4><p>High quality education at student-friendly pricing with EMI options available.</p></div>
+      <div class="why-card"><i class="ri-robot-line"></i><h4>AI Guru Support</h4><p>Get instant answers to your doubts with our AI-powered study assistant 24/7.</p></div>
+      <div class="why-card"><i class="ri-bar-chart-grouped-line"></i><h4>Performance Analytics</h4><p>Detailed insights into your strengths and areas that need improvement.</p></div>
+    </div>
+  </section>
+
+  <!-- EDUCATORS -->
+  <section class="educators-section">
+    <div class="section-label"><i class="ri-user-star-line"></i> Our Faculty</div>
+    <h2 class="section-heading">Meet Our Top Educators</h2>
+    <p class="section-sub">Learn from India's most experienced and result-oriented teachers</p>
+    <div class="educators-grid">
+      <div class="edu-card">
+        <div class="edu-avatar" style="background:linear-gradient(135deg,#0e2f69,#1746a2);">P</div>
+        <h4>Physics Expert</h4>
+        <div class="subject">Physics — JEE & NEET</div>
+        <div class="exp"><i class="ri-award-line"></i> 10+ Years</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-avatar" style="background:linear-gradient(135deg,#dc2626,#ef4444);">C</div>
+        <h4>Chemistry Mentor</h4>
+        <div class="subject">Chemistry — JEE & NEET</div>
+        <div class="exp"><i class="ri-award-line"></i> 8+ Years</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-avatar" style="background:linear-gradient(135deg,#16a34a,#22c55e);">M</div>
+        <h4>Maths Specialist</h4>
+        <div class="subject">Mathematics — JEE</div>
+        <div class="exp"><i class="ri-award-line"></i> 12+ Years</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-avatar" style="background:linear-gradient(135deg,#ca8a04,#facc15);">B</div>
+        <h4>Biology Expert</h4>
+        <div class="subject">Biology — NEET</div>
+        <div class="exp"><i class="ri-award-line"></i> 9+ Years</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-label"><i class="ri-question-line"></i> FAQ</div>
+    <h2 class="section-heading">Frequently Asked Questions</h2>
+    <p class="section-sub">Everything you need to know before enrolling</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">What documents are required for enrollment? <i class="ri-add-line"></i></div>
+        <div class="faq-a">No documents are required for a regular enrollment. You just need to register on the platform and complete the payment. For scholarship eligibility, an Aadhaar card and 10th mark sheet may be needed.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When will I get access to the batch after enrollment? <i class="ri-add-line"></i></div>
+        <div class="faq-a">Access to your batch will be provided within 24 hours of successful payment. You'll receive a confirmation email with login details.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are the classes live or recorded? <i class="ri-add-line"></i></div>
+        <div class="faq-a">We offer both live and recorded classes. Live sessions are interactive with real-time doubt solving. All live lectures are recorded and available on the platform within 4 hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the refund policy? <i class="ri-add-line"></i></div>
+        <div class="faq-a">Refund requests must be raised within 7 days of enrollment. Registration fees and study material costs are non-refundable. Please contact our support center for detailed refund procedures.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I access courses on mobile? <i class="ri-add-line"></i></div>
+        <div class="faq-a">Yes, all courses are fully accessible on mobile, tablet, and desktop. You can learn anytime, anywhere with our responsive platform.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to Start Your Journey?</h2>
+    <p>Join 50,000+ students already learning on e-Gurukul. Your dream exam is one step away.</p>
+    <div class="cta-actions">
+      <a href="register.html" class="cta-btn"><i class="ri-user-add-line"></i> Register Free</a>
+      <a href="support.html" class="cta-btn-w"><i class="ri-customer-service-2-line"></i> Talk to Counsellor</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+        <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream entrance exams with ease.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+          <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
         <ul>
           <li><a href="index.html"><i class="ri-home-line"></i> Home</a></li>
           <li><a href="courses.html"><i class="ri-book-open-line"></i> Courses</a></li>
-          <li><a href="#"><i class="ri-notification-badge-line"></i> Updates</a></li>
+          <li><a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a></li>
           <li><a href="login.html"><i class="ri-user-heart-line"></i> Student Portal</a></li>
-          <li><a href="admin-login.html" style="opacity: 0.5;"><i class="ri-admin-line"></i> Admin Login</a></li>
         </ul>
       </div>
-
-      <div class="footer-column">
-        <h3>Syllabus</h3>
+      <div class="footer-col">
+        <h4>Syllabus</h4>
         <ul>
           <li><a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a></li>
           <li><a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a></li>
@@ -579,9 +581,8 @@
           <li><a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a></li>
         </ul>
       </div>
-
-      <div class="footer-column">
-        <h3>Contact Info</h3>
+      <div class="footer-col">
+        <h4>Contact</h4>
         <ul>
           <li><a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a></li>
           <li><a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a></li>
@@ -590,52 +591,95 @@
         </ul>
       </div>
     </div>
-
-    <div class="footer-bottom">
-      <p>&copy; 2026 e-Gurukul Learning Platform. All Rights Reserved. Designed for Excellence.</p>
-    </div>
+    <div class="footer-bottom"><p>&copy; 2026 e-Gurukul. All Rights Reserved.</p></div>
   </footer>
 
   <script>
+    // Mobile menu
     const mobileMenu = document.getElementById('mobile-menu');
     const navMenu = document.getElementById('nav-menu');
-
     mobileMenu.addEventListener('click', () => {
       navMenu.classList.toggle('active');
-      const icon = mobileMenu.querySelector('i');
-      if (navMenu.classList.contains('active')) {
-        icon.classList.remove('ri-menu-3-line');
-        icon.classList.add('ri-close-line');
-      } else {
-        icon.classList.remove('ri-close-line');
-        icon.classList.add('ri-menu-3-line');
-      }
+      mobileMenu.querySelector('i').className = navMenu.classList.contains('active') ? 'ri-close-line' : 'ri-menu-3-line';
     });
 
-    // Login Check
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('main-header');
-      if (window.scrollY > 50) header.style.padding = '10px 8%';
-      else header.style.padding = '15px 8%';
-    });
-
+    // Auth state
     window.onload = () => {
-      const user = localStorage.getItem('currentUser');
-      const loginBtn = document.getElementById('loginBtn');
-      const myBatchesLink = document.getElementById('myBatchesNavLink');
+      const user = JSON.parse(localStorage.getItem('currentUser'));
       if (user) {
-        if (loginBtn) {
-          loginBtn.href = 'student-dashboard.html';
-          loginBtn.innerHTML = '<i class="ri-dashboard-line"></i> Dashboard';
-        }
-        if (myBatchesLink) {
-          myBatchesLink.style.display = 'inline-flex';
-        }
+        const btn = document.getElementById('loginBtn');
+        const link = document.getElementById('myBatchesNavLink');
+        if (btn) { btn.href = 'student-dashboard.html'; btn.innerHTML = '<i class="ri-dashboard-line"></i> Dashboard'; }
+        if (link) link.style.display = 'inline-flex';
       }
     };
+
+    // Filter tabs (category)
+    const ftabs = document.querySelectorAll('.ftab');
+    ftabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        ftabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        filterCourses();
+      });
+    });
+
+    // Exam tabs
+    const etabs = document.querySelectorAll('.etab');
+    etabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        etabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        filterCourses();
+      });
+    });
+
+    // Search
+    document.getElementById('searchInput').addEventListener('input', filterCourses);
+
+    function filterCourses() {
+      const activeFilter = document.querySelector('.ftab.active').dataset.filter;
+      const activeExam = document.querySelector('.etab.active').dataset.exam;
+      const searchVal = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.course-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const catMatch = activeFilter === 'all' || card.dataset.category === activeFilter;
+        const examMatch = activeExam === 'all' || card.dataset.exam === activeExam;
+        const nameMatch = !searchVal || card.dataset.name.includes(searchVal);
+        if (catMatch && examMatch && nameMatch) {
+          card.style.display = '';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(16px)';
+          setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; card.style.transition = 'opacity .3s, transform .3s'; }, 50);
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.course-card, .why-card, .edu-card').forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'opacity .5s, transform .5s';
+      observer.observe(el);
+    });
   </script>
-
 </body>
-
-
 </html>
