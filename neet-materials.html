@@ -1,644 +1,643 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Study Material - NEET UG 2026 | e-Gurukul</title>
-    <meta name="description"
-        content="Access premium NEET UG 2026 study materials, biology notes, medical entrance resources, and DPPs.">
+    <title>NEET Study Material | e-Gurukul</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #be123c;
-            /* Rose 700 */
-            --secondary: #e11d48;
-            /* Rose 600 */
+            --primary: #0e2f69;
+            --secondary: #1746a2;
             --accent: #facc15;
-            --success: #10b981;
-            --danger: #ef4444;
-            --bg: #fff1f2;
-            /* Rose 50 */
+            --bg: #f0f4fb;
             --white: #ffffff;
-            --gradient: linear-gradient(135deg, #be123c 0%, #fb7185 100%);
-            --card-shadow: 0 10px 30px rgba(190, 18, 60, 0.08);
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
+            --green: #059669;
+            --teal: #0891b2;
+            --orange: #d97706;
+            --red: #dc2626;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: #1e293b; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        /* ──── HEADER ──── */
+        /* HEADER */
         header {
-            background: var(--white);
-            padding: 0 8%;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .logo i {
-            color: var(--secondary);
-            font-size: 32px;
-            background: #fff1f2;
-            padding: 8px;
-            border-radius: 12px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
-
-        .portal-btn {
             background: var(--primary);
-            color: white !important;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 15px;
-            box-shadow: 0 10px 20px rgba(190, 18, 60, 0.2);
+            padding: 0 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            height: 66px;
         }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; color: white; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        nav { display: flex; align-items: center; gap: 4px; }
+        nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 7px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: 0.2s; }
+        nav a:hover { color: white; background: rgba(255,255,255,0.12); }
+        nav a.active { color: var(--accent); }
+        .nav-cta { background: var(--accent) !important; color: var(--primary) !important; font-weight: 700 !important; border-radius: 10px !important; }
+        .hamburger { display: none; background: none; border: none; color: white; font-size: 26px; cursor: pointer; }
+        .mobile-nav { display: none; position: fixed; top: 66px; left: 0; right: 0; background: var(--primary); padding: 16px 6%; z-index: 999; flex-direction: column; gap: 4px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { color: rgba(255,255,255,0.85); text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 15px; }
 
-        /* ──── HERO ──── */
-        .page-hero {
-            background: var(--gradient);
-            padding: 100px 8% 140px;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        /* BREADCRUMB */
+        .breadcrumb { background: white; border-bottom: 1px solid #e2e8f0; padding: 12px 6%; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+        .breadcrumb a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb i { font-size: 12px; color: #94a3b8; }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #071a3e 0%, #0e2f69 45%, #065f46 100%);
+            padding: 60px 6% 110px;
+            color: white; position: relative; overflow: hidden;
         }
+        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(5,150,105,0.15) 0%, transparent 60%); }
+        .hero::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 55px; background: var(--bg); clip-path: ellipse(55% 100% at 50% 100%); }
+        .hero-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .hero-left { max-width: 600px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(5,150,105,0.2); border: 1px solid rgba(5,150,105,0.4); color: #6ee7b7; padding: 6px 16px; border-radius: 30px; font-size: 13px; font-weight: 600; margin-bottom: 18px; }
+        .hero h1 { font-size: 44px; font-weight: 800; line-height: 1.12; margin-bottom: 14px; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 16px; opacity: 0.8; margin-bottom: 28px; line-height: 1.7; }
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-primary { padding: 12px 24px; background: var(--accent); color: var(--primary); border: none; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-primary:hover { background: #f59e0b; transform: translateY(-2px); }
+        .btn-outline-w { padding: 12px 24px; background: rgba(255,255,255,0.1); color: white; border: 2px solid rgba(255,255,255,0.25); border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-outline-w:hover { background: rgba(255,255,255,0.18); }
+        .hero-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+        .h-stat { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 14px 20px; text-align: center; }
+        .h-stat .num { font-size: 22px; font-weight: 800; color: var(--accent); }
+        .h-stat .lbl { font-size: 11px; opacity: 0.7; margin-top: 2px; }
 
-        .hero-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            background-image: radial-gradient(#fff 2px, transparent 2px);
-            background-size: 30px 30px;
+        /* SUBJECT TABS */
+        .subject-wrap { max-width: 1160px; margin: -30px auto 0; padding: 0 20px; position: relative; z-index: 10; }
+        .subject-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .subj-tab { background: white; border-radius: 18px; padding: 22px 20px; text-align: center; cursor: pointer; transition: 0.25s; border: 2px solid transparent; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .subj-tab:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .subj-tab.active { border-color: var(--accent); box-shadow: 0 8px 30px rgba(250,204,21,0.2); }
+        .subj-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 12px; }
+        .subj-tab h3 { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .subj-tab p { font-size: 12px; color: #64748b; }
+        .subj-count { display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+
+        /* MAIN */
+        .main-wrap { max-width: 1160px; margin: 36px auto 80px; padding: 0 20px; }
+        .mat-section { margin-bottom: 48px; }
+        .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+        .sec-head h2 { font-size: 20px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .sec-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .view-all { font-size: 13px; font-weight: 700; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+        .view-all:hover { text-decoration: underline; }
+
+        /* MATERIAL CARDS */
+        .mat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+        .mat-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border: 1.5px solid #f1f5f9; transition: 0.25s; display: flex; flex-direction: column; }
+        .mat-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(14,47,105,0.12); border-color: #bfdbfe; }
+        .mat-thumb { height: 110px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .mat-thumb i { font-size: 44px; color: white; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); position: relative; z-index: 1; }
+        .mat-ribbon { position: absolute; top: 12px; left: -28px; background: var(--accent); color: var(--primary); font-size: 10px; font-weight: 800; padding: 4px 32px; transform: rotate(-45deg); }
+        .mat-free-tag { position: absolute; top: 10px; right: 10px; background: rgba(22,163,74,0.9); color: white; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+        .mat-new-tag { position: absolute; bottom: 10px; right: 10px; background: var(--accent); color: var(--primary); font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 20px; }
+        .mat-solved-tag { position: absolute; top: 10px; right: 10px; background: rgba(8,145,178,0.9); color: white; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+        .mat-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+        .mat-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
+        .mat-title { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 8px; line-height: 1.35; flex: 1; }
+        .mat-meta { display: flex; gap: 12px; font-size: 12px; color: #94a3b8; margin-bottom: 14px; flex-wrap: wrap; }
+        .mat-meta span { display: flex; align-items: center; gap: 4px; }
+        .mat-actions { display: flex; gap: 8px; }
+        .btn-dl { flex: 1; padding: 9px; background: var(--primary); border: none; border-radius: 10px; font-family: inherit; font-size: 13px; font-weight: 700; color: white; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px; text-decoration: none; }
+        .btn-dl:hover { background: var(--secondary); }
+        .btn-dl.premium { background: linear-gradient(135deg, #d97706, #f59e0b); }
+        .btn-dl.premium:hover { background: linear-gradient(135deg, #b45309, #d97706); }
+        .btn-dl.live { background: linear-gradient(135deg, #dc2626, #ef4444); }
+        .btn-prev { padding: 9px 12px; border: 2px solid #e2e8f0; border-radius: 10px; background: none; font-family: inherit; font-size: 13px; color: #374151; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
+        .btn-prev:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* THUMB COLORS */
+        .t-biology { background: linear-gradient(135deg, #065f46, #059669); }
+        .t-physics { background: linear-gradient(135deg, #0e2f69, #1746a2); }
+        .t-chemistry { background: linear-gradient(135deg, #92400e, #d97706); }
+        .t-mock { background: linear-gradient(135deg, #991b1b, #dc2626); }
+        .t-pyq { background: linear-gradient(135deg, #5b21b6, #7c3aed); }
+        .t-formula { background: linear-gradient(135deg, #0e7490, #0891b2); }
+        .t-dpp { background: linear-gradient(135deg, #1e3a5f, #2563eb); }
+
+        /* TYPE COLORS */
+        .type-biology { color: #059669; }
+        .type-physics { color: #1746a2; }
+        .type-chemistry { color: #d97706; }
+        .type-mock { color: #dc2626; }
+        .type-pyq { color: #7c3aed; }
+        .type-formula { color: #0891b2; }
+        .type-dpp { color: #2563eb; }
+
+        /* FEATURED CARD */
+        .featured-card { background: linear-gradient(135deg, #065f46, #059669); border-radius: 20px; padding: 28px; color: white; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; box-shadow: 0 8px 30px rgba(5,150,105,0.3); }
+        .featured-card .fc-left h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+        .featured-card .fc-left p { font-size: 14px; opacity: 0.85; margin-bottom: 14px; }
+        .fc-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+        .fc-chip { background: rgba(255,255,255,0.15); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .btn-start { padding: 12px 24px; background: var(--accent); color: var(--primary); border: none; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: 0.2s; text-decoration: none; }
+        .btn-start:hover { background: #f59e0b; transform: scale(1.03); }
+
+        /* HELP BANNER */
+        .help-banner { background: white; border-radius: 20px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border: 1.5px solid #e2e8f0; margin-top: 20px; }
+        .help-banner h4 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .help-banner p { font-size: 14px; color: #64748b; }
+        .btn-help { padding: 11px 22px; background: var(--primary); color: white; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; transition: 0.2s; }
+        .btn-help:hover { background: var(--secondary); }
+
+        /* FOOTER */
+        footer { background: var(--primary); color: white; padding: 50px 6% 28px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+        .footer-brand p { font-size: 14px; opacity: 0.65; line-height: 1.7; margin-top: 12px; }
+        .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; margin-bottom: 9px; transition: 0.2s; }
+        .footer-col a:hover { color: white; padding-left: 4px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; opacity: 0.6; }
+        .socials { display: flex; gap: 12px; }
+        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; }
+        .socials a:hover { color: var(--accent); }
+
+        @media (max-width: 900px) {
+            nav { display: none; }
+            .hamburger { display: block; }
+            .hero h1 { font-size: 30px; }
+            .subject-tabs { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+            .hero-inner { flex-direction: column; }
         }
-
-        .page-hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .page-hero p {
-            font-size: 20px;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ──── SUBJECT SELECTOR ──── */
-        .subject-nav {
-            max-width: 1100px;
-            margin: -50px auto 60px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .subject-card {
-            background: white;
-            padding: 30px 20px;
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(190, 18, 60, 0.1);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
-        }
-
-        .subject-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(190, 18, 60, 0.15);
-        }
-
-        .subject-card.active {
-            border-color: var(--secondary);
-            background: #fff1f2;
-        }
-
-        .subject-card i {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        .icon-bio {
-            color: #10b981;
-        }
-
-        .icon-phy {
-            color: #3b82f6;
-        }
-
-        .icon-che {
-            color: #f59e0b;
-        }
-
-        .subject-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        /* ──── MAIN CONTAINER ──── */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-
-        .content-section {
-            margin-bottom: 70px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 35px;
-            border-bottom: 2px solid #fee2e2;
-            padding-bottom: 15px;
-        }
-
-        .section-header h2 {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .section-header h2 i {
-            background: var(--secondary);
-            color: white;
-            padding: 12px;
-            border-radius: 14px;
-            font-size: 24px;
-        }
-
-        /* ──── MATERIALS GRID ──── */
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .material-item {
-            background: white;
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(190, 18, 60, 0.05);
-        }
-
-        .material-item:hover {
-            box-shadow: 0 15px 40px rgba(190, 18, 60, 0.12);
-            transform: translateY(-5px);
-        }
-
-        .badge-premium {
-            position: absolute;
-            top: 15px;
-            right: -35px;
-            background: var(--accent);
-            color: var(--primary);
-            font-size: 11px;
-            font-weight: 800;
-            padding: 6px 40px;
-            transform: rotate(45deg);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .item-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .item-type {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: #fff1f2;
-            padding: 4px 10px;
-            border-radius: 6px;
-        }
-
-        .item-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-dark);
-            line-height: 1.4;
-        }
-
-        .item-details {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .btn-download {
-            background: #f8fafc;
-            color: var(--primary);
-            text-decoration: none;
-            padding: 14px;
-            border-radius: 14px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 15px;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .btn-download:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .btn-start-test {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-        }
-
-        /* ──── HELP BANNER ──── */
-        .cta-banner {
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 80px;
-            box-shadow: var(--card-shadow);
-            border: 2px dashed #fb7185;
-        }
-
-        .cta-content h3 {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .cta-content p {
-            color: var(--text-muted);
-        }
-
-        .cta-btn {
-            background: var(--primary);
-            color: white !important;
-            padding: 15px 30px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .cta-btn:hover {
-            transform: scale(1.05);
-            background: #9f1239;
-        }
-
-        /* ──── FOOTER ──── */
-        footer {
-            background: var(--white);
-            padding: 80px 8% 40px;
-            border-top: 1px solid #fee2e2;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-
-        .footer-brand p {
-            margin: 20px 0;
-            color: var(--text-muted);
-            max-width: 300px;
-        }
-
-        .footer-links h4 {
-            margin-bottom: 25px;
-            color: var(--text-dark);
-            font-size: 18px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links ul li a {
-            text-decoration: none;
-            color: var(--text-muted);
-            transition: 0.3s;
-        }
-
-        .footer-links ul li a:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-
-        .copyright {
-            padding-top: 30px;
-            border-top: 1px solid #fee2e2;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        @media (max-width: 992px) {
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .subject-nav {
-                grid-template-columns: 1fr;
-            }
-
-            .page-hero h1 {
-                font-size: 36px;
-            }
-
-            .cta-banner {
-                flex-direction: column;
-                text-align: center;
-                gap: 25px;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
+        @media (max-width: 600px) {
+            .mat-grid { grid-template-columns: 1fr; }
+            .hero { padding: 48px 6% 100px; }
         }
     </style>
 </head>
-
 <body>
 
+    <!-- HEADER -->
     <header>
-        <a href="index.html" class="logo">
-            <i class="ri-heart-pulse-fill"></i>
-            <span>e-Gurukul</span>
-        </a>
-        <div class="nav-links">
+        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+        <nav>
             <a href="index.html">Home</a>
             <a href="courses.html">Courses</a>
-            <a href="study-material.html" class="active">Study Material</a>
-            <a href="neet-syllabus.html">NEET Syllabus</a>
-            <a href="login.html" class="portal-btn">Student Portal</a>
-        </div>
+            <a href="study-material.html">Study Material</a>
+            <a href="rank-predictor.html">Rank Predictor</a>
+            <a href="login.html" class="nav-cta">Portal</a>
+        </nav>
+        <button class="hamburger" onclick="document.getElementById('mobileNav').classList.toggle('open')">
+            <i class="ri-menu-line"></i>
+        </button>
     </header>
-
-    <div class="page-hero">
-        <div class="hero-pattern"></div>
-        <h1>Premium Study Material - NEET UG 2026</h1>
-        <p>Your ultimate companion for cracking NEET with high-yield Biology diagrams, Physics concept maps, and
-            Chemistry mechanism guides.</p>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="study-material.html">Study Material</a>
+        <a href="rank-predictor.html">Rank Predictor</a>
+        <a href="login.html">Portal</a>
     </div>
 
-    <div class="subject-nav">
-        <div class="subject-card active" onclick="setActive(this)">
-            <i class="ri-microscope-line icon-bio"></i>
-            <h3>Biology</h3>
-        </div>
-        <div class="subject-card" onclick="setActive(this)">
-            <i class="ri-lightbulb-flash-line icon-phy"></i>
-            <h3>Physics</h3>
-        </div>
-        <div class="subject-card" onclick="setActive(this)">
-            <i class="ri-flask-line icon-che"></i>
-            <h3>Chemistry</h3>
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <a href="study-material.html">Study Material</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <span style="color:#0e2f69;font-weight:600;">NEET Material</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-badge"><i class="ri-microscope-line"></i> NEET UG 2026</div>
+                <h1>NEET <span>Study Material</span></h1>
+                <p>High-yield Biology diagrams, Physics concept maps, and Chemistry mechanism guides — curated by top medical educators for NEET UG 2026.</p>
+                <div class="hero-actions">
+                    <a href="enroll-neet.html" class="btn-primary"><i class="ri-rocket-line"></i> Enroll Now</a>
+                    <a href="neet-syllabus.html" class="btn-outline-w"><i class="ri-list-check"></i> View Syllabus</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="h-stat"><div class="num">400+</div><div class="lbl">Study Files</div></div>
+                <div class="h-stat"><div class="num">40+</div><div class="lbl">Mock Tests</div></div>
+                <div class="h-stat"><div class="num">10 Yrs</div><div class="lbl">PYQ Archive</div></div>
+                <div class="h-stat"><div class="num">Free</div><div class="lbl">Basic Access</div></div>
+            </div>
         </div>
     </div>
 
-    <main class="main-container">
-
-
-
-
-        <!-- ── DPP SECTION ── -->
-        <section class="content-section">
-            <div class="section-header">
-                <h2><i class="ri-todo-line"></i> Daily Practice Problems (DPP)</h2>
+    <!-- SUBJECT TABS -->
+    <div class="subject-wrap">
+        <div class="subject-tabs">
+            <div class="subj-tab active" onclick="setSubject('biology', this)">
+                <div class="subj-icon" style="background:#f0fdf4;color:#059669;"><i class="ri-leaf-line"></i></div>
+                <h3>Biology</h3>
+                <p>Botany, Zoology, Genetics & Ecology</p>
+                <span class="subj-count" style="background:#f0fdf4;color:#059669;">200+ Files</span>
             </div>
-            <div class="materials-grid">
-                <div class="material-item">
-                    <span class="item-type">PHYSICS</span>
-                    <h4 class="item-title">Optics: Ray & Wave MCQ Masterset</h4>
-                    <div class="item-details">
-                        <span><i class="ri-list-check"></i> 50 Questions</span>
-                        <span><i class="ri-award-line"></i> Advanced</span>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1A2hqVPUrkk6Oi_s5JufdT1UkKgWQ97Hc/view?usp=drivesdk"
-                        class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-                <div class="material-item">
-                    <span class="badge-premium">SOLVED</span>
-                    <span class="item-type">CHEMISTRY</span>
-                    <h4 class="item-title">Organic Chemistry: Aldehydes, Ketones and Carboxylic Acids DPP</h4>
-                    <div class="item-details">
-                        <span><i class="ri-file-pdf-line"></i> 2.5 MB</span>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1E9zmYmsBNLlB9mUSEp6XCc1smewa-O6O/view?usp=drivesdkhttps://drive.google.com/file/d/1E9zmYmsBNLlB9mUSEp6XCc1smewa-O6O/view?usp=drivesdk"
-                        class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-                <div class="material-item">
-                    <span class="item-type">NEET 2026 DPP </span>
-                    <h4 class="item-title">Ecology: 100 Previous Year MCQs</h4>
-                    <div class="item-details">
-                        <span><i class="ri-timer-line"></i> 60 Mins</span>
-                    </div>
-                    <a href="" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-                <div class="material-item">
-                    <span class="item-type">COMBO</span>
-                    <h4 class="item-title">Full PCB Revision Sheet - Week 04</h4>
-                    <div class="item-details">
-                        <span><i class="ri-file-zip-line"></i> 18 MB</span>
-                    </div>
-                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download ZIP</a>
-                </div>
+            <div class="subj-tab" onclick="setSubject('physics', this)">
+                <div class="subj-icon" style="background:#eff6ff;color:#1746a2;"><i class="ri-flashlight-line"></i></div>
+                <h3>Physics</h3>
+                <p>Optics, Mechanics, Modern Physics</p>
+                <span class="subj-count" style="background:#eff6ff;color:#1746a2;">100+ Files</span>
             </div>
-        </section>
+            <div class="subj-tab" onclick="setSubject('chemistry', this)">
+                <div class="subj-icon" style="background:#fffbeb;color:#d97706;"><i class="ri-flask-line"></i></div>
+                <h3>Chemistry</h3>
+                <p>Organic, Inorganic & Physical Chem</p>
+                <span class="subj-count" style="background:#fffbeb;color:#d97706;">100+ Files</span>
+            </div>
+        </div>
+    </div>
 
-        <!-- ── MOCK TEST SECTION ── -->
-        <section class="content-section">
-            <div class="section-header">
-                <h2><i class="ri-medal-line"></i> NEET UG Mock Test Series</h2>
-            </div>
-            <div class="materials-grid">
-                <div class="material-item" style="border: 2px solid var(--secondary);">
-                    <span class="badge-premium">LIVE</span>
-                    <span class="item-type">TEST #12</span>
-                    <h4 class="item-title">Full Syllabus Mock Test (All India Rank)</h4>
-                    <div class="item-details">
-                        <span><i class="ri-timer-line"></i> 3.5 Hours</span>
-                        <span><i class="ri-group-line"></i> 12k Active</span>
-                    </div>
-                    <a href="#" class="btn-download btn-start-test"><i class="ri-play-circle-line"></i> Start Online
-                        Test</a>
-                </div>
-                <div class="material-item">
-                    <span class="item-type">TEST #11</span>
-                    <h4 class="item-title">Class 11th Syllabus: Part Test 02</h4>
-                    <div class="item-details">
-                        <span><i class="ri-file-pdf-line"></i> 1.2 MB</span>
-                    </div>
-                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-                <div class="material-item">
-                    <span class="item-type">TEST #10</span>
-                    <h4 class="item-title">Class 12th Syllabus: Part Test 03</h4>
-                    <div class="item-details">
-                        <span><i class="ri-file-pdf-line"></i> 1.1 MB</span>
-                    </div>
-                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-            </div>
-        </section>
+    <!-- MAIN CONTENT -->
+    <div class="main-wrap">
 
-        <div class="cta-banner">
-            <div class="cta-content">
-                <h3>Need Specific Chapter Help?</h3>
+        <!-- CHAPTER NOTES -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#f0fdf4;color:#059669;"><i class="ri-file-text-line"></i></div>
+                    Chapter Notes
+                </h2>
+                <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
+            </div>
+            <div class="mat-grid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-biology">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-leaf-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-biology"><i class="ri-leaf-line"></i> Biology</div>
+                        <div class="mat-title">Human Physiology — Detailed Notes with Diagrams</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 72 pages</span>
+                            <span><i class="ri-download-line"></i> 3.4k</span>
+                            <span><i class="ri-hard-drive-line"></i> 7.2 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-biology">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-leaf-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-biology"><i class="ri-leaf-line"></i> Biology</div>
+                        <div class="mat-title">Genetics & Evolution — Complete Chapter Notes</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 60 pages</span>
+                            <span><i class="ri-download-line"></i> 2.9k</span>
+                            <span><i class="ri-hard-drive-line"></i> 5.8 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-physics">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-flashlight-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Optics: Ray & Wave — Concept Notes</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 44 pages</span>
+                            <span><i class="ri-download-line"></i> 2.1k</span>
+                            <span><i class="ri-hard-drive-line"></i> 3.9 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-chemistry">
+                        <div class="mat-new-tag">NEW</div>
+                        <i class="ri-flask-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Aldehydes, Ketones & Carboxylic Acids (Organic)</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 52 pages</span>
+                            <span><i class="ri-download-line"></i> 1.8k</span>
+                            <span><i class="ri-hard-drive-line"></i> 4.5 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DPPs -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#eff6ff;color:#2563eb;"><i class="ri-edit-box-line"></i></div>
+                    Daily Practice Problems (DPPs)
+                </h2>
+                <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
+            </div>
+            <div class="mat-grid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-physics">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-edit-box-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Optics: Ray & Wave MCQ Masterset</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-question-line"></i> 50 Qs</span>
+                            <span><i class="ri-download-line"></i> 2.2k</span>
+                            <span><i class="ri-hard-drive-line"></i> Advanced</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1A2hqVPUrkk6Oi_s5JufdT1UkKgWQ97Hc/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-chemistry">
+                        <div class="mat-solved-tag">SOLVED</div>
+                        <i class="ri-edit-box-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Organic Chemistry: Aldehydes & Ketones DPP</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-question-line"></i> 30 Qs</span>
+                            <span><i class="ri-download-line"></i> 1.7k</span>
+                            <span><i class="ri-hard-drive-line"></i> 2.5 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1E9zmYmsBNLlB9mUSEp6XCc1smewa-O6O/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-biology">
+                        <div class="mat-new-tag">NEW</div>
+                        <i class="ri-edit-box-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-biology"><i class="ri-leaf-line"></i> Biology</div>
+                        <div class="mat-title">Ecology: 100 Previous Year MCQs</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-question-line"></i> 100 Qs</span>
+                            <span><i class="ri-timer-line"></i> 60 min</span>
+                            <span><i class="ri-hard-drive-line"></i> NEET Level</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-dpp">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-edit-box-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-dpp"><i class="ri-edit-box-line"></i> Combo</div>
+                        <div class="mat-title">Full PCB Revision Sheet — Week 04</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-folder-zip-line"></i> 18 MB</span>
+                            <span><i class="ri-download-line"></i> 3.1k</span>
+                            <span><i class="ri-hard-drive-line"></i> ZIP</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOCK TESTS -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#fef2f2;color:#dc2626;"><i class="ri-file-list-3-line"></i></div>
+                    Mock Test Series
+                </h2>
+                <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
+            </div>
+
+            <!-- Featured Mock -->
+            <div class="featured-card">
+                <div class="fc-left">
+                    <h3><i class="ri-medal-fill" style="color:var(--accent);margin-right:8px;"></i>NEET UG 2026 — Full Syllabus Mock Test #12</h3>
+                    <p>All India Rank mock test based on latest NTA NEET pattern. PCB with detailed solutions.</p>
+                    <div class="fc-chips">
+                        <span class="fc-chip"><i class="ri-timer-line"></i> 3.5 Hours</span>
+                        <span class="fc-chip"><i class="ri-layout-grid-line"></i> 720 Marks</span>
+                        <span class="fc-chip"><i class="ri-question-line"></i> 180 Questions</span>
+                        <span class="fc-chip"><i class="ri-group-line"></i> 12k Active</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-start"><i class="ri-play-circle-fill"></i> Start Test</a>
+            </div>
+
+            <div class="mat-grid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-mock">
+                        <i class="ri-file-list-3-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-mock"><i class="ri-file-list-3-line"></i> Test #11</div>
+                        <div class="mat-title">Class 11th Syllabus: Part Test 02</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-timer-line"></i> 90 min</span>
+                            <span><i class="ri-download-line"></i> 2.8k</span>
+                            <span><i class="ri-hard-drive-line"></i> 1.2 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-mock">
+                        <i class="ri-file-list-3-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-mock"><i class="ri-file-list-3-line"></i> Test #10</div>
+                        <div class="mat-title">Class 12th Syllabus: Part Test 03</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-timer-line"></i> 90 min</span>
+                            <span><i class="ri-download-line"></i> 2.5k</span>
+                            <span><i class="ri-hard-drive-line"></i> 1.1 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULA SHEETS & PYQs -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#ecfeff;color:#0891b2;"><i class="ri-function-line"></i></div>
+                    Formula Sheets & PYQs
+                </h2>
+                <a href="pyq-archive.html" class="view-all">PYQ Archive <i class="ri-arrow-right-line"></i></a>
+            </div>
+            <div class="mat-grid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-formula">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-function-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-formula"><i class="ri-function-line"></i> Formula Sheet</div>
+                        <div class="mat-title">Botany Formula & Diagrams Sheet</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 10 pages</span>
+                            <span><i class="ri-download-line"></i> 4.2k</span>
+                            <span><i class="ri-hard-drive-line"></i> 1.4 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-formula">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-function-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-formula"><i class="ri-function-line"></i> Formula Sheet</div>
+                        <div class="mat-title">Chemistry Reaction Mechanisms — Quick Reference</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 14 pages</span>
+                            <span><i class="ri-download-line"></i> 3.6k</span>
+                            <span><i class="ri-hard-drive-line"></i> 2.0 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-pyq">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-history-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-pyq"><i class="ri-history-line"></i> PYQ</div>
+                        <div class="mat-title">NEET 2023 — Biology Section PYQ</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 22 pages</span>
+                            <span><i class="ri-download-line"></i> 6.8k</span>
+                            <span><i class="ri-hard-drive-line"></i> 2.1 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-pyq">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-history-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-pyq"><i class="ri-history-line"></i> PYQ Bundle</div>
+                        <div class="mat-title">NEET 10-Year PYQ Bundle — All Subjects</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-folder-zip-line"></i> 320 MB</span>
+                            <span><i class="ri-download-line"></i> 5.1k</span>
+                            <span><i class="ri-hard-drive-line"></i> ZIP</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HELP BANNER -->
+        <div class="help-banner">
+            <div>
+                <h4><i class="ri-question-answer-line" style="margin-right:8px;color:var(--secondary);"></i>Need specific chapter help?</h4>
                 <p>Request any chapter notes or doubt-solving sessions from our top medical educators.</p>
             </div>
-            <a href="support.html" class="cta-btn">Contact Support</a>
+            <a href="support.html" class="btn-help"><i class="ri-send-plane-line"></i> Contact Support</a>
         </div>
 
-    </main>
+    </div>
 
+    <!-- FOOTER -->
     <footer>
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="index.html" class="logo">
-                    <i class="ri-heart-pulse-fill"></i>
-                    <span>e-Gurukul</span>
-                </a>
-                <p>India's leading platform for medical and engineering entrance preparation. Focused on results, driven
-                    by excellence.</p>
+                <a href="index.html" class="logo" style="font-size:20px;margin-bottom:12px;display:inline-flex;"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+                <p>India's trusted online learning platform for JEE, NEET, CUET & SSC aspirants.</p>
             </div>
-            <div class="footer-links">
-                <h4>Exam Links</h4>
-                <ul>
-                    <li><a href="neet-syllabus.html">NEET UG Syllabus</a></li>
-                    <li><a href="jee-syllabus.html">JEE Main Syllabus</a></li>
-                    <li><a href="courses.html">All Courses</a></li>
-                    <li><a href="study-material.html">Study Material</a></li>
-                </ul>
+            <div class="footer-col">
+                <h4>Study Resources</h4>
+                <a href="study-material.html">Study Material</a>
+                <a href="neet-syllabus.html">NEET Syllabus</a>
+                <a href="jee-materials.html">JEE Material</a>
+                <a href="pyq-archive.html">PYQ Archive</a>
             </div>
-            <div class="footer-links">
-                <h4>Students</h4>
-                <ul>
-                    <li><a href="login.html">Student Portal</a></li>
-                    <li><a href="student-dashboard.html">Dashboard</a></li>
-                    <li><a href="performance.html">Performance</a></li>
-                    <li><a href="schedule.html">Class Schedule</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="support.html">Help Center</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="courses.html">All Courses</a>
+                <a href="rank-predictor.html">Rank Predictor</a>
+                <a href="enroll-neet.html">Enroll for NEET</a>
+                <a href="support.html">Support</a>
             </div>
         </div>
-        <div class="copyright">
-            &copy; 2026 e-Gurukul Education. All Rights Reserved.
+        <div class="footer-bottom">
+            <span>© 2026 e-Gurukul. All rights reserved.</span>
+            <div class="socials">
+                <a href="#"><i class="ri-youtube-line"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-telegram-line"></i></a>
+                <a href="#"><i class="ri-whatsapp-line"></i></a>
+            </div>
         </div>
     </footer>
 
     <script>
-        function setActive(card) {
-            document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
+        function setSubject(subj, el) {
+            document.querySelectorAll('.subj-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
         }
     </script>
 </body>
-
 </html>

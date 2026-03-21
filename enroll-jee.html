@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE 2026 Batch Enrollment | e-Gurukul</title>
+    <title>JEE 2026 Enrollment | e-Gurukul</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -14,347 +13,633 @@
             --accent: #facc15;
             --bg: #f4f6fb;
             --white: #ffffff;
+            --green: #16a34a;
+            --red: #dc2626;
         }
-
-        body {
-            margin: 0;
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            color: #333;
-            line-height: 1.6;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: #333; }
 
         /* HEADER */
         header {
             background: var(--primary);
-            padding: 15px 8%;
+            padding: 14px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
         }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; color: white; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .back-link { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        .back-link:hover { color: var(--accent); }
 
-        .logo {
+        /* PROGRESS BAR */
+        .progress-bar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 14px 6%;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
+            gap: 0;
         }
-
-        .logo span {
-            color: var(--accent);
+        .step { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #9ca3af; }
+        .step.active { color: var(--primary); }
+        .step.done { color: var(--green); }
+        .step-num {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: #e5e7eb; color: #9ca3af;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
         }
+        .step.active .step-num { background: var(--primary); color: white; }
+        .step.done .step-num { background: var(--green); color: white; }
+        .step-line { flex: 1; height: 2px; background: #e5e7eb; margin: 0 10px; max-width: 60px; }
+        .step-line.done { background: var(--green); }
 
-        /* ENROLLMENT HERO */
-        .enroll-hero {
+        /* MAIN LAYOUT */
+        .page-wrapper { max-width: 1100px; margin: 0 auto; padding: 30px 20px 80px; display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: start; }
+
+        /* LEFT COLUMN */
+        .left-col { display: flex; flex-direction: column; gap: 20px; }
+
+        /* SECTION CARD */
+        .card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
+        .card-header { padding: 18px 22px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px; }
+        .card-header h3 { font-size: 16px; font-weight: 700; color: var(--primary); }
+        .card-header i { font-size: 20px; color: var(--primary); }
+        .card-body { padding: 20px 22px; }
+
+        /* COURSE ITEM */
+        .course-item { display: flex; gap: 16px; align-items: flex-start; }
+        .course-thumb {
+            width: 90px; height: 70px; border-radius: 10px;
             background: linear-gradient(135deg, #0e2f69, #1746a2);
-            color: white;
-            padding: 80px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 50px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
         }
+        .course-thumb i { font-size: 30px; color: var(--accent); }
+        .course-info { flex: 1; }
+        .course-info h4 { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 4px; }
+        .course-info p { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
+        .course-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .tag { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; }
+        .tag-blue { background: #eff6ff; color: #1d4ed8; }
+        .tag-green { background: #f0fdf4; color: #16a34a; }
+        .tag-yellow { background: #fefce8; color: #ca8a04; }
+        .course-price { text-align: right; flex-shrink: 0; }
+        .course-price .original { font-size: 13px; color: #9ca3af; text-decoration: line-through; }
+        .course-price .discounted { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .course-price .saved { font-size: 11px; color: var(--green); font-weight: 600; }
+        .remove-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 13px; margin-top: 6px; display: flex; align-items: center; gap: 4px; }
 
-        .hero-text h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            line-height: 1.2;
+        /* COMBO SECTION */
+        .combo-card { border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 14px; display: flex; gap: 14px; align-items: center; cursor: pointer; transition: 0.2s; }
+        .combo-card:hover { border-color: var(--secondary); background: #f8fbff; }
+        .combo-card.selected { border-color: var(--primary); background: #eff6ff; }
+        .combo-thumb { width: 60px; height: 50px; border-radius: 8px; background: linear-gradient(135deg, #7c3aed, #a855f7); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .combo-thumb i { font-size: 22px; color: white; }
+        .combo-info { flex: 1; }
+        .combo-info h5 { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 2px; }
+        .combo-info p { font-size: 11px; color: #6b7280; }
+        .combo-price { text-align: right; }
+        .combo-price .orig { font-size: 11px; color: #9ca3af; text-decoration: line-through; }
+        .combo-price .disc { font-size: 15px; font-weight: 700; color: var(--primary); }
+        .add-combo-btn { background: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+
+        /* COUPON */
+        .coupon-row { display: flex; gap: 10px; }
+        .coupon-input { flex: 1; padding: 11px 14px; border: 2px solid #e5e7eb; border-radius: 10px; font-family: inherit; font-size: 14px; outline: none; transition: 0.2s; text-transform: uppercase; }
+        .coupon-input:focus { border-color: var(--secondary); }
+        .apply-btn { padding: 11px 20px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+        .apply-btn:hover { background: var(--secondary); }
+        .coupon-msg { margin-top: 8px; font-size: 13px; font-weight: 600; display: none; }
+        .coupon-msg.success { color: var(--green); display: block; }
+        .coupon-msg.error { color: var(--red); display: block; }
+        .valid-coupons { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .coupon-chip { padding: 5px 12px; border: 1.5px dashed #d1d5db; border-radius: 20px; font-size: 12px; font-weight: 600; color: #374151; cursor: pointer; transition: 0.2s; }
+        .coupon-chip:hover { border-color: var(--primary); color: var(--primary); background: #eff6ff; }
+
+        /* RIGHT COLUMN - ORDER SUMMARY */
+        .right-col { position: sticky; top: 80px; }
+        .summary-card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
+        .summary-header { background: var(--primary); padding: 16px 20px; color: white; }
+        .summary-header h3 { font-size: 16px; font-weight: 700; }
+        .summary-body { padding: 20px; }
+        .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-size: 14px; }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-row .label { color: #6b7280; }
+        .summary-row .value { font-weight: 600; color: #111; }
+        .summary-row .value.green { color: var(--green); }
+        .summary-row .value.red { color: var(--red); }
+        .total-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0 0; margin-top: 4px; }
+        .total-row .label { font-size: 16px; font-weight: 700; color: #111; }
+        .total-row .value { font-size: 22px; font-weight: 700; color: var(--primary); }
+        .savings-badge { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 14px; margin: 14px 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--green); font-weight: 600; }
+
+        /* STUDENT FORM */
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 10px 13px; border: 2px solid #e5e7eb;
+            border-radius: 10px; font-family: inherit; font-size: 14px; outline: none; transition: 0.2s;
         }
+        .form-group input:focus, .form-group select:focus { border-color: var(--secondary); background: #f8fbff; }
 
-        .hero-text h1 span {
-            color: var(--accent);
+        /* PAYMENT BUTTON */
+        .pay-btn {
+            width: 100%; padding: 16px; background: var(--accent);
+            color: var(--primary); border: none; border-radius: 12px;
+            font-size: 17px; font-weight: 800; cursor: pointer;
+            transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 16px; letter-spacing: 0.3px;
         }
+        .pay-btn:hover { background: #f59e0b; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250,204,21,0.4); }
+        .pay-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .secure-note { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-        .price-tag {
-            background: rgba(250, 204, 21, 0.2);
-            border: 2px solid var(--accent);
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 30px;
+        /* PAYMENT MODAL */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6); z-index: 9999;
+            align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
         }
-
-        .price-tag strike {
-            font-size: 18px;
-            opacity: 0.6;
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: white; border-radius: 24px; width: 90%; max-width: 460px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.25); overflow: hidden;
+            animation: slideUp 0.3s ease;
         }
-
-        /* FEATURES GRID */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: -50px;
-            padding: 0 8% 80px;
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-head { background: var(--primary); padding: 20px 24px; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .modal-head h3 { font-size: 18px; font-weight: 700; }
+        .modal-close { background: none; border: none; color: white; font-size: 22px; cursor: pointer; line-height: 1; }
+        .modal-body { padding: 24px; }
+        .amount-display { text-align: center; margin-bottom: 24px; }
+        .amount-display .amt { font-size: 36px; font-weight: 800; color: var(--primary); }
+        .amount-display p { font-size: 13px; color: #6b7280; margin-top: 4px; }
+        .upi-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .upi-app-btn {
+            border: 2px solid #e5e7eb; border-radius: 12px; padding: 14px 8px;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            cursor: pointer; transition: 0.2s; background: white; font-family: inherit;
         }
+        .upi-app-btn:hover { border-color: var(--primary); background: #eff6ff; }
+        .upi-app-btn img { width: 36px; height: 36px; object-fit: contain; }
+        .upi-app-btn span { font-size: 12px; font-weight: 600; color: #374151; }
+        .divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: #9ca3af; font-size: 13px; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+        .upi-id-box { background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 16px; text-align: center; }
+        .upi-id-box p { font-size: 12px; color: #6b7280; margin-bottom: 6px; }
+        .upi-id-box .upi-id { font-size: 18px; font-weight: 700; color: var(--primary); letter-spacing: 0.5px; }
+        .copy-btn { margin-top: 10px; padding: 7px 18px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+        .qr-section { text-align: center; margin-top: 16px; }
+        .qr-section p { font-size: 12px; color: #6b7280; margin-bottom: 10px; }
+        .qr-placeholder { width: 140px; height: 140px; margin: 0 auto; border: 2px solid #e5e7eb; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #f9fafb; }
+        .qr-placeholder i { font-size: 60px; color: #d1d5db; }
+        .done-btn { width: 100%; padding: 14px; background: var(--green); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .feature-item {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border-bottom: 4px solid var(--accent);
-            transition: 0.3s;
-        }
+        /* SUCCESS SCREEN */
+        .success-screen { display: none; text-align: center; padding: 40px 24px; }
+        .success-screen.show { display: block; }
+        .success-icon { width: 80px; height: 80px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .success-icon i { font-size: 40px; color: var(--green); }
+        .success-screen h3 { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 8px; }
+        .success-screen p { color: #6b7280; font-size: 14px; margin-bottom: 24px; }
+        .success-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .btn-outline { padding: 10px 20px; border: 2px solid var(--primary); color: var(--primary); background: none; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none; }
+        .btn-filled { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none; }
 
-        .feature-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-item i {
-            font-size: 35px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .feature-item h3 {
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        /* ENROLLMENT SECTION */
-        .enrollment-main {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 60px;
-            padding: 0 8% 100px;
-            align-items: start;
-        }
-
-        .course-details h2 {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .curriculum-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .curriculum-list li {
-            padding: 15px;
-            background: white;
-            margin-bottom: 10px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid #eee;
-        }
-
-        .curriculum-list li i {
-            color: #38a169;
-        }
-
-        /* ENROLLMENT FORM */
-        .enroll-form-card {
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 100px;
-        }
-
-        .enroll-form-card h3 {
-            font-size: 24px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            outline: none;
-            font-family: inherit;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: var(--secondary);
-            background: #f8fbff;
-        }
-
-        .submit-enroll {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-
-        .submit-enroll:hover {
-            background: var(--secondary);
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(23, 70, 162, 0.2);
-        }
-
-        @media (max-width: 900px) {
-            .enrollment-main {
-                grid-template-columns: 1fr;
-            }
-
-            .enroll-hero {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 32px;
-            }
+        @media (max-width: 768px) {
+            .page-wrapper { grid-template-columns: 1fr; }
+            .right-col { position: static; }
+            .upi-apps { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
-
 <body>
 
+    <!-- HEADER -->
     <header>
         <a href="index.html" class="logo">
-            <i class="ri-graduation-cap-fill"></i>
-            <span>e-Gurukul</span>
+            <i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span>
         </a>
-        <a href="courses.html" style="color: white; text-decoration: none; font-weight: 500;">
+        <a href="courses.html" class="back-link">
             <i class="ri-arrow-left-line"></i> Back to Courses
         </a>
     </header>
 
-    <div class="enroll-hero">
-        <div class="hero-text">
-            <div class="price-tag">
-                <strike>₹4,999</strike> ₹1,500 <span>(70% Off)</span>
-            </div>
-            <h1>Complete <span>JEE 2026</span> <br>Preparation Masterclass</h1>
-            <p>Master Physics, Chemistry, and Mathematics with India's top educators. Guaranteed improvement in your
-                mock test scores.</p>
+    <!-- PROGRESS STEPS -->
+    <div class="progress-bar">
+        <div class="step done">
+            <div class="step-num"><i class="ri-check-line" style="font-size:13px;"></i></div>
+            <span>Course Selected</span>
         </div>
-        <div class="hero-image">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Engineering" width="300">
+        <div class="step-line done"></div>
+        <div class="step active">
+            <div class="step-num">2</div>
+            <span>Order Summary</span>
         </div>
-    </div>
-
-    <div class="features-grid">
-        <div class="feature-item">
-            <i class="ri-video-chat-line"></i>
-            <h3>Live 2-Way Interaction</h3>
-            <p>Attend daily live classes with real-time doubt clearing sessions.</p>
+        <div class="step-line"></div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <span>Payment</span>
         </div>
-        <div class="feature-item">
-            <i class="ri-file-list-3-line"></i>
-            <h3>Mock Test Series</h3>
-            <p>50+ full-length mock tests based on latest NTA pattern.</p>
-        </div>
-        <div class="feature-item">
-            <i class="ri-customer-service-2-line"></i>
-            <h3>24/7 Doubt Support</h3>
-            <p>Get your doubts resolved within minutes by our expert mentors.</p>
+        <div class="step-line"></div>
+        <div class="step">
+            <div class="step-num">4</div>
+            <span>Confirmation</span>
         </div>
     </div>
 
-    <main class="enrollment-main">
-        <div class="course-details">
-            <h2>Course Highlights</h2>
-            <p>The e-Gurukul JEE Prep course is designed to take you from basics to advanced problem-solving levels. We
-                focus on conceptual clarity and time-management techniques.</p>
+    <!-- MAIN CONTENT -->
+    <div class="page-wrapper">
 
-            <ul class="curriculum-list">
-                <li><i class="ri-shield-check-fill"></i> 500+ Hours of High-Quality Video Lectures</li>
-                <li><i class="ri-shield-check-fill"></i> Weekly Physics, Chemistry & Maths DPPs</li>
-                <li><i class="ri-shield-check-fill"></i> Personal Mentorship & Monthly Strategy Calls</li>
-                <li><i class="ri-shield-check-fill"></i> Specialized Rank Improvement Program (RIP)</li>
-                <li><i class="ri-shield-check-fill"></i> Complete Printed Study Material & Notes</li>
-            </ul>
+        <!-- LEFT COLUMN -->
+        <div class="left-col">
 
-            <h2 style="margin-top: 40px;">Expert Faculty</h2>
-            <p>Learn from IITians and NITians who have successfully mentored thousands of students to top ranks in JEE
-                Main and Advanced.</p>
-        </div>
-
-        <div class="enroll-form-card">
-            <h3>Confirm Enrollment</h3>
-            <form id="courseEnrollForm">
-                <div class="input-group">
-                    <label>Confirm Full Name</label>
-                    <input type="text" id="studentName" placeholder="As per your Aadhaar/School record" required>
+            <!-- CART ITEMS -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="ri-shopping-cart-2-line"></i>
+                    <h3>Items in Cart <span style="background:#eff6ff;color:#1d4ed8;padding:2px 10px;border-radius:20px;font-size:12px;margin-left:6px;">1 item</span></h3>
                 </div>
-                <div class="input-group">
-                    <label>WhatsApp Number</label>
-                    <input type="tel" id="studentPhone" placeholder="+91 XXXXX XXXXX" required>
-                </div>
-                <div class="input-group">
-                    <label>Preferred Batch</label>
-                    <select id="batchTime">
-                        <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
-                        <option value="evening">Evening (4:00 PM - 8:00 PM)</option>
-                        <option value="night">Night - Recorded + Live Doubts</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Promo Code</label>
-                    <input type="text" placeholder="e.g. e-Gurukul70" readonly value="e-Gurukul70">
-                </div>
-
-                <div
-                    style="margin: 20px 0; padding: 15px; background: #fffdf5; border-radius: 12px; border: 1px dashed var(--accent);">
-                    <div style="display: flex; justify-content: space-between; font-weight: 700;">
-                        <span>Total Payable:</span>
-                        <span style="color: var(--primary);">₹1,500</span>
+                <div class="card-body">
+                    <div class="course-item">
+                        <div class="course-thumb">
+                            <i class="ri-flask-line"></i>
+                        </div>
+                        <div class="course-info">
+                            <h4>Complete JEE 2026 Preparation Masterclass</h4>
+                            <p>Physics + Chemistry + Mathematics &nbsp;|&nbsp; 500+ Hours &nbsp;|&nbsp; Live + Recorded</p>
+                            <div class="course-tags">
+                                <span class="tag tag-blue"><i class="ri-live-line"></i> Live Classes</span>
+                                <span class="tag tag-green"><i class="ri-file-list-3-line"></i> 50+ Mock Tests</span>
+                                <span class="tag tag-yellow"><i class="ri-customer-service-2-line"></i> 24/7 Support</span>
+                            </div>
+                        </div>
+                        <div class="course-price">
+                            <div class="original">₹4,999</div>
+                            <div class="discounted">₹1,500</div>
+                            <div class="saved">You save ₹3,499</div>
+                            <button class="remove-btn" onclick="removeItem()"><i class="ri-delete-bin-line"></i> Remove</button>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <button type="submit" class="submit-enroll" id="enrollBtn">
-                    Proceed to Payment <i class="ri-bank-card-line"></i>
-                </button>
-            </form>
+            <!-- RECOMMENDED COMBOS -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="ri-stack-line"></i>
+                    <h3>Recommended Combos</h3>
+                </div>
+                <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+                    <div class="combo-card" id="combo1">
+                        <div class="combo-thumb" style="background:linear-gradient(135deg,#0891b2,#06b6d4);">
+                            <i class="ri-test-tube-line"></i>
+                        </div>
+                        <div class="combo-info">
+                            <h5>JEE + NEET Combo Pack</h5>
+                            <p>Complete prep for both exams &nbsp;|&nbsp; 800+ Hours</p>
+                        </div>
+                        <div class="combo-price">
+                            <div class="orig">₹8,999</div>
+                            <div class="disc">₹2,499</div>
+                        </div>
+                        <button class="add-combo-btn" onclick="addCombo(1, 2499, 'JEE + NEET Combo')">+ Add</button>
+                    </div>
+                    <div class="combo-card" id="combo2">
+                        <div class="combo-thumb" style="background:linear-gradient(135deg,#d97706,#f59e0b);">
+                            <i class="ri-book-open-line"></i>
+                        </div>
+                        <div class="combo-info">
+                            <h5>JEE + Study Material Bundle</h5>
+                            <p>Printed notes + DPP sheets + Formula booklets</p>
+                        </div>
+                        <div class="combo-price">
+                            <div class="orig">₹2,999</div>
+                            <div class="disc">₹799</div>
+                        </div>
+                        <button class="add-combo-btn" onclick="addCombo(2, 799, 'JEE + Study Material')">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COUPON CODE -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="ri-coupon-3-line"></i>
+                    <h3>Apply Coupon</h3>
+                </div>
+                <div class="card-body">
+                    <div class="coupon-row">
+                        <input type="text" class="coupon-input" id="couponInput" placeholder="Enter coupon code" maxlength="20">
+                        <button class="apply-btn" onclick="applyCoupon()">Apply</button>
+                    </div>
+                    <div class="coupon-msg" id="couponMsg"></div>
+                    <div class="valid-coupons">
+                        <span style="font-size:12px;color:#6b7280;align-self:center;">Available:</span>
+                        <span class="coupon-chip" onclick="fillCoupon('EGURUKUL70')">EGURUKUL70</span>
+                        <span class="coupon-chip" onclick="fillCoupon('JEE200')">JEE200</span>
+                        <span class="coupon-chip" onclick="fillCoupon('FIRST100')">FIRST100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STUDENT DETAILS -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="ri-user-3-line"></i>
+                    <h3>Student Details</h3>
+                </div>
+                <div class="card-body">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="sName" placeholder="As per Aadhaar" required>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp Number *</label>
+                            <input type="tel" id="sPhone" placeholder="+91 XXXXX XXXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="sEmail" placeholder="student@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Batch</label>
+                            <select id="sBatch">
+                                <option value="morning">Morning (8 AM – 12 PM)</option>
+                                <option value="evening">Evening (4 PM – 8 PM)</option>
+                                <option value="night">Night – Recorded + Live Doubts</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end left-col -->
+
+        <!-- RIGHT COLUMN - ORDER SUMMARY -->
+        <div class="right-col">
+            <div class="summary-card">
+                <div class="summary-header">
+                    <h3><i class="ri-receipt-line" style="margin-right:8px;"></i>Order Summary</h3>
+                </div>
+                <div class="summary-body">
+                    <div class="summary-row">
+                        <span class="label">Course Price</span>
+                        <span class="value"><s style="color:#9ca3af;font-weight:400;">₹4,999</s></span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Discount (70% off)</span>
+                        <span class="value green">− ₹3,499</span>
+                    </div>
+                    <div class="summary-row" id="comboRow" style="display:none;">
+                        <span class="label" id="comboLabel">Combo Add-on</span>
+                        <span class="value" id="comboValue">+ ₹0</span>
+                    </div>
+                    <div class="summary-row" id="couponRow" style="display:none;">
+                        <span class="label">Coupon Discount</span>
+                        <span class="value green" id="couponValue">− ₹0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Platform Fee</span>
+                        <span class="value green">FREE</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="label">Total Payable</span>
+                        <span class="value" id="totalAmount">₹1,500</span>
+                    </div>
+                    <div class="savings-badge">
+                        <i class="ri-price-tag-3-fill"></i>
+                        <span>You're saving <strong id="savingsAmt">₹3,499</strong> on this order!</span>
+                    </div>
+                    <button class="pay-btn" id="payBtn" onclick="openPayment()">
+                        <i class="ri-secure-payment-line"></i> Proceed to Buy
+                    </button>
+                    <div class="secure-note">
+                        <i class="ri-shield-check-line"></i> 100% Secure &amp; Encrypted Payment
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+
+    </div><!-- end page-wrapper -->
+
+    <!-- PAYMENT MODAL -->
+    <div class="modal-overlay" id="payModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h3><i class="ri-secure-payment-line" style="margin-right:8px;"></i>Complete Payment</h3>
+                <button class="modal-close" onclick="closePayment()">×</button>
+            </div>
+            <div class="modal-body" id="payModalBody">
+                <div class="amount-display">
+                    <div class="amt" id="modalAmt">₹1,500</div>
+                    <p>JEE 2026 Masterclass Enrollment</p>
+                </div>
+
+                <p style="font-size:13px;font-weight:600;color:#374151;margin-bottom:10px;">Pay via UPI App</p>
+                <div class="upi-apps">
+                    <button class="upi-app-btn" onclick="payWithUPI('gpay')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/512px-Google_Pay_Logo.svg.png" alt="GPay">
+                        <span>Google Pay</span>
+                    </button>
+                    <button class="upi-app-btn" onclick="payWithUPI('phonepe')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/PhonePe_Logo.png/800px-PhonePe_Logo.png" alt="PhonePe">
+                        <span>PhonePe</span>
+                    </button>
+                    <button class="upi-app-btn" onclick="payWithUPI('paytm')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/2560px-Paytm_Logo_%28standalone%29.svg.png" alt="Paytm">
+                        <span>Paytm</span>
+                    </button>
+                </div>
+
+                <div class="divider">or pay using UPI ID</div>
+
+                <div class="upi-id-box">
+                    <p>Send payment to this UPI ID</p>
+                    <div class="upi-id">9468974044@nyes</div>
+                    <button class="copy-btn" onclick="copyUPI()">
+                        <i class="ri-file-copy-line"></i> Copy UPI ID
+                    </button>
+                </div>
+
+                <div class="qr-section">
+                    <p>Or scan QR code with any UPI app</p>
+                    <div class="qr-placeholder">
+                        <i class="ri-qr-code-line"></i>
+                    </div>
+                    <p style="font-size:11px;color:#9ca3af;margin-top:8px;">QR code for 9468974044@nyes</p>
+                </div>
+
+                <button class="done-btn" onclick="confirmPayment()">
+                    <i class="ri-check-double-line"></i> I've Completed the Payment
+                </button>
+            </div>
+
+            <!-- SUCCESS SCREEN (inside modal) -->
+            <div class="success-screen" id="successScreen">
+                <div class="success-icon"><i class="ri-checkbox-circle-fill"></i></div>
+                <h3>Enrollment Confirmed!</h3>
+                <p>Your JEE 2026 batch enrollment is confirmed. You'll receive batch details on your WhatsApp within 24 hours.</p>
+                <div style="background:#f0fdf4;border-radius:12px;padding:14px;margin-bottom:20px;text-align:left;">
+                    <div style="font-size:13px;color:#374151;display:flex;flex-direction:column;gap:6px;">
+                        <span><strong>Order ID:</strong> <span id="orderId"></span></span>
+                        <span><strong>Amount Paid:</strong> <span id="paidAmt"></span></span>
+                        <span><strong>UPI ID:</strong> 9468974044@nyes</span>
+                    </div>
+                </div>
+                <div class="success-actions">
+                    <a href="student-dashboard.html" class="btn-filled">Go to Dashboard</a>
+                    <a href="courses.html" class="btn-outline">Explore More</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        document.getElementById('courseEnrollForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const btn = document.getElementById('enrollBtn');
-            btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Securing Seat...';
-            btn.disabled = true;
+        // State
+        let basePrice = 1500;
+        let comboPrice = 0;
+        let comboName = '';
+        let couponDiscount = 0;
+        const UPI_ID = '9468974044@nyes';
+        const COUPONS = { 'EGURUKUL70': 200, 'JEE200': 200, 'FIRST100': 100 };
 
+        function getTotal() { return basePrice + comboPrice - couponDiscount; }
+
+        function updateSummary() {
+            const total = getTotal();
+            const savings = 4999 - total + (comboPrice > 0 ? 0 : 0);
+            document.getElementById('totalAmount').textContent = '₹' + total.toLocaleString('en-IN');
+            document.getElementById('modalAmt').textContent = '₹' + total.toLocaleString('en-IN');
+            document.getElementById('savingsAmt').textContent = '₹' + (4999 - basePrice + couponDiscount).toLocaleString('en-IN');
+        }
+
+        function removeItem() {
+            if (confirm('Remove this course from cart?')) window.location.href = 'courses.html';
+        }
+
+        function addCombo(id, price, name) {
+            const btn = document.querySelector(`#combo${id} .add-combo-btn`);
+            if (btn.textContent.trim() === '+ Add') {
+                comboPrice += price;
+                comboName = name;
+                btn.textContent = '✓ Added';
+                btn.style.background = '#16a34a';
+                document.getElementById('comboRow').style.display = 'flex';
+                document.getElementById('comboLabel').textContent = name;
+                document.getElementById('comboValue').textContent = '+ ₹' + price.toLocaleString('en-IN');
+            } else {
+                comboPrice -= price;
+                btn.textContent = '+ Add';
+                btn.style.background = '';
+                document.getElementById('comboRow').style.display = 'none';
+            }
+            updateSummary();
+        }
+
+        function fillCoupon(code) {
+            document.getElementById('couponInput').value = code;
+            applyCoupon();
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('couponInput').value.trim().toUpperCase();
+            const msg = document.getElementById('couponMsg');
+            msg.className = 'coupon-msg';
+            if (!code) { msg.className = 'coupon-msg error'; msg.textContent = 'Please enter a coupon code.'; return; }
+            if (COUPONS[code]) {
+                couponDiscount = COUPONS[code];
+                msg.className = 'coupon-msg success';
+                msg.textContent = `✓ Coupon applied! You saved ₹${couponDiscount} extra.`;
+                document.getElementById('couponRow').style.display = 'flex';
+                document.getElementById('couponValue').textContent = '− ₹' + couponDiscount;
+            } else {
+                couponDiscount = 0;
+                msg.className = 'coupon-msg error';
+                msg.textContent = '✗ Invalid coupon code. Try EGURUKUL70, JEE200, or FIRST100.';
+                document.getElementById('couponRow').style.display = 'none';
+            }
+            updateSummary();
+        }
+
+        function validateForm() {
+            const name = document.getElementById('sName').value.trim();
+            const phone = document.getElementById('sPhone').value.trim();
+            const email = document.getElementById('sEmail').value.trim();
+            if (!name) { alert('Please enter your full name.'); document.getElementById('sName').focus(); return false; }
+            if (!phone || phone.length < 10) { alert('Please enter a valid WhatsApp number.'); document.getElementById('sPhone').focus(); return false; }
+            if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); document.getElementById('sEmail').focus(); return false; }
+            return true;
+        }
+
+        function openPayment() {
+            if (!validateForm()) return;
+            document.getElementById('payModal').classList.add('open');
+            document.getElementById('modalAmt').textContent = '₹' + getTotal().toLocaleString('en-IN');
+        }
+
+        function closePayment() {
+            document.getElementById('payModal').classList.remove('open');
+        }
+
+        function payWithUPI(app) {
+            const total = getTotal();
+            const name = document.getElementById('sName').value.trim() || 'Student';
+            const upiLink = `upi://pay?pa=${UPI_ID}&pn=e-Gurukul&am=${total}&cu=INR&tn=JEE+2026+Enrollment`;
+            // Try to open UPI deep link
+            window.location.href = upiLink;
+            // Fallback: show confirmation after 2s
             setTimeout(() => {
-                alert('Congratulations! Your enrollment request for JEE 2026 has been received. Redirecting to payment gateway...');
-                window.location.href = 'index.html';
+                if (confirm(`If your ${app === 'gpay' ? 'Google Pay' : app === 'phonepe' ? 'PhonePe' : 'Paytm'} app opened, complete the payment of ₹${total} to ${UPI_ID}.\n\nClick OK once payment is done.`)) {
+                    confirmPayment();
+                }
             }, 2000);
+        }
+
+        function copyUPI() {
+            navigator.clipboard.writeText(UPI_ID).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<i class="ri-check-line"></i> Copied!';
+                btn.style.background = '#16a34a';
+                setTimeout(() => { btn.innerHTML = '<i class="ri-file-copy-line"></i> Copy UPI ID'; btn.style.background = ''; }, 2000);
+            }).catch(() => {
+                prompt('Copy this UPI ID:', UPI_ID);
+            });
+        }
+
+        function confirmPayment() {
+            const orderId = 'EG' + Date.now().toString().slice(-8);
+            document.getElementById('orderId').textContent = orderId;
+            document.getElementById('paidAmt').textContent = '₹' + getTotal().toLocaleString('en-IN');
+            document.getElementById('payModalBody').style.display = 'none';
+            document.getElementById('successScreen').classList.add('show');
+            // Save to localStorage
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            user.enrolledCourses = user.enrolledCourses || [];
+            user.enrolledCourses.push({ course: 'JEE 2026 Masterclass', orderId, amount: getTotal(), date: new Date().toLocaleDateString() });
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+
+        // Pre-fill from localStorage if logged in
+        window.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            if (user.name) document.getElementById('sName').value = user.name;
+            if (user.phone) document.getElementById('sPhone').value = user.phone;
+            if (user.email) document.getElementById('sEmail').value = user.email;
+        });
+
+        // Close modal on overlay click
+        document.getElementById('payModal').addEventListener('click', function(e) {
+            if (e.target === this) closePayment();
         });
     </script>
 </body>
-
 </html>
-

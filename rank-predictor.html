@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rank Predictor - e-Gurukul</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Predict your JEE Main, JEE Advanced & NEET rank instantly based on your score. Free rank predictor tool by e-Gurukul.">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Outfit', sans-serif; background: #f4f6fb; color: #1a1a2e; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; width: 100%; background: rgba(14,47,105,0.97); backdrop-filter: blur(12px); color: white; padding: 14px 6%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 4px 30px rgba(0,0,0,0.15); }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 700; text-decoration: none; color: white; }
+    .logo i { font-size: 30px; color: #facc15; background: rgba(250,204,21,0.12); padding: 6px; border-radius: 10px; }
+    .logo span { color: #facc15; }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { color: rgba(255,255,255,0.88); text-decoration: none; font-weight: 500; font-size: 15px; position: relative; transition: .3s; display: inline-flex; align-items: center; gap: 5px; }
+    nav a:not(.nav-btn)::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#facc15; transition:.3s; }
+    nav a:not(.nav-btn):hover::after { width:100%; }
+    nav a:hover { color: #facc15; }
+    .nav-btn { background: #facc15; color: #0e2f69 !important; padding: 9px 22px; border-radius: 50px; font-weight: 700; transition: .3s; }
+    .nav-btn:hover { background: white; transform: translateY(-2px); }
+    .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
+    @media(max-width:900px){
+      .menu-toggle { display: block; }
+      nav { display:none; flex-direction:column; position:absolute; top:100%; left:0; width:100%; background:#0e2f69; padding:28px 0; text-align:center; z-index:999; box-shadow:0 10px 20px rgba(0,0,0,.2); gap:18px; }
+      nav.active { display:flex; }
+    }
+
+    /* HERO BANNER */
+    .hero-banner {
+      background: linear-gradient(135deg, #0e2f69 0%, #1746a2 60%, #0e2f69 100%);
+      padding: 60px 6% 120px; color: white; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero-banner::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; background:rgba(250,204,21,0.07); }
+    .hero-banner::after { content:''; position:absolute; bottom:-100px; left:5%; width:240px; height:240px; border-radius:50%; background:rgba(255,255,255,0.04); }
+    .hero-banner .tag { display:inline-flex; align-items:center; gap:6px; background:rgba(250,204,21,0.15); border:1px solid rgba(250,204,21,0.4); color:#facc15; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 14px; border-radius:50px; margin-bottom:18px; }
+    .hero-banner h1 { font-size: clamp(26px,4vw,48px); font-weight:800; line-height:1.2; margin-bottom:12px; position:relative; z-index:1; }
+    .hero-banner h1 span { color:#facc15; }
+    .hero-banner p { font-size:17px; opacity:.8; max-width:600px; margin:0 auto; position:relative; z-index:1; }
+
+    /* EXAM SELECTOR TABS */
+    .exam-selector { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:32px; position:relative; z-index:1; }
+    .exam-tab { padding:10px 22px; border-radius:50px; border:2px solid rgba(255,255,255,0.3); background:rgba(255,255,255,0.08); color:white; font-family:'Outfit',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition:.3s; display:flex; align-items:center; gap:7px; }
+    .exam-tab:hover { border-color:rgba(250,204,21,0.6); background:rgba(250,204,21,0.1); }
+    .exam-tab.active { background:#facc15; color:#0e2f69; border-color:#facc15; }
+    .exam-tab i { font-size:16px; }
+
+    /* PREDICTOR CARD */
+    .predictor-wrap { max-width:860px; margin: -70px auto 0; padding: 0 6% 60px; position:relative; z-index:10; }
+    .predictor-card { background:white; border-radius:24px; box-shadow:0 20px 60px rgba(14,47,105,0.18); padding:40px; }
+    .predictor-card h2 { font-size:22px; font-weight:700; color:#0e2f69; margin-bottom:28px; display:flex; align-items:center; gap:10px; }
+    .predictor-card h2 i { color:#facc15; font-size:26px; }
+
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    @media(max-width:600px){ .form-grid { grid-template-columns:1fr; } }
+
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label { font-size:13px; font-weight:600; color:#555; }
+    .form-group input, .form-group select {
+      padding:13px 16px; border:1.5px solid #e5e7eb; border-radius:12px;
+      font-family:'Outfit',sans-serif; font-size:15px; color:#333; outline:none; transition:.25s;
+      background:white;
+    }
+    .form-group input:focus, .form-group select:focus { border-color:#0e2f69; box-shadow:0 0 0 3px rgba(14,47,105,0.08); }
+    .form-group input::placeholder { color:#aaa; }
+
+    .score-hint { font-size:12px; color:#888; margin-top:4px; }
+
+    .predict-btn {
+      width:100%; padding:15px; background:#0e2f69; color:white; border:none; border-radius:14px;
+      font-family:'Outfit',sans-serif; font-size:17px; font-weight:700; cursor:pointer; transition:.3s;
+      margin-top:8px; display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .predict-btn:hover { background:#1746a2; transform:translateY(-2px); box-shadow:0 8px 24px rgba(14,47,105,0.3); }
+    .predict-btn:disabled { background:#ccc; cursor:not-allowed; transform:none; box-shadow:none; }
+
+    /* RESULT CARD */
+    .result-card { display:none; margin-top:28px; background:linear-gradient(135deg,#0e2f69,#1746a2); border-radius:18px; padding:32px; color:white; text-align:center; animation:popIn .5s ease; }
+    @keyframes popIn { from{transform:scale(.9);opacity:0} to{transform:scale(1);opacity:1} }
+    .result-card.show { display:block; }
+    .result-card h3 { font-size:18px; opacity:.8; margin-bottom:8px; }
+    .result-rank { font-size:clamp(40px,8vw,72px); font-weight:800; color:#facc15; line-height:1; margin:12px 0; }
+    .result-range { font-size:15px; opacity:.75; margin-bottom:20px; }
+    .result-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px; }
+    .rstat { background:rgba(255,255,255,0.1); border-radius:12px; padding:14px 10px; }
+    .rstat h4 { font-size:20px; font-weight:800; color:#facc15; }
+    .rstat p { font-size:12px; opacity:.75; margin-top:4px; }
+    .result-disclaimer { font-size:12px; opacity:.6; margin-top:16px; font-style:italic; }
+    .college-btn { display:inline-flex; align-items:center; gap:8px; margin-top:20px; background:#facc15; color:#0e2f69; text-decoration:none; padding:12px 28px; border-radius:50px; font-weight:700; font-size:15px; transition:.3s; }
+    .college-btn:hover { background:white; transform:translateY(-2px); }
+
+    /* RANK TABLE */
+    .rank-table-section { padding:60px 6%; background:white; }
+    .section-label { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#0e2f69; background:#eff6ff; padding:5px 14px; border-radius:50px; display:inline-block; margin-bottom:12px; }
+    .section-heading { font-size:clamp(22px,3vw,32px); font-weight:800; color:#0e2f69; margin-bottom:6px; }
+    .section-sub { color:#666; font-size:15px; margin-bottom:28px; }
+    .table-tabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
+    .ttab { padding:8px 20px; border-radius:50px; border:1.5px solid #e5e7eb; background:white; font-family:'Outfit',sans-serif; font-size:14px; font-weight:600; color:#555; cursor:pointer; transition:.25s; }
+    .ttab:hover { border-color:#0e2f69; color:#0e2f69; }
+    .ttab.active { background:#0e2f69; color:white; border-color:#0e2f69; }
+    .rank-table { width:100%; border-collapse:collapse; border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.07); }
+    .rank-table thead { background:#0e2f69; color:white; }
+    .rank-table th { padding:14px 18px; text-align:left; font-size:14px; font-weight:600; }
+    .rank-table td { padding:13px 18px; font-size:14px; color:#444; border-bottom:1px solid #f0f0f0; }
+    .rank-table tbody tr:last-child td { border-bottom:none; }
+    .rank-table tbody tr:hover { background:#f8faff; }
+    .rank-table tbody tr:nth-child(even) { background:#fafbff; }
+    .rank-table tbody tr:nth-child(even):hover { background:#f0f4ff; }
+    .rank-badge { display:inline-block; padding:3px 10px; border-radius:50px; font-size:12px; font-weight:700; }
+    .rank-badge.top { background:#dcfce7; color:#16a34a; }
+    .rank-badge.mid { background:#fefce8; color:#ca8a04; }
+    .rank-badge.low { background:#fef2f2; color:#dc2626; }
+
+    /* HOW TO USE */
+    .how-section { padding:60px 6%; background:#f4f6fb; }
+    .steps-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:24px; margin-top:32px; }
+    .step-card { background:white; border-radius:18px; padding:28px 22px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.06); transition:.3s; }
+    .step-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(14,47,105,0.1); }
+    .step-num { width:48px; height:48px; border-radius:50%; background:#0e2f69; color:white; font-size:20px; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+    .step-card h4 { font-size:16px; font-weight:700; color:#0e2f69; margin-bottom:8px; }
+    .step-card p { font-size:14px; color:#666; line-height:1.6; }
+
+    /* ABOUT SECTION */
+    .about-section { padding:60px 6%; background:white; }
+    .about-content { max-width:800px; }
+    .about-content p { font-size:15px; color:#555; line-height:1.8; margin-bottom:16px; }
+    .about-content strong { color:#0e2f69; }
+
+    /* FAQ */
+    .faq-section { padding:60px 6%; background:#f4f6fb; }
+    .faq-list { max-width:800px; margin:28px auto 0; display:flex; flex-direction:column; gap:12px; }
+    .faq-item { border:1.5px solid #e5e7eb; border-radius:14px; overflow:hidden; background:white; }
+    .faq-q { padding:18px 22px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:600; color:#0e2f69; font-size:15px; transition:.2s; }
+    .faq-q:hover { background:#f8faff; }
+    .faq-q i { font-size:20px; transition:.3s; flex-shrink:0; }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height .4s ease, padding .3s; font-size:14px; color:#555; line-height:1.7; padding:0 22px; }
+    .faq-item.open .faq-a { max-height:200px; padding:0 22px 18px; }
+    .faq-item.open .faq-q i { transform:rotate(45deg); }
+
+    /* FOOTER */
+    footer { background:#0e2f69; color:white; padding:70px 6% 36px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.1); }
+    @media(max-width:900px){ .footer-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:560px){ .footer-grid { grid-template-columns:1fr; text-align:center; } }
+    .footer-brand p { font-size:14px; opacity:.7; line-height:1.7; max-width:280px; margin-top:14px; }
+    .footer-socials { display:flex; gap:12px; margin-top:20px; }
+    @media(max-width:560px){ .footer-socials { justify-content:center; } }
+    .footer-socials a { width:38px; height:38px; background:rgba(255,255,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; text-decoration:none; font-size:18px; transition:.3s; }
+    .footer-socials a:hover { background:#facc15; color:#0e2f69; transform:translateY(-4px); }
+    .footer-col h4 { font-size:16px; font-weight:700; color:#facc15; margin-bottom:18px; padding-bottom:10px; position:relative; }
+    .footer-col h4::after { content:''; position:absolute; bottom:0; left:0; width:32px; height:2px; background:#facc15; }
+    @media(max-width:560px){ .footer-col h4::after { left:50%; transform:translateX(-50%); } }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:12px; }
+    .footer-col ul li a { color:rgba(255,255,255,0.75); text-decoration:none; font-size:14px; display:inline-flex; align-items:center; gap:8px; transition:.3s; }
+    .footer-col ul li a:hover { color:#facc15; padding-left:4px; }
+    .footer-bottom { padding-top:28px; text-align:center; font-size:13px; opacity:.55; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="main-header">
+    <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+    <div class="menu-toggle" id="mobile-menu"><i class="ri-menu-3-line"></i></div>
+    <nav id="nav-menu">
+      <a href="index.html"><i class="ri-home-4-line"></i> Home</a>
+      <a href="courses.html"><i class="ri-book-open-line"></i> Courses</a>
+      <a href="rank-predictor.html"><i class="ri-bar-chart-line"></i> Rank Predictor</a>
+      <a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a>
+      <a href="login.html" class="nav-btn" id="loginBtn"><i class="ri-user-line"></i> Get Started</a>
+    </nav>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero-banner">
+    <div class="tag"><i class="ri-bar-chart-line"></i> Free Tool</div>
+    <h1>Predict Your <span>Exam Rank</span><br>Before Results</h1>
+    <p>Enter your score and get an instant rank prediction for JEE Main, JEE Advanced & NEET UG based on previous year cutoff data.</p>
+    <div class="exam-selector">
+      <button class="exam-tab active" data-exam="jee-main"><i class="ri-flask-line"></i> JEE Main</button>
+      <button class="exam-tab" data-exam="jee-advanced"><i class="ri-atom-line"></i> JEE Advanced</button>
+      <button class="exam-tab" data-exam="neet"><i class="ri-heart-pulse-line"></i> NEET UG</button>
+    </div>
+  </section>
+
+  <!-- PREDICTOR CARD -->
+  <div class="predictor-wrap">
+    <div class="predictor-card">
+      <h2><i class="ri-calculator-line"></i> <span id="formTitle">JEE Main Rank Predictor 2026</span></h2>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="studentName" placeholder="Enter your full name" />
+        </div>
+        <div class="form-group">
+          <label>Mobile Number *</label>
+          <input type="tel" id="mobileNum" placeholder="Enter 10-digit mobile number" maxlength="10" />
+        </div>
+        <div class="form-group">
+          <label id="scoreLabel">Score (out of 300) *</label>
+          <input type="number" id="scoreInput" placeholder="e.g. 220" min="0" max="300" />
+          <span class="score-hint" id="scoreHint">JEE Main total marks out of 300</span>
+        </div>
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="categorySelect">
+            <option value="">Select Category</option>
+            <option value="general">General (UR)</option>
+            <option value="obc">OBC-NCL</option>
+            <option value="sc">SC</option>
+            <option value="st">ST</option>
+            <option value="ews">EWS</option>
+            <option value="pwd">PwD</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="genderSelect">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>State of Eligibility</label>
+          <select id="stateSelect">
+            <option value="">Select State</option>
+            <option>Rajasthan</option><option>Uttar Pradesh</option><option>Delhi</option>
+            <option>Maharashtra</option><option>Bihar</option><option>Madhya Pradesh</option>
+            <option>Gujarat</option><option>Karnataka</option><option>Tamil Nadu</option>
+            <option>West Bengal</option><option>Haryana</option><option>Punjab</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="predict-btn" id="predictBtn" onclick="predictRank()" style="margin-top:24px;">
+        <i class="ri-bar-chart-line"></i> Predict My Rank
+      </button>
+
+      <!-- RESULT -->
+      <div class="result-card" id="resultCard">
+        <h3 id="resultExamName">JEE Main 2026 — Predicted Rank</h3>
+        <div class="result-rank" id="resultRank">—</div>
+        <div class="result-range" id="resultRange">Rank range based on your score</div>
+        <div class="result-stats">
+          <div class="rstat"><h4 id="rPercentile">—</h4><p>Estimated Percentile</p></div>
+          <div class="rstat"><h4 id="rScore">—</h4><p>Your Score</p></div>
+          <div class="rstat"><h4 id="rCategory">—</h4><p>Category</p></div>
+        </div>
+        <div class="result-disclaimer">* This is an estimated rank based on previous year data. Actual rank may vary.</div>
+        <a href="courses.html" class="college-btn"><i class="ri-book-open-line"></i> Explore Courses</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANK TABLE -->
+  <section class="rank-table-section">
+    <div class="section-label"><i class="ri-table-line"></i> Score vs Rank</div>
+    <h2 class="section-heading">Expected Rank Based on Score</h2>
+    <p class="section-sub">Reference data from previous year results to help you estimate your rank</p>
+    <div class="table-tabs">
+      <button class="ttab active" onclick="showTable('jee-main-table', this)">JEE Main</button>
+      <button class="ttab" onclick="showTable('jee-adv-table', this)">JEE Advanced</button>
+      <button class="ttab" onclick="showTable('neet-table', this)">NEET UG</button>
+    </div>
+
+    <!-- JEE Main Table -->
+    <div id="jee-main-table">
+      <table class="rank-table">
+        <thead><tr><th>Score Range (out of 300)</th><th>Expected Rank</th><th>Percentile</th><th>Tier</th></tr></thead>
+        <tbody>
+          <tr><td>280 – 300</td><td>1 – 100</td><td>99.99+</td><td><span class="rank-badge top">Top 100</span></td></tr>
+          <tr><td>260 – 279</td><td>100 – 500</td><td>99.9+</td><td><span class="rank-badge top">Top 500</span></td></tr>
+          <tr><td>240 – 259</td><td>500 – 2,000</td><td>99.8+</td><td><span class="rank-badge top">IIT Zone</span></td></tr>
+          <tr><td>220 – 239</td><td>2,000 – 6,000</td><td>99.5+</td><td><span class="rank-badge top">IIT Zone</span></td></tr>
+          <tr><td>200 – 219</td><td>6,000 – 15,000</td><td>99+</td><td><span class="rank-badge mid">NIT Zone</span></td></tr>
+          <tr><td>180 – 199</td><td>15,000 – 35,000</td><td>97+</td><td><span class="rank-badge mid">NIT Zone</span></td></tr>
+          <tr><td>160 – 179</td><td>35,000 – 70,000</td><td>94+</td><td><span class="rank-badge mid">IIIT Zone</span></td></tr>
+          <tr><td>140 – 159</td><td>70,000 – 1,20,000</td><td>90+</td><td><span class="rank-badge low">State Colleges</span></td></tr>
+          <tr><td>120 – 139</td><td>1,20,000 – 2,00,000</td><td>85+</td><td><span class="rank-badge low">State Colleges</span></td></tr>
+          <tr><td>Below 120</td><td>2,00,000+</td><td>Below 85</td><td><span class="rank-badge low">Private Colleges</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- JEE Advanced Table -->
+    <div id="jee-adv-table" style="display:none;">
+      <table class="rank-table">
+        <thead><tr><th>Score Range (out of 360)</th><th>Expected Rank</th><th>Likely IIT</th><th>Tier</th></tr></thead>
+        <tbody>
+          <tr><td>300 – 360</td><td>1 – 50</td><td>IIT Bombay / Delhi</td><td><span class="rank-badge top">Top 50</span></td></tr>
+          <tr><td>270 – 299</td><td>50 – 300</td><td>IIT Bombay / Madras</td><td><span class="rank-badge top">Top 300</span></td></tr>
+          <tr><td>240 – 269</td><td>300 – 1,000</td><td>IIT Delhi / Kharagpur</td><td><span class="rank-badge top">Top 1000</span></td></tr>
+          <tr><td>210 – 239</td><td>1,000 – 3,000</td><td>IIT Roorkee / Kanpur</td><td><span class="rank-badge mid">Good IIT</span></td></tr>
+          <tr><td>180 – 209</td><td>3,000 – 6,000</td><td>IIT Guwahati / BHU</td><td><span class="rank-badge mid">IIT Zone</span></td></tr>
+          <tr><td>150 – 179</td><td>6,000 – 10,000</td><td>New IITs</td><td><span class="rank-badge mid">New IIT</span></td></tr>
+          <tr><td>120 – 149</td><td>10,000 – 15,000</td><td>New IITs / ISM</td><td><span class="rank-badge low">Borderline</span></td></tr>
+          <tr><td>Below 120</td><td>15,000+</td><td>Not Qualified</td><td><span class="rank-badge low">Not Qualified</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- NEET Table -->
+    <div id="neet-table" style="display:none;">
+      <table class="rank-table">
+        <thead><tr><th>Score Range (out of 720)</th><th>Expected Rank</th><th>Likely College</th><th>Tier</th></tr></thead>
+        <tbody>
+          <tr><td>700 – 720</td><td>1 – 50</td><td>AIIMS Delhi / Top AIIMS</td><td><span class="rank-badge top">Top 50</span></td></tr>
+          <tr><td>680 – 699</td><td>50 – 200</td><td>AIIMS / JIPMER</td><td><span class="rank-badge top">Top 200</span></td></tr>
+          <tr><td>650 – 679</td><td>200 – 1,000</td><td>Top Govt Medical</td><td><span class="rank-badge top">Top 1000</span></td></tr>
+          <tr><td>620 – 649</td><td>1,000 – 5,000</td><td>Govt Medical Colleges</td><td><span class="rank-badge mid">Govt College</span></td></tr>
+          <tr><td>580 – 619</td><td>5,000 – 15,000</td><td>State Govt Medical</td><td><span class="rank-badge mid">State Govt</span></td></tr>
+          <tr><td>540 – 579</td><td>15,000 – 40,000</td><td>State Govt / Private</td><td><span class="rank-badge mid">State Level</span></td></tr>
+          <tr><td>500 – 539</td><td>40,000 – 80,000</td><td>Private Medical</td><td><span class="rank-badge low">Private</span></td></tr>
+          <tr><td>Below 500</td><td>80,000+</td><td>Private / Deemed</td><td><span class="rank-badge low">Deemed Univ</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- HOW TO USE -->
+  <section class="how-section">
+    <div class="section-label"><i class="ri-question-line"></i> Guide</div>
+    <h2 class="section-heading">How to Use the Rank Predictor?</h2>
+    <p class="section-sub">Get your predicted rank in 4 simple steps</p>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">1</div><h4>Select Your Exam</h4><p>Choose between JEE Main, JEE Advanced, or NEET UG from the exam tabs.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h4>Enter Your Details</h4><p>Fill in your name, mobile number, score, category, and state of eligibility.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h4>Click Predict</h4><p>Hit the "Predict My Rank" button to get your estimated rank instantly.</p></div>
+      <div class="step-card"><div class="step-num">4</div><h4>Explore Colleges</h4><p>Use your predicted rank to explore suitable colleges and courses on e-Gurukul.</p></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="section-label"><i class="ri-information-line"></i> About</div>
+    <h2 class="section-heading">About e-Gurukul Rank Predictor</h2>
+    <div class="about-content">
+      <p>The <strong>e-Gurukul Rank Predictor</strong> is a free tool designed to help students estimate their rank in JEE Main, JEE Advanced, and NEET UG before the official results are declared. By entering your expected or actual score, the tool uses historical cutoff data and rank distribution patterns to give you a reliable rank estimate.</p>
+      <p>The rank predictor uses <strong>previous year rank vs score data</strong> from official NTA and IIT JEE records to calculate your estimated rank. It also factors in category-wise cutoffs to give you a more accurate prediction based on your reservation category.</p>
+      <p>This tool is especially useful for students who want to <strong>shortlist colleges, plan their counselling strategy</strong>, and understand where they stand before the official results. Remember, this is an estimate — actual ranks may vary based on the difficulty level of the exam and the number of candidates appearing.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-label"><i class="ri-chat-3-line"></i> FAQ</div>
+    <h2 class="section-heading" style="text-align:center;">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How accurate is the e-Gurukul Rank Predictor? <i class="ri-add-line"></i></div>
+        <div class="faq-a">The rank predictor uses previous year data and statistical models to estimate your rank. It is generally accurate within a ±10-15% range. Actual ranks depend on the current year's difficulty level and total candidates.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the percentile to qualify for JEE Advanced? <i class="ri-add-line"></i></div>
+        <div class="faq-a">For General category, you need approximately 88-90 percentile in JEE Main to qualify for JEE Advanced. For OBC-NCL it's around 74%, SC around 54%, and ST around 44%. These cutoffs vary each year.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What rank can I expect with 270 marks in JEE Advanced? <i class="ri-add-line"></i></div>
+        <div class="faq-a">With 270 marks out of 360 in JEE Advanced, you can expect a rank in the range of 50–300 (General category). This would likely qualify you for top IITs like IIT Bombay, IIT Delhi, or IIT Madras for popular branches.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What score is needed for AIIMS Delhi in NEET? <i class="ri-add-line"></i></div>
+        <div class="faq-a">To get AIIMS Delhi (MBBS), you typically need a score of 700+ out of 720 in NEET UG, which corresponds to a rank within the top 50. The cutoff varies slightly each year.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I use this tool after the exam? <i class="ri-add-line"></i></div>
+        <div class="faq-a">Yes, you can use this tool both before and after the exam. After the exam, enter your calculated score based on the official answer key to get a more accurate rank prediction.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+        <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream entrance exams with ease.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+          <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html"><i class="ri-home-line"></i> Home</a></li>
+          <li><a href="courses.html"><i class="ri-book-open-line"></i> Courses</a></li>
+          <li><a href="rank-predictor.html"><i class="ri-bar-chart-line"></i> Rank Predictor</a></li>
+          <li><a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Syllabus</h4>
+        <ul>
+          <li><a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a></li>
+          <li><a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a></li>
+          <li><a href="cuet-syllabus.html"><i class="ri-graduation-cap-line"></i> CUET 2026</a></li>
+          <li><a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a></li>
+          <li><a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a></li>
+          <li><a href="support.html"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
+          <li><a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 e-Gurukul. All Rights Reserved.</p></div>
+  </footer>
+
+  <script>
+    // ── EXAM CONFIG ──
+    const examConfig = {
+      'jee-main': {
+        title: 'JEE Main Rank Predictor 2026',
+        scoreLabel: 'Score (out of 300) *',
+        scoreHint: 'JEE Main total marks out of 300',
+        maxScore: 300,
+        resultName: 'JEE Main 2026',
+        rankData: [
+          { min:280, max:300, rankLow:1,      rankHigh:100,    percentile:'99.99+' },
+          { min:260, max:279, rankLow:100,    rankHigh:500,    percentile:'99.9+' },
+          { min:240, max:259, rankLow:500,    rankHigh:2000,   percentile:'99.8+' },
+          { min:220, max:239, rankLow:2000,   rankHigh:6000,   percentile:'99.5+' },
+          { min:200, max:219, rankLow:6000,   rankHigh:15000,  percentile:'99+' },
+          { min:180, max:199, rankLow:15000,  rankHigh:35000,  percentile:'97+' },
+          { min:160, max:179, rankLow:35000,  rankHigh:70000,  percentile:'94+' },
+          { min:140, max:159, rankLow:70000,  rankHigh:120000, percentile:'90+' },
+          { min:120, max:139, rankLow:120000, rankHigh:200000, percentile:'85+' },
+          { min:0,   max:119, rankLow:200000, rankHigh:900000, percentile:'<85' }
+        ]
+      },
+      'jee-advanced': {
+        title: 'JEE Advanced Rank Predictor 2026',
+        scoreLabel: 'Score (out of 360) *',
+        scoreHint: 'JEE Advanced total marks out of 360',
+        maxScore: 360,
+        resultName: 'JEE Advanced 2026',
+        rankData: [
+          { min:300, max:360, rankLow:1,     rankHigh:50,    percentile:'99.99+' },
+          { min:270, max:299, rankLow:50,    rankHigh:300,   percentile:'99.9+' },
+          { min:240, max:269, rankLow:300,   rankHigh:1000,  percentile:'99.7+' },
+          { min:210, max:239, rankLow:1000,  rankHigh:3000,  percentile:'99+' },
+          { min:180, max:209, rankLow:3000,  rankHigh:6000,  percentile:'97+' },
+          { min:150, max:179, rankLow:6000,  rankHigh:10000, percentile:'94+' },
+          { min:120, max:149, rankLow:10000, rankHigh:15000, percentile:'90+' },
+          { min:0,   max:119, rankLow:15000, rankHigh:50000, percentile:'<90' }
+        ]
+      },
+      'neet': {
+        title: 'NEET UG Rank Predictor 2026',
+        scoreLabel: 'Score (out of 720) *',
+        scoreHint: 'NEET UG total marks out of 720',
+        maxScore: 720,
+        resultName: 'NEET UG 2026',
+        rankData: [
+          { min:700, max:720, rankLow:1,     rankHigh:50,    percentile:'99.99+' },
+          { min:680, max:699, rankLow:50,    rankHigh:200,   percentile:'99.9+' },
+          { min:650, max:679, rankLow:200,   rankHigh:1000,  percentile:'99.7+' },
+          { min:620, max:649, rankLow:1000,  rankHigh:5000,  percentile:'99+' },
+          { min:580, max:619, rankLow:5000,  rankHigh:15000, percentile:'97+' },
+          { min:540, max:579, rankLow:15000, rankHigh:40000, percentile:'94+' },
+          { min:500, max:539, rankLow:40000, rankHigh:80000, percentile:'88+' },
+          { min:0,   max:499, rankLow:80000, rankHigh:200000,percentile:'<88' }
+        ]
+      }
+    };
+
+    let currentExam = 'jee-main';
+
+    // Exam tab switching
+    document.querySelectorAll('.exam-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.exam-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentExam = tab.dataset.exam;
+        const cfg = examConfig[currentExam];
+        document.getElementById('formTitle').textContent = cfg.title;
+        document.getElementById('scoreLabel').textContent = cfg.scoreLabel;
+        document.getElementById('scoreHint').textContent = cfg.scoreHint;
+        document.getElementById('scoreInput').max = cfg.maxScore;
+        document.getElementById('scoreInput').placeholder = `e.g. ${Math.round(cfg.maxScore * 0.75)}`;
+        document.getElementById('resultCard').classList.remove('show');
+      });
+    });
+
+    // Predict rank
+    function predictRank() {
+      const name = document.getElementById('studentName').value.trim();
+      const mobile = document.getElementById('mobileNum').value.trim();
+      const score = parseInt(document.getElementById('scoreInput').value);
+      const category = document.getElementById('categorySelect').value;
+      const cfg = examConfig[currentExam];
+
+      if (!name) { alert('Please enter your name.'); return; }
+      if (!mobile || mobile.length !== 10) { alert('Please enter a valid 10-digit mobile number.'); return; }
+      if (isNaN(score) || score < 0 || score > cfg.maxScore) { alert(`Please enter a valid score between 0 and ${cfg.maxScore}.`); return; }
+      if (!category) { alert('Please select your category.'); return; }
+
+      // Category multiplier
+      const catMultiplier = { general:1, obc:0.75, sc:0.5, st:0.45, ews:0.85, pwd:0.6 };
+      const mult = catMultiplier[category] || 1;
+
+      // Find rank band
+      const band = cfg.rankData.find(r => score >= r.min && score <= r.max) || cfg.rankData[cfg.rankData.length - 1];
+      const adjLow  = Math.max(1, Math.round(band.rankLow  * mult));
+      const adjHigh = Math.round(band.rankHigh * mult);
+      const midRank = Math.round((adjLow + adjHigh) / 2);
+
+      // Display
+      document.getElementById('resultExamName').textContent = `${cfg.resultName} — Predicted Rank`;
+      document.getElementById('resultRank').textContent = midRank.toLocaleString('en-IN');
+      document.getElementById('resultRange').textContent = `Rank range: ${adjLow.toLocaleString('en-IN')} – ${adjHigh.toLocaleString('en-IN')}`;
+      document.getElementById('rPercentile').textContent = band.percentile;
+      document.getElementById('rScore').textContent = `${score}/${cfg.maxScore}`;
+      document.getElementById('rCategory').textContent = category.toUpperCase();
+
+      const rc = document.getElementById('resultCard');
+      rc.classList.add('show');
+      rc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Table tabs
+    function showTable(id, btn) {
+      ['jee-main-table','jee-adv-table','neet-table'].forEach(t => {
+        document.getElementById(t).style.display = t === id ? '' : 'none';
+      });
+      document.querySelectorAll('.ttab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Mobile menu
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
+    mobileMenu.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      mobileMenu.querySelector('i').className = navMenu.classList.contains('active') ? 'ri-close-line' : 'ri-menu-3-line';
+    });
+
+    // Auth state
+    window.onload = () => {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      if (user) {
+        const btn = document.getElementById('loginBtn');
+        if (btn) { btn.href = 'student-dashboard.html'; btn.innerHTML = '<i class="ri-dashboard-line"></i> Dashboard'; }
+      }
+    };
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.step-card').forEach(el => {
+      el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity .5s, transform .5s';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

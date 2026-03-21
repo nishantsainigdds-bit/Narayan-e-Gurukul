@@ -1,624 +1,663 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Premium Materials | e-Gurukul</title>
-    <meta name="description" content="Access premium JEE Main & Advanced study materials, notes, and DPPs.">
+    <title>JEE Study Material | e-Gurukul</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0e2f69;
             --secondary: #1746a2;
             --accent: #facc15;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --bg: #f8fafc;
+            --bg: #f0f4fb;
             --white: #ffffff;
-            --gradient: linear-gradient(135deg, #0e2f69 0%, #1746a2 100%);
-            --card-shadow: 0 10px 30px rgba(14, 47, 105, 0.08);
+            --purple: #7c3aed;
+            --green: #059669;
+            --orange: #d97706;
+            --red: #dc2626;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: #1e293b; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            color: #1e293b;
-            line-height: 1.6;
-        }
-
-        /* ──── HEADER ──── */
+        /* HEADER */
         header {
-            background: var(--white);
+            background: var(--primary);
             padding: 0 6%;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            height: 66px;
         }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; color: white; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        nav { display: flex; align-items: center; gap: 4px; }
+        nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 7px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: 0.2s; }
+        nav a:hover { color: white; background: rgba(255,255,255,0.12); }
+        nav a.active { color: var(--accent); }
+        .nav-cta { background: var(--accent) !important; color: var(--primary) !important; font-weight: 700 !important; border-radius: 10px !important; }
+        .hamburger { display: none; background: none; border: none; color: white; font-size: 26px; cursor: pointer; }
+        .mobile-nav { display: none; position: fixed; top: 66px; left: 0; right: 0; background: var(--primary); padding: 16px 6%; z-index: 999; flex-direction: column; gap: 4px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { color: rgba(255,255,255,0.85); text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 15px; }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--primary);
-            text-decoration: none;
-        }
+        /* BREADCRUMB */
+        .breadcrumb { background: white; border-bottom: 1px solid #e2e8f0; padding: 12px 6%; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+        .breadcrumb a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb i { font-size: 12px; color: #94a3b8; }
 
-        .logo i {
-            color: var(--accent);
-            font-size: 28px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #64748b;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .portal-btn {
-            background: var(--primary);
-            color: white !important;
-            padding: 10px 22px;
-            border-radius: 50px;
-            font-size: 14px;
-        }
-
-        /* ──── HERO ──── */
-        .page-hero {
-            background: var(--gradient);
-            padding: 80px 6% 120px;
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #071a3e 0%, #0e2f69 45%, #1746a2 100%);
+            padding: 60px 6% 110px;
             color: white;
-            text-align: center;
             position: relative;
             overflow: hidden;
         }
+        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(124,58,237,0.12) 0%, transparent 60%); }
+        .hero::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 55px; background: var(--bg); clip-path: ellipse(55% 100% at 50% 100%); }
+        .hero-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .hero-left { max-width: 600px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); color: #c4b5fd; padding: 6px 16px; border-radius: 30px; font-size: 13px; font-weight: 600; margin-bottom: 18px; }
+        .hero h1 { font-size: 44px; font-weight: 800; line-height: 1.12; margin-bottom: 14px; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 16px; opacity: 0.8; margin-bottom: 28px; line-height: 1.7; }
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-primary { padding: 12px 24px; background: var(--accent); color: var(--primary); border: none; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-primary:hover { background: #f59e0b; transform: translateY(-2px); }
+        .btn-outline-w { padding: 12px 24px; background: rgba(255,255,255,0.1); color: white; border: 2px solid rgba(255,255,255,0.25); border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-outline-w:hover { background: rgba(255,255,255,0.18); }
+        .hero-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+        .h-stat { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 14px 20px; text-align: center; }
+        .h-stat .num { font-size: 22px; font-weight: 800; color: var(--accent); }
+        .h-stat .lbl { font-size: 11px; opacity: 0.7; margin-top: 2px; }
 
-        .page-hero::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: var(--bg);
-            clip-path: polygon(0 100%, 100% 100%, 100% 0);
-        }
-
-        .page-hero h1 {
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-
-        .page-hero p {
-            font-size: 18px;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* ──── SUBJECT SELECTOR ──── */
-        .subject-nav {
-            max-width: 1200px;
-            margin: -40px auto 40px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .subject-card {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: var(--card-shadow);
-            cursor: pointer;
-            transition: 0.3s;
+        /* SUBJECT TABS */
+        .subject-wrap { max-width: 1160px; margin: -30px auto 0; padding: 0 20px; position: relative; z-index: 10; }
+        .subject-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .subj-tab {
+            background: white; border-radius: 18px; padding: 22px 20px;
+            text-align: center; cursor: pointer; transition: 0.25s;
             border: 2px solid transparent;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
+        .subj-tab:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .subj-tab.active { border-color: var(--accent); box-shadow: 0 8px 30px rgba(250,204,21,0.2); }
+        .subj-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 12px; }
+        .subj-tab h3 { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .subj-tab p { font-size: 12px; color: #64748b; }
+        .subj-count { display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
 
-        .subject-card:hover,
-        .subject-card.active {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+        /* MAIN */
+        .main-wrap { max-width: 1160px; margin: 36px auto 80px; padding: 0 20px; }
+
+        /* SECTION */
+        .mat-section { margin-bottom: 48px; }
+        .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+        .sec-head h2 { font-size: 20px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .sec-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .view-all { font-size: 13px; font-weight: 700; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+        .view-all:hover { text-decoration: underline; }
+
+        /* MATERIAL CARDS */
+        .mat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+        .mat-card {
+            background: white; border-radius: 18px; overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1.5px solid #f1f5f9;
+            transition: 0.25s; display: flex; flex-direction: column;
         }
-
-        .subject-card i {
-            font-size: 32px;
-            display: block;
-            margin-bottom: 10px;
+        .mat-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(14,47,105,0.12); border-color: #bfdbfe; }
+        .mat-thumb {
+            height: 110px; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
         }
+        .mat-thumb i { font-size: 44px; color: white; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); position: relative; z-index: 1; }
+        .mat-ribbon { position: absolute; top: 12px; left: -28px; background: var(--accent); color: var(--primary); font-size: 10px; font-weight: 800; padding: 4px 32px; transform: rotate(-45deg); }
+        .mat-free-tag { position: absolute; top: 10px; right: 10px; background: rgba(22,163,74,0.9); color: white; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+        .mat-new-tag { position: absolute; bottom: 10px; right: 10px; background: var(--accent); color: var(--primary); font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 20px; }
+        .mat-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+        .mat-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
+        .mat-title { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 8px; line-height: 1.35; flex: 1; }
+        .mat-meta { display: flex; gap: 12px; font-size: 12px; color: #94a3b8; margin-bottom: 14px; flex-wrap: wrap; }
+        .mat-meta span { display: flex; align-items: center; gap: 4px; }
+        .mat-actions { display: flex; gap: 8px; }
+        .btn-dl { flex: 1; padding: 9px; background: var(--primary); border: none; border-radius: 10px; font-family: inherit; font-size: 13px; font-weight: 700; color: white; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px; text-decoration: none; }
+        .btn-dl:hover { background: var(--secondary); }
+        .btn-dl.premium { background: linear-gradient(135deg, #d97706, #f59e0b); }
+        .btn-dl.premium:hover { background: linear-gradient(135deg, #b45309, #d97706); }
+        .btn-prev { padding: 9px 12px; border: 2px solid #e2e8f0; border-radius: 10px; background: none; font-family: inherit; font-size: 13px; color: #374151; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
+        .btn-prev:hover { border-color: var(--primary); color: var(--primary); }
 
-        .icon-p {
-            color: #3b82f6;
+        /* THUMB COLORS */
+        .t-physics { background: linear-gradient(135deg, #0e2f69, #1746a2); }
+        .t-chemistry { background: linear-gradient(135deg, #065f46, #059669); }
+        .t-maths { background: linear-gradient(135deg, #5b21b6, #7c3aed); }
+        .t-mock { background: linear-gradient(135deg, #991b1b, #dc2626); }
+        .t-pyq { background: linear-gradient(135deg, #92400e, #d97706); }
+        .t-formula { background: linear-gradient(135deg, #0e7490, #0891b2); }
+
+        /* TYPE COLORS */
+        .type-physics { color: #1746a2; }
+        .type-chemistry { color: #059669; }
+        .type-maths { color: #7c3aed; }
+        .type-mock { color: #dc2626; }
+        .type-pyq { color: #d97706; }
+        .type-formula { color: #0891b2; }
+
+        /* FEATURED MOCK TEST CARD */
+        .featured-card {
+            background: linear-gradient(135deg, #0e2f69, #1746a2);
+            border-radius: 20px; padding: 28px; color: white;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            flex-wrap: wrap; margin-bottom: 18px;
+            box-shadow: 0 8px 30px rgba(14,47,105,0.25);
         }
+        .featured-card .fc-left h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+        .featured-card .fc-left p { font-size: 14px; opacity: 0.8; margin-bottom: 14px; }
+        .fc-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+        .fc-chip { background: rgba(255,255,255,0.12); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .btn-start { padding: 12px 24px; background: var(--accent); color: var(--primary); border: none; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: 0.2s; text-decoration: none; }
+        .btn-start:hover { background: #f59e0b; transform: scale(1.03); }
 
-        .icon-c {
-            color: #10b981;
+        /* HELP BANNER */
+        .help-banner { background: white; border-radius: 20px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border: 1.5px solid #e2e8f0; margin-top: 20px; }
+        .help-banner h4 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .help-banner p { font-size: 14px; color: #64748b; }
+        .btn-help { padding: 11px 22px; background: var(--primary); color: white; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; transition: 0.2s; }
+        .btn-help:hover { background: var(--secondary); }
+
+        /* FOOTER */
+        footer { background: var(--primary); color: white; padding: 50px 6% 28px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+        .footer-brand p { font-size: 14px; opacity: 0.65; line-height: 1.7; margin-top: 12px; }
+        .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; margin-bottom: 9px; transition: 0.2s; }
+        .footer-col a:hover { color: white; padding-left: 4px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; opacity: 0.6; }
+        .socials { display: flex; gap: 12px; }
+        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; }
+        .socials a:hover { color: var(--accent); }
+
+        @media (max-width: 900px) {
+            nav { display: none; }
+            .hamburger { display: block; }
+            .hero h1 { font-size: 30px; }
+            .subject-tabs { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
         }
-
-        .icon-m {
-            color: #f59e0b;
-        }
-
-        .subject-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        /* ──── MATERIALS GRID ──── */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto 80px;
-            padding: 0 20px;
-        }
-
-        .content-section {
-            margin-bottom: 50px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-
-        .section-header h2 {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-header h2 i {
-            background: #eef2ff;
-            padding: 10px;
-            border-radius: 12px;
-            font-size: 20px;
-        }
-
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .material-item {
-            background: white;
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .material-item:hover {
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-            transform: scale(1.02);
-        }
-
-        .badge-premium {
-            position: absolute;
-            top: 15px;
-            right: -30px;
-            background: var(--accent);
-            color: var(--primary);
-            font-size: 10px;
-            font-weight: 800;
-            padding: 5px 30px;
-            transform: rotate(45deg);
-        }
-
-        .item-type {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .item-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1.4;
-        }
-
-        .item-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .item-info i {
-            font-size: 16px;
-        }
-
-        .btn-download {
-            background: #f1f5f9;
-            color: var(--primary);
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 14px;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-download:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* ──── FLOATING HELP ──── */
-        .help-banner {
-            background: #eff6ff;
-            border: 1px solid #dbeafe;
-            border-radius: 20px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 60px;
-        }
-
-        .help-text h4 {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .help-text p {
-            color: #64748b;
-        }
-
-        .help-btn {
-            background: var(--primary);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        /* ──── FOOTER ──── */
-        footer {
-            background: white;
-            padding: 60px 6% 30px;
-            border-top: 1px solid #eef2ff;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 17px;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-col ul li a {
-            text-decoration: none;
-            color: #64748b;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #f1f5f9;
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .page-hero h1 {
-                font-size: 32px;
-            }
-
-            .subject-nav {
-                grid-template-columns: 1fr;
-            }
-
-            .help-banner {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
-            }
+        @media (max-width: 600px) {
+            .mat-grid { grid-template-columns: 1fr; }
+            .hero { padding: 48px 6% 100px; }
         }
     </style>
 </head>
-
 <body>
 
+    <!-- HEADER -->
     <header>
-        <a href="index.html" class="logo">
-            <i class="ri-graduation-cap-fill"></i>
-            <span>e-Gurukul</span>
-        </a>
-        <div class="nav-links">
+        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+        <nav>
             <a href="index.html">Home</a>
             <a href="courses.html">Courses</a>
-            <a href="study-material.html" style="color: var(--primary);">Study Material</a>
-            <a href="jee-syllabus.html">Syllabus</a>
-            <a href="login.html" class="portal-btn">Student Portal</a>
-        </div>
+            <a href="study-material.html">Study Material</a>
+            <a href="rank-predictor.html">Rank Predictor</a>
+            <a href="login.html" class="nav-cta">Portal</a>
+        </nav>
+        <button class="hamburger" onclick="document.getElementById('mobileNav').classList.toggle('open')">
+            <i class="ri-menu-line"></i>
+        </button>
     </header>
-
-    <div class="page-hero">
-        <h1>JEE Premium Materials</h1>
-        <p>Expert-curated handwritten notes, complete DPP sets, and detailed mock tests for JEE 2026/2027.</p>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="study-material.html">Study Material</a>
+        <a href="rank-predictor.html">Rank Predictor</a>
+        <a href="login.html">Portal</a>
     </div>
 
-    <div class="subject-nav">
-        <div class="subject-card active" onclick="filterBy('physics')">
-            <i class="ri-lightbulb-flash-line icon-p"></i>
-            <h3>Physics</h3>
-        </div>
-        <div class="subject-card" onclick="filterBy('chemistry')">
-            <i class="ri-flask-line icon-c"></i>
-            <h3>Chemistry</h3>
-        </div>
-        <div class="subject-card" onclick="filterBy('maths')">
-            <i class="ri-functions icon-m"></i>
-            <h3>Mathematics</h3>
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <a href="study-material.html">Study Material</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <span style="color:#0e2f69;font-weight:600;">JEE Material</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-badge"><i class="ri-flask-line"></i> JEE Main & Advanced</div>
+                <h1>JEE <span>Study Material</span></h1>
+                <p>Expert-curated notes, DPPs, mock tests and PYQs for Physics, Chemistry & Mathematics. Crafted by IITians for JEE 2026/2027.</p>
+                <div class="hero-actions">
+                    <a href="enroll-jee.html" class="btn-primary"><i class="ri-rocket-line"></i> Enroll Now</a>
+                    <a href="jee-syllabus.html" class="btn-outline-w"><i class="ri-list-check"></i> View Syllabus</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="h-stat"><div class="num">500+</div><div class="lbl">Study Files</div></div>
+                <div class="h-stat"><div class="num">50+</div><div class="lbl">Mock Tests</div></div>
+                <div class="h-stat"><div class="num">10 Yrs</div><div class="lbl">PYQ Archive</div></div>
+                <div class="h-stat"><div class="num">Free</div><div class="lbl">Basic Access</div></div>
+            </div>
         </div>
     </div>
 
-    <main class="main-container">
+    <!-- SUBJECT TABS -->
+    <div class="subject-wrap">
+        <div class="subject-tabs">
+            <div class="subj-tab active" onclick="setSubject('physics', this)">
+                <div class="subj-icon" style="background:#eff6ff;color:#1746a2;"><i class="ri-flashlight-line"></i></div>
+                <h3>Physics</h3>
+                <p>Mechanics, Electrostatics, Optics & more</p>
+                <span class="subj-count" style="background:#eff6ff;color:#1746a2;">180+ Files</span>
+            </div>
+            <div class="subj-tab" onclick="setSubject('chemistry', this)">
+                <div class="subj-icon" style="background:#f0fdf4;color:#059669;"><i class="ri-flask-line"></i></div>
+                <h3>Chemistry</h3>
+                <p>Organic, Inorganic & Physical Chemistry</p>
+                <span class="subj-count" style="background:#f0fdf4;color:#059669;">160+ Files</span>
+            </div>
+            <div class="subj-tab" onclick="setSubject('maths', this)">
+                <div class="subj-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="ri-calculator-line"></i></div>
+                <h3>Mathematics</h3>
+                <p>Calculus, Algebra, Coordinate Geometry</p>
+                <span class="subj-count" style="background:#f5f3ff;color:#7c3aed;">170+ Files</span>
+            </div>
+        </div>
+    </div>
 
-        <!-- ── LATEST STUDY NOTES ── -->
-        <section class="content-section">
-            <div class="section-header">
-                <h2><i class="ri-sticky-note-line"></i> Handwritten Chapter Notes</h2>
-            </div>
-            <div class="materials-grid">
-                <div class="material-item">
-                    <span class="badge-premium">PREMIUM</span>
-                    <span class="item-type">PHYSICS</span>
-                    <h4 class="item-title">Rotational Motion</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 4.2 MB</span>
-                        <span><i class="ri-eye-line"></i> 1.2k+</span>
-                    </div>
-                    <a href="https://drive.google.com/drive/folders/1byphlO1KEFcUl-cdEfV7X5KpgsX6jiLl"
-                        class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-                <div class="material-item">
-                    <span class="item-type"></span>
-                    <h4 class="item-title">Definite Integration: Short Tricks & PYQs</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 3.5 MB</span>
-                        <span><i class="ri-eye-line"></i> 850+</span>
-                    </div>
-                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-                <div class="material-item">
-                    <span class="badge-premium">PREMIUM</span>
-                    <span class="item-type">CHEMISTRY</span>
-                    <h4 class="item-title">Aldehydes, Ketones, and Carboxylic Acids (OC)</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 5.1 MB</span>
-                        <span><i class="ri-eye-line"></i> 2.4k+</span>
-                    </div>
-                    <a href="https://drive.google.com/drive/folders/1G-krtbKzmQDg2crt_uFzacnx3uwUadyf"
-                        class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-                <div class="material-item">
-                    <span class="item-type">PHYSICS</span>
-                    <h4 class="item-title">Alternating Current</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 2.8 MB</span>
-                        <span><i class="ri-eye-line"></i> 640+</span>
-                    </div>
-                    <a href="https://drive.google.com/drive/folders/1MOb5VpuW1Mzzywjco4-5uaEFCyNg4HZt"
-                        class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
-                </div>
-            </div>
-        </section>
+    <!-- MAIN CONTENT -->
+    <div class="main-wrap">
 
-        <!-- ── DPP COLLECTIONS ── -->
-        <section class="content-section">
-            <div class="section-header">
-                <h2><i class="ri-file-list-3-line"></i> Daily Practice Problems (DPPs)</h2>
+        <!-- CHAPTER NOTES -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#eff6ff;color:#1746a2;"><i class="ri-file-text-line"></i></div>
+                    Chapter Notes
+                </h2>
+                <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
             </div>
-            <div class="materials-grid">
-                <div class="material-item">
-                    <span class="item-type">MATHS</span>
-                    <h4 class="item-title">Complex Number DPP</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-zip-line"></i> 12.5 MB</span>
-                        <span><i class="ri-survey-line"></i> 30 Qs/Sub</span>
+            <div class="mat-grid" id="notesGrid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-physics">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-flashlight-line"></i>
                     </div>
-                    <a href="https://drive.google.com/file/d/12eseYmMsSRQHXvEEjClslVopLXvONquV/view?usp=drivesdk"
-                        class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Rotational Motion — Complete Chapter Notes</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 42 pages</span>
+                            <span><i class="ri-download-line"></i> 3.2k</span>
+                            <span><i class="ri-hard-drive-line"></i> 4.2 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/drive/folders/1byphlO1KEFcUl-cdEfV7X5KpgsX6jiLl" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="material-item">
-                    <span class="badge-premium">PREMIUM</span>
-                    <span class="item-type">MATHS</span>
-                    <h4 class="item-title">Coordinate Geometry MCQ Masterkit</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 1.8 MB</span>
-                        <span><i class="ri-list-check"></i> Advanced Level</span>
+                <div class="mat-card">
+                    <div class="mat-thumb t-physics">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-flashlight-line"></i>
                     </div>
-                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Alternating Current — Detailed Notes with PYQs</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 38 pages</span>
+                            <span><i class="ri-download-line"></i> 2.8k</span>
+                            <span><i class="ri-hard-drive-line"></i> 2.8 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/drive/folders/1MOb5VpuW1Mzzywjco4-5uaEFCyNg4HZt" target="_blank" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="material-item">
-                    <span class="item-type">CHEMISTRY</span>
-                    <h4 class="item-title">Chemical Bonding: Shape & Hybridization</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 2.1 MB</span>
-                        <span><i class="ri-check-line"></i> Solved</span>
+                <div class="mat-card">
+                    <div class="mat-thumb t-chemistry">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-flask-line"></i>
                     </div>
-                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                    <div class="mat-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Aldehydes, Ketones & Carboxylic Acids (Organic)</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 58 pages</span>
+                            <span><i class="ri-download-line"></i> 2.4k</span>
+                            <span><i class="ri-hard-drive-line"></i> 5.1 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/drive/folders/1G-krtbKzmQDg2crt_uFzacnx3uwUadyf" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="material-item">
-                    <span class="badge-premium">PREMIUM</span>
-                    <span class="item-type">JEE 2026</span>
-                    <h4 class="item-title">JEE 2026: Complete Study Material</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 500 MB</span>
-                        <span><i class="ri-timer-line"></i> 45 Mins</span>
+                <div class="mat-card">
+                    <div class="mat-thumb t-maths">
+                        <div class="mat-new-tag">NEW</div>
+                        <i class="ri-calculator-line"></i>
                     </div>
-                    <a href="https://drive.google.com/drive/folders/1vNfiLhxS3F6o8YAucK6DrJyxf6kzCSDu"
-                        class="btn-download"><i class="ri-download-2-line"></i> Download ZIP</a>
+                    <div class="mat-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Definite Integration — Short Tricks & PYQs</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 64 pages</span>
+                            <span><i class="ri-download-line"></i> 4.1k</span>
+                            <span><i class="ri-hard-drive-line"></i> 3.5 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ── MOCK TESTS ── -->
-        <section class="content-section">
-            <div class="section-header">
-                <h2><i class="ri-medal-fill"></i> JEE Mock Test Series</h2>
+        <!-- DPPs -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="ri-edit-box-line"></i></div>
+                    Daily Practice Problems (DPPs)
+                </h2>
+                <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
             </div>
-            <div class="materials-grid">
-                <div class="material-item" style="border: 2px solid var(--accent);">
-                    <span class="badge-premium">MUST DO</span>
-                    <span class="item-type">TEST #08</span>
-                    <h4 class="item-title">Full Mock Test: JEE Main Pattern (2026)</h4>
-                    <div class="item-info">
-                        <span><i class="ri-timer-line"></i> 3 Hours</span>
-                        <span><i class="ri-layout-grid-line"></i> 300 Marks</span>
+            <div class="mat-grid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-maths">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-edit-box-line"></i>
                     </div>
-                    <a href="#" class="btn-download" style="background: var(--accent); color: var(--primary);"><i
-                            class="ri-play-line"></i> Start Online Test</a>
+                    <div class="mat-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Complex Numbers DPP — 30 Questions</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-question-line"></i> 30 Qs</span>
+                            <span><i class="ri-download-line"></i> 1.9k</span>
+                            <span><i class="ri-hard-drive-line"></i> 12.5 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/12eseYmMsSRQHXvEEjClslVopLXvONquV/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="material-item">
-                    <span class="item-type">TEST #07</span>
-                    <h4 class="item-title">Part Test: PCM Mixed 11th Syllabus</h4>
-                    <div class="item-info">
-                        <span><i class="ri-file-pdf-line"></i> 0.9 MB</span>
-                        <span><i class="ri-survey-line"></i> Offline PDF</span>
+                <div class="mat-card">
+                    <div class="mat-thumb t-maths">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-edit-box-line"></i>
                     </div>
-                    <a href="#" class="btn-download"><i class="ri-download-2-line"></i> Download PDF</a>
+                    <div class="mat-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Coordinate Geometry MCQ Masterkit</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-question-line"></i> Advanced</span>
+                            <span><i class="ri-download-line"></i> 1.6k</span>
+                            <span><i class="ri-hard-drive-line"></i> 1.8 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-chemistry">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-edit-box-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Chemical Bonding: Shape & Hybridization DPP</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-question-line"></i> 25 Qs</span>
+                            <span><i class="ri-download-line"></i> 1.4k</span>
+                            <span><i class="ri-hard-drive-line"></i> 2.1 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-physics">
+                        <div class="mat-new-tag">NEW</div>
+                        <i class="ri-edit-box-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Electrostatics DPP #12 — Mixed MCQs</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-question-line"></i> 20 Qs</span>
+                            <span><i class="ri-download-line"></i> 980</span>
+                            <span><i class="ri-hard-drive-line"></i> 0.8 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
 
+        <!-- MOCK TESTS -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#fef2f2;color:#dc2626;"><i class="ri-file-list-3-line"></i></div>
+                    Mock Test Series
+                </h2>
+                <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
+            </div>
+
+            <!-- Featured Mock -->
+            <div class="featured-card">
+                <div class="fc-left">
+                    <h3><i class="ri-medal-fill" style="color:var(--accent);margin-right:8px;"></i>JEE Main 2026 — Full Mock Test #08</h3>
+                    <p>Complete 3-hour mock test based on latest NTA pattern. Includes all 3 subjects with detailed solutions.</p>
+                    <div class="fc-chips">
+                        <span class="fc-chip"><i class="ri-timer-line"></i> 3 Hours</span>
+                        <span class="fc-chip"><i class="ri-layout-grid-line"></i> 300 Marks</span>
+                        <span class="fc-chip"><i class="ri-question-line"></i> 90 Questions</span>
+                        <span class="fc-chip"><i class="ri-file-pdf-line"></i> PDF + Solutions</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-start"><i class="ri-play-circle-fill"></i> Start Test</a>
+            </div>
+
+            <div class="mat-grid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-mock">
+                        <i class="ri-file-list-3-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-mock"><i class="ri-file-list-3-line"></i> Mock Test #07</div>
+                        <div class="mat-title">Part Test: PCM Mixed — 11th Syllabus</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-timer-line"></i> 90 min</span>
+                            <span><i class="ri-download-line"></i> 3.4k</span>
+                            <span><i class="ri-hard-drive-line"></i> 0.9 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-mock">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-file-list-3-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-mock"><i class="ri-file-list-3-line"></i> Mock Test #06</div>
+                        <div class="mat-title">JEE Advanced Pattern — Full Mock Test</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-timer-line"></i> 3 Hours</span>
+                            <span><i class="ri-download-line"></i> 5.6k</span>
+                            <span><i class="ri-hard-drive-line"></i> 2.4 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULA SHEETS + PYQs -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#ecfeff;color:#0891b2;"><i class="ri-function-line"></i></div>
+                    Formula Sheets & PYQs
+                </h2>
+                <a href="pyq-archive.html" class="view-all">PYQ Archive <i class="ri-arrow-right-line"></i></a>
+            </div>
+            <div class="mat-grid">
+                <div class="mat-card">
+                    <div class="mat-thumb t-formula">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-function-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-formula"><i class="ri-function-line"></i> Formula Sheet</div>
+                        <div class="mat-title">Physics Formula Sheet — All Chapters</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 8 pages</span>
+                            <span><i class="ri-download-line"></i> 9.8k</span>
+                            <span><i class="ri-hard-drive-line"></i> 1.1 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-formula">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-function-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-formula"><i class="ri-function-line"></i> Formula Sheet</div>
+                        <div class="mat-title">Maths Formula Booklet — JEE Advanced</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 12 pages</span>
+                            <span><i class="ri-download-line"></i> 8.1k</span>
+                            <span><i class="ri-hard-drive-line"></i> 1.6 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-pyq">
+                        <div class="mat-free-tag">FREE</div>
+                        <i class="ri-history-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-pyq"><i class="ri-history-line"></i> PYQ</div>
+                        <div class="mat-title">JEE Main 2023 — Physics Section PYQ</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-file-line"></i> 18 pages</span>
+                            <span><i class="ri-download-line"></i> 7.2k</span>
+                            <span><i class="ri-hard-drive-line"></i> 1.9 MB</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="#" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card">
+                    <div class="mat-thumb t-pyq">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <i class="ri-history-line"></i>
+                    </div>
+                    <div class="mat-body">
+                        <div class="mat-type type-pyq"><i class="ri-history-line"></i> PYQ Bundle</div>
+                        <div class="mat-title">JEE 2026 Complete Study Material Bundle</div>
+                        <div class="mat-meta">
+                            <span><i class="ri-folder-zip-line"></i> 500 MB</span>
+                            <span><i class="ri-download-line"></i> 4.5k</span>
+                            <span><i class="ri-hard-drive-line"></i> ZIP</span>
+                        </div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/drive/folders/1vNfiLhxS3F6o8YAucK6DrJyxf6kzCSDu" target="_blank" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HELP BANNER -->
         <div class="help-banner">
-            <div class="help-text">
-                <h4>Can't find what you're looking for?</h4>
-                <p>Request specific chapter notes or DPPs from our content team.</p>
+            <div>
+                <h4><i class="ri-question-answer-line" style="margin-right:8px;color:var(--secondary);"></i>Can't find what you need?</h4>
+                <p>Request specific chapter notes or DPPs from our content team — we'll add them within 48 hours.</p>
             </div>
-            <a href="support.html" class="help-btn">Request Content</a>
+            <a href="support.html" class="btn-help"><i class="ri-send-plane-line"></i> Request Content</a>
         </div>
 
-    </main>
+    </div>
 
+    <!-- FOOTER -->
     <footer>
         <div class="footer-grid">
-            <div class="footer-col" style="grid-column: span 2;">
-                <a href="index.html" class="logo" style="margin-bottom: 20px;">
-                    <i class="ri-graduation-cap-fill"></i> <span>e-Gurukul</span>
-                </a>
-                <p style="color: #64748b; font-size: 14px; margin-top: 15px;">Setting new standards in digital education
-                    for engineering & medical entrance exams across India.</p>
+            <div class="footer-brand">
+                <a href="index.html" class="logo" style="font-size:20px;margin-bottom:12px;display:inline-flex;"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+                <p>India's trusted online learning platform for JEE, NEET, CUET & SSC aspirants.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Study Resources</h4>
+                <a href="study-material.html">Study Material</a>
+                <a href="jee-syllabus.html">JEE Syllabus</a>
+                <a href="neet-materials.html">NEET Material</a>
+                <a href="pyq-archive.html">PYQ Archive</a>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="courses.html">Browse Courses</a></li>
-                    <li><a href="jee-syllabus.html">JEE Syllabus</a></li>
-                    <li><a href="neet-syllabus.html">NEET Syllabus</a></li>
-                    <li><a href="support.html">Support Help</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <ul>
-                    <li><a href="#"><i class="ri-instagram-line"></i> Instagram</a></li>
-                    <li><a href="#"><i class="ri-youtube-line"></i> YouTube</a></li>
-                    <li><a href="mailto:egurukul@gmail.com"><i class="ri-mail-line"></i> Email Support</a></li>
-                </ul>
+                <a href="courses.html">All Courses</a>
+                <a href="rank-predictor.html">Rank Predictor</a>
+                <a href="enroll-jee.html">Enroll for JEE</a>
+                <a href="support.html">Support</a>
             </div>
         </div>
-        <div class="copyright">
-            &copy; 2026 e-Gurukul. Designed for your success.
+        <div class="footer-bottom">
+            <span>© 2026 e-Gurukul. All rights reserved.</span>
+            <div class="socials">
+                <a href="#"><i class="ri-youtube-line"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-telegram-line"></i></a>
+                <a href="#"><i class="ri-whatsapp-line"></i></a>
+            </div>
         </div>
     </footer>
 
     <script>
-        function filterBy(subject) {
-            // Visual toggle
-            const cards = document.querySelectorAll('.subject-card');
-            cards.forEach(c => c.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            // Logic can be added here to filter items dynamically
-            console.log("Filtering by: " + subject);
+        function setSubject(subj, el) {
+            document.querySelectorAll('.subj-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            // Filter logic can be extended here
         }
     </script>
 </body>
-
 </html>
