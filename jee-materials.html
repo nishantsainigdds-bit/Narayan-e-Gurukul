@@ -285,7 +285,7 @@
                 <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
             </div>
             <div class="mat-grid" id="notesGrid">
-                <div class="mat-card">
+                <div class="mat-card" data-subject="physics">
                     <div class="mat-thumb t-physics">
                         <div class="mat-free-tag">FREE</div>
                         <i class="ri-flashlight-line"></i>
@@ -304,7 +304,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="physics">
                     <div class="mat-thumb t-physics">
                         <div class="mat-ribbon">PREMIUM</div>
                         <i class="ri-flashlight-line"></i>
@@ -319,11 +319,11 @@
                         </div>
                         <div class="mat-actions">
                             <button class="btn-prev"><i class="ri-eye-line"></i></button>
-                            <a href="https://drive.google.com/drive/folders/1MOb5VpuW1Mzzywjco4-5uaEFCyNg4HZt" target="_blank" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
+                            <a href="" target="_blank" class="btn-dl premium"><i class="ri-lock-line"></i> Unlock</a>
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="chemistry">
                     <div class="mat-thumb t-chemistry">
                         <div class="mat-free-tag">FREE</div>
                         <i class="ri-flask-line"></i>
@@ -342,7 +342,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="maths">
                     <div class="mat-thumb t-maths">
                         <div class="mat-new-tag">NEW</div>
                         <i class="ri-calculator-line"></i>
@@ -374,7 +374,7 @@
                 <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
             </div>
             <div class="mat-grid">
-                <div class="mat-card">
+                <div class="mat-card" data-subject="maths">
                     <div class="mat-thumb t-maths">
                         <div class="mat-free-tag">FREE</div>
                         <i class="ri-edit-box-line"></i>
@@ -393,7 +393,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="maths">
                     <div class="mat-thumb t-maths">
                         <div class="mat-ribbon">PREMIUM</div>
                         <i class="ri-edit-box-line"></i>
@@ -412,7 +412,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="chemistry">
                     <div class="mat-thumb t-chemistry">
                         <div class="mat-free-tag">FREE</div>
                         <i class="ri-edit-box-line"></i>
@@ -431,7 +431,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="physics">
                     <div class="mat-thumb t-physics">
                         <div class="mat-new-tag">NEW</div>
                         <i class="ri-edit-box-line"></i>
@@ -479,7 +479,7 @@
             </div>
 
             <div class="mat-grid">
-                <div class="mat-card">
+                <div class="mat-card" data-subject="all">
                     <div class="mat-thumb t-mock">
                         <i class="ri-file-list-3-line"></i>
                     </div>
@@ -497,7 +497,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="all">
                     <div class="mat-thumb t-mock">
                         <div class="mat-ribbon">PREMIUM</div>
                         <i class="ri-file-list-3-line"></i>
@@ -529,7 +529,7 @@
                 <a href="pyq-archive.html" class="view-all">PYQ Archive <i class="ri-arrow-right-line"></i></a>
             </div>
             <div class="mat-grid">
-                <div class="mat-card">
+                <div class="mat-card" data-subject="physics">
                     <div class="mat-thumb t-formula">
                         <div class="mat-free-tag">FREE</div>
                         <i class="ri-function-line"></i>
@@ -548,7 +548,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="maths">
                     <div class="mat-thumb t-formula">
                         <div class="mat-ribbon">PREMIUM</div>
                         <i class="ri-function-line"></i>
@@ -567,7 +567,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="physics">
                     <div class="mat-thumb t-pyq">
                         <div class="mat-free-tag">FREE</div>
                         <i class="ri-history-line"></i>
@@ -586,7 +586,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mat-card">
+                <div class="mat-card" data-subject="all">
                     <div class="mat-thumb t-pyq">
                         <div class="mat-ribbon">PREMIUM</div>
                         <i class="ri-history-line"></i>
@@ -653,11 +653,39 @@
     </footer>
 
     <script>
+        let activeSubject = 'all';
+
         function setSubject(subj, el) {
+            activeSubject = subj;
             document.querySelectorAll('.subj-tab').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
-            // Filter logic can be extended here
+            filterCards();
+            // Scroll to content
+            document.querySelector('.main-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        function filterCards() {
+            document.querySelectorAll('.mat-card').forEach(card => {
+                const subj = card.dataset.subject || 'all';
+                const show = activeSubject === 'all' || subj === activeSubject || subj === 'all';
+                card.style.display = show ? 'flex' : 'none';
+            });
+
+            // Hide section headings if all cards in that section are hidden
+            document.querySelectorAll('.mat-section').forEach(section => {
+                const visible = [...section.querySelectorAll('.mat-card')]
+                    .some(c => c.style.display !== 'none');
+                section.style.display = visible ? 'block' : 'none';
+            });
+
+            // Update active subject label
+            const labels = { all: 'All Subjects', physics: 'Physics', chemistry: 'Chemistry', maths: 'Mathematics' };
+            const titleEl = document.getElementById('activeSubjectLabel');
+            if (titleEl) titleEl.textContent = labels[activeSubject] || 'All Subjects';
+        }
+
+        // Init on load — show all
+        document.addEventListener('DOMContentLoaded', () => filterCards());
     </script>
 </body>
 </html>

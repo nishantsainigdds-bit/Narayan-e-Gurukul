@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download App | e-Gurukul</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --bg: #f0f4fb;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: #1e293b; overflow-x: hidden; }
+
+        /* HEADER */
+        header {
+            background: var(--primary); padding: 0 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2); height: 66px;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; color: white; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        nav { display: flex; align-items: center; gap: 4px; }
+        nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 7px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: 0.2s; }
+        nav a:hover { color: white; background: rgba(255,255,255,0.12); }
+        nav a.active { color: var(--accent); font-weight: 700; }
+        .nav-cta { background: var(--accent) !important; color: var(--primary) !important; font-weight: 700 !important; border-radius: 10px !important; }
+        .hamburger { display: none; background: none; border: none; color: white; font-size: 26px; cursor: pointer; }
+        .mobile-nav { display: none; position: fixed; top: 66px; left: 0; right: 0; background: var(--primary); padding: 16px 6%; z-index: 999; flex-direction: column; gap: 4px; }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { color: rgba(255,255,255,0.85); text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 15px; }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #071a3e 0%, #0e2f69 50%, #1746a2 100%);
+            min-height: 92vh; display: flex; align-items: center;
+            padding: 80px 6%; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(250,204,21,0.07) 0%, transparent 55%);
+        }
+        .hero-inner { max-width: 1160px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .hero-left { color: white; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(250,204,21,0.12); border: 1px solid rgba(250,204,21,0.3); color: var(--accent); padding: 7px 18px; border-radius: 30px; font-size: 13px; font-weight: 600; margin-bottom: 24px; animation: fadeUp 0.6s ease both; }
+        .hero h1 { font-size: 52px; font-weight: 800; line-height: 1.1; margin-bottom: 18px; animation: fadeUp 0.6s 0.1s ease both; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 17px; opacity: 0.8; line-height: 1.7; margin-bottom: 36px; max-width: 480px; animation: fadeUp 0.6s 0.2s ease both; }
+        .store-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+        .store-btn {
+            display: flex; align-items: center; gap: 12px;
+            background: white; color: #0f172a;
+            padding: 13px 22px; border-radius: 14px;
+            text-decoration: none; font-weight: 700;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            transition: 0.25s; border: 1.5px solid rgba(255,255,255,0.9);
+            min-width: 180px;
+        }
+        .store-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+        .store-btn i { font-size: 28px; }
+        .store-btn .btn-text .sub { font-size: 10px; font-weight: 500; color: #64748b; display: block; }
+        .store-btn .btn-text .main { font-size: 16px; font-weight: 800; color: #0f172a; display: block; line-height: 1.2; }
+        .store-btn.android i { color: #3ddc84; }
+        .store-btn.ios i { color: #555; }
+        .hero-rating { display: flex; align-items: center; gap: 10px; margin-top: 28px; animation: fadeUp 0.6s 0.4s ease both; }
+        .stars { color: var(--accent); font-size: 16px; letter-spacing: 1px; }
+        .hero-rating span { font-size: 13px; color: rgba(255,255,255,0.65); }
+        .hero-rating strong { color: white; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* PHONE MOCKUP */
+        .hero-right { display: flex; justify-content: center; align-items: center; animation: fadeUp 0.7s 0.2s ease both; }
+        .phone-wrap { position: relative; }
+        .phone {
+            width: 260px; height: 520px;
+            background: linear-gradient(160deg, #1e3a5f, #0e2f69);
+            border-radius: 40px;
+            border: 8px solid rgba(255,255,255,0.15);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.08);
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .phone-notch { width: 80px; height: 22px; background: rgba(0,0,0,0.5); border-radius: 0 0 14px 14px; margin: 0 auto; }
+        .phone-screen { flex: 1; padding: 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+        .phone-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+        .phone-logo { font-size: 13px; font-weight: 800; color: white; }
+        .phone-logo span { color: var(--accent); }
+        .phone-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--primary); font-weight: 800; }
+        .phone-banner { background: linear-gradient(135deg, rgba(250,204,21,0.2), rgba(250,204,21,0.05)); border: 1px solid rgba(250,204,21,0.3); border-radius: 12px; padding: 12px; }
+        .phone-banner .pb-label { font-size: 9px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .phone-banner .pb-title { font-size: 12px; color: white; font-weight: 700; margin-top: 2px; }
+        .phone-banner .pb-sub { font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 1px; }
+        .phone-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .p-card { border-radius: 10px; padding: 10px; }
+        .p-card i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .p-card .pc-title { font-size: 10px; font-weight: 700; color: white; }
+        .p-card .pc-sub { font-size: 9px; color: rgba(255,255,255,0.55); margin-top: 1px; }
+        .p-card.blue { background: rgba(23,70,162,0.6); }
+        .p-card.blue i { color: #93c5fd; }
+        .p-card.purple { background: rgba(124,58,237,0.5); }
+        .p-card.purple i { color: #c4b5fd; }
+        .p-card.green { background: rgba(5,150,105,0.5); }
+        .p-card.green i { color: #6ee7b7; }
+        .p-card.orange { background: rgba(217,119,6,0.5); }
+        .p-card.orange i { color: #fcd34d; }
+        .phone-progress { background: rgba(255,255,255,0.06); border-radius: 10px; padding: 10px; }
+        .pp-label { font-size: 9px; color: rgba(255,255,255,0.5); font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+        .pp-bar-wrap { display: flex; flex-direction: column; gap: 5px; }
+        .pp-row { display: flex; align-items: center; gap: 6px; }
+        .pp-name { font-size: 9px; color: rgba(255,255,255,0.7); width: 50px; flex-shrink: 0; }
+        .pp-track { flex: 1; height: 5px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+        .pp-fill { height: 100%; border-radius: 10px; }
+        .pp-pct { font-size: 9px; color: rgba(255,255,255,0.6); width: 24px; text-align: right; }
+        /* floating badges */
+        .float-badge {
+            position: absolute; background: white; border-radius: 14px;
+            padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: #0f172a;
+            animation: float 3s ease-in-out infinite;
+        }
+        .float-badge i { font-size: 18px; }
+        .float-badge.b1 { top: 60px; right: -60px; animation-delay: 0s; }
+        .float-badge.b2 { bottom: 120px; left: -70px; animation-delay: 1.5s; }
+        .float-badge.b3 { bottom: 40px; right: -50px; animation-delay: 0.8s; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        /* STATS BAR */
+        .stats-bar { background: white; border-bottom: 1px solid #e8edf5; padding: 28px 6%; }
+        .stats-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .stat-item { text-align: center; }
+        .stat-item .num { font-size: 32px; font-weight: 800; color: var(--primary); }
+        .stat-item .lbl { font-size: 13px; color: #64748b; margin-top: 2px; }
+
+        /* FEATURES */
+        .features-section { padding: 80px 6%; max-width: 1160px; margin: 0 auto; }
+        .sec-title { text-align: center; margin-bottom: 48px; }
+        .sec-title h2 { font-size: 36px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+        .sec-title p { font-size: 16px; color: #64748b; max-width: 500px; margin: 0 auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .feat-card {
+            background: white; border-radius: 20px; padding: 28px;
+            box-shadow: 0 2px 16px rgba(14,47,105,0.06);
+            border: 1.5px solid #e8edf5; transition: 0.25s;
+        }
+        .feat-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(14,47,105,0.1); border-color: #bfdbfe; }
+        .feat-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+        .feat-card h3 { font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+        .feat-card p { font-size: 14px; color: #64748b; line-height: 1.65; }
+
+        /* SCREENSHOTS */
+        .screenshots-section { background: linear-gradient(135deg, #071a3e, #0e2f69); padding: 80px 6%; text-align: center; }
+        .screenshots-section h2 { font-size: 36px; font-weight: 800; color: white; margin-bottom: 10px; }
+        .screenshots-section h2 span { color: var(--accent); }
+        .screenshots-section p { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 48px; }
+        .screens-row { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .screen-card {
+            width: 160px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 20px; padding: 16px; text-align: center;
+            transition: 0.25s;
+        }
+        .screen-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-6px); }
+        .screen-card i { font-size: 36px; color: var(--accent); margin-bottom: 10px; display: block; }
+        .screen-card span { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 600; }
+
+        /* DOWNLOAD CTA */
+        .cta-section { padding: 80px 6%; text-align: center; }
+        .cta-inner { max-width: 680px; margin: 0 auto; }
+        .cta-inner h2 { font-size: 40px; font-weight: 800; color: var(--primary); margin-bottom: 14px; }
+        .cta-inner h2 span { color: #7c3aed; }
+        .cta-inner p { font-size: 16px; color: #64748b; margin-bottom: 36px; line-height: 1.7; }
+        .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .cta-store-btn {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 26px; border-radius: 16px;
+            text-decoration: none; font-weight: 700; transition: 0.25s;
+            min-width: 190px; border: 2px solid transparent;
+        }
+        .cta-store-btn.android { background: #0f172a; color: white; }
+        .cta-store-btn.android:hover { background: #1e293b; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+        .cta-store-btn.ios { background: white; color: #0f172a; border-color: #e2e8f0; }
+        .cta-store-btn.ios:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(14,47,105,0.12); }
+        .cta-store-btn i { font-size: 28px; }
+        .cta-store-btn .sub { font-size: 10px; font-weight: 500; opacity: 0.65; display: block; }
+        .cta-store-btn .main { font-size: 16px; font-weight: 800; display: block; line-height: 1.2; }
+        .cta-note { margin-top: 20px; font-size: 13px; color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+        /* FOOTER */
+        footer { background: var(--primary); color: white; padding: 50px 6% 28px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+        .footer-brand p { font-size: 14px; opacity: 0.65; line-height: 1.7; margin-top: 12px; }
+        .footer-col h4 { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.6px; }
+        .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; margin-bottom: 9px; transition: 0.2s; }
+        .footer-col a:hover { color: white; padding-left: 4px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; opacity: 0.6; }
+        .socials { display: flex; gap: 12px; }
+        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; }
+        .socials a:hover { color: var(--accent); }
+
+        @media (max-width: 900px) {
+            nav { display: none; } .hamburger { display: block; }
+            .hero-inner { grid-template-columns: 1fr; text-align: center; }
+            .hero p { margin: 0 auto 36px; }
+            .store-btns { justify-content: center; }
+            .hero-rating { justify-content: center; }
+            .hero-right { display: none; }
+            .stats-inner { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+        }
+        @media (max-width: 560px) {
+            .hero h1 { font-size: 34px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="study-material.html">Study Material</a>
+            <a href="app.html" class="active">Get App</a>
+            <a href="login.html" class="nav-cta">Portal</a>
+        </nav>
+        <button class="hamburger" onclick="document.getElementById('mobileNav').classList.toggle('open')">
+            <i class="ri-menu-line"></i>
+        </button>
+    </header>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="study-material.html">Study Material</a>
+        <a href="app.html">Get App</a>
+        <a href="login.html">Portal</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-badge"><i class="ri-smartphone-line"></i> Now Available on Mobile</div>
+                <h1>Learn Smarter<br>with the <span>e-Gurukul</span><br>App</h1>
+                <p>Access live classes, study material, mock tests, and your personal dashboard — anytime, anywhere. Your JEE & NEET prep in your pocket.</p>
+                <div class="store-btns">
+                    <a href="#" class="store-btn android">
+                        <i class="ri-google-play-fill"></i>
+                        <div class="btn-text">
+                            <span class="sub">Get it on</span>
+                            <span class="main">Google Play</span>
+                        </div>
+                    </a>
+                    <a href="#" class="store-btn ios">
+                        <i class="ri-apple-fill"></i>
+                        <div class="btn-text">
+                            <span class="sub">Download on the</span>
+                            <span class="main">App Store</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="hero-rating">
+                    <span class="stars">★★★★★</span>
+                    <span><strong>4.8/5</strong> · 50,000+ downloads</span>
+                </div>
+            </div>
+
+            <!-- PHONE MOCKUP -->
+            <div class="hero-right">
+                <div class="phone-wrap">
+                    <div class="phone">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <div class="phone-header">
+                                <div class="phone-logo">e-<span>Gurukul</span></div>
+                                <div class="phone-avatar">A</div>
+                            </div>
+                            <div class="phone-banner">
+                                <div class="pb-label"><i class="ri-live-line"></i> Live Now</div>
+                                <div class="pb-title">Physics: Electrostatics</div>
+                                <div class="pb-sub">Mr. Sharma · 1,240 watching</div>
+                            </div>
+                            <div class="phone-cards">
+                                <div class="p-card blue"><i class="ri-file-text-line"></i><div class="pc-title">Notes</div><div class="pc-sub">240 files</div></div>
+                                <div class="p-card purple"><i class="ri-edit-box-line"></i><div class="pc-title">DPPs</div><div class="pc-sub">Today's set</div></div>
+                                <div class="p-card green"><i class="ri-file-list-3-line"></i><div class="pc-title">Mock Tests</div><div class="pc-sub">50+ tests</div></div>
+                                <div class="p-card orange"><i class="ri-history-line"></i><div class="pc-title">PYQs</div><div class="pc-sub">10 years</div></div>
+                            </div>
+                            <div class="phone-progress">
+                                <div class="pp-label">Your Progress</div>
+                                <div class="pp-bar-wrap">
+                                    <div class="pp-row">
+                                        <span class="pp-name">Physics</span>
+                                        <div class="pp-track"><div class="pp-fill" style="width:68%;background:#3b82f6;"></div></div>
+                                        <span class="pp-pct">68%</span>
+                                    </div>
+                                    <div class="pp-row">
+                                        <span class="pp-name">Chemistry</span>
+                                        <div class="pp-track"><div class="pp-fill" style="width:54%;background:#a855f7;"></div></div>
+                                        <span class="pp-pct">54%</span>
+                                    </div>
+                                    <div class="pp-row">
+                                        <span class="pp-name">Maths</span>
+                                        <div class="pp-track"><div class="pp-fill" style="width:72%;background:#10b981;"></div></div>
+                                        <span class="pp-pct">72%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Floating badges -->
+                    <div class="float-badge b1" style="color:#059669;"><i class="ri-checkbox-circle-fill" style="color:#059669;"></i> Test Submitted!</div>
+                    <div class="float-badge b2"><i class="ri-medal-fill" style="color:#d97706;"></i> Rank #142</div>
+                    <div class="float-badge b3" style="font-size:11px;"><i class="ri-notification-3-fill" style="color:#1746a2;"></i> Class in 10 min</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stats-inner">
+            <div class="stat-item"><div class="num">50K+</div><div class="lbl">Active Students</div></div>
+            <div class="stat-item"><div class="num">4.8★</div><div class="lbl">App Store Rating</div></div>
+            <div class="stat-item"><div class="num">1200+</div><div class="lbl">Study Files</div></div>
+            <div class="stat-item"><div class="num">200+</div><div class="lbl">Live Classes / Month</div></div>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div style="background:var(--bg);padding:80px 6% 0;">
+        <div class="sec-title">
+            <h2>Everything You Need to Crack the Exam</h2>
+            <p>The e-Gurukul app brings your entire prep journey into one place.</p>
+        </div>
+        <div class="features-grid" style="max-width:1160px;margin:0 auto;">
+            <div class="feat-card">
+                <div class="feat-icon" style="background:#eff6ff;color:#1746a2;"><i class="ri-live-line"></i></div>
+                <h3>Live Classes</h3>
+                <p>Join daily live sessions with India's top educators. Ask doubts in real-time and never miss a class with recorded replays.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="ri-file-text-line"></i></div>
+                <h3>Study Material</h3>
+                <p>Download notes, DPPs, formula sheets and PYQs for JEE, NEET, CUET & SSC — all offline-ready.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon" style="background:#fef2f2;color:#dc2626;"><i class="ri-file-list-3-line"></i></div>
+                <h3>Mock Tests</h3>
+                <p>Take full-length mock tests on the latest NTA pattern. Get instant analysis, rank, and subject-wise breakdown.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon" style="background:#f0fdf4;color:#059669;"><i class="ri-bar-chart-line"></i></div>
+                <h3>Performance Tracker</h3>
+                <p>Track your progress chapter-by-chapter. Identify weak areas and get personalized improvement suggestions.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon" style="background:#fffbeb;color:#d97706;"><i class="ri-question-answer-line"></i></div>
+                <h3>Doubt Solving</h3>
+                <p>Post doubts anytime and get answers from expert mentors within minutes — text, image or video.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon" style="background:#ecfeff;color:#0891b2;"><i class="ri-notification-3-line"></i></div>
+                <h3>Smart Reminders</h3>
+                <p>Never miss a class, test or DPP. Get smart push notifications tailored to your study schedule.</p>
+            </div>
+        </div>
+        <div style="padding-bottom:80px;"></div>
+    </div>
+
+    <!-- SCREENSHOTS -->
+    <div class="screenshots-section">
+        <h2>Built for <span>Serious Aspirants</span></h2>
+        <p>Every screen designed to keep you focused and in flow.</p>
+        <div class="screens-row">
+            <div class="screen-card"><i class="ri-home-5-line"></i><span>Dashboard</span></div>
+            <div class="screen-card"><i class="ri-video-line"></i><span>Live Class</span></div>
+            <div class="screen-card"><i class="ri-book-open-line"></i><span>Study Material</span></div>
+            <div class="screen-card"><i class="ri-survey-line"></i><span>Mock Test</span></div>
+            <div class="screen-card"><i class="ri-bar-chart-2-line"></i><span>Analytics</span></div>
+            <div class="screen-card"><i class="ri-user-line"></i><span>Profile</span></div>
+        </div>
+    </div>
+
+    <!-- DOWNLOAD CTA -->
+    <div class="cta-section">
+        <div class="cta-inner">
+            <h2>Start Your Prep<br><span>Today — It's Free</span></h2>
+            <p>Download the e-Gurukul app and get instant access to free notes, DPPs, and your first mock test. No credit card needed.</p>
+            <div class="cta-btns">
+                <a href="#" class="cta-store-btn android">
+                    <i class="ri-google-play-fill"></i>
+                    <div><span class="sub">Get it on</span><span class="main">Google Play</span></div>
+                </a>
+                <a href="#" class="cta-store-btn ios">
+                    <i class="ri-apple-fill"></i>
+                    <div><span class="sub">Download on the</span><span class="main">App Store</span></div>
+                </a>
+            </div>
+            <div class="cta-note"><i class="ri-shield-check-line"></i> Free to download · No spam · Unsubscribe anytime</div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo" style="font-size:20px;margin-bottom:12px;display:inline-flex;"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+                <p>India's trusted online learning platform for JEE, NEET, CUET & SSC aspirants. Quality education, accessible to all.</p>
+            </div>
+            <div class="footer-col">
+                <h4>App Features</h4>
+                <a href="#">Live Classes</a>
+                <a href="#">Study Material</a>
+                <a href="#">Mock Tests</a>
+                <a href="#">Doubt Solving</a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="courses.html">All Courses</a>
+                <a href="rank-predictor.html">Rank Predictor</a>
+                <a href="study-material.html">Study Material</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 e-Gurukul. All rights reserved.</span>
+            <div class="socials">
+                <a href="#"><i class="ri-youtube-line"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-telegram-line"></i></a>
+                <a href="#"><i class="ri-whatsapp-line"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.Tech 1st Year Study Materials | e-Gurukul</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0e2f69;
+            --secondary: #1746a2;
+            --accent: #facc15;
+            --bg: #f0f4fb;
+            --white: #ffffff;
+            --green: #059669;
+            --purple: #7c3aed;
+            --orange: #d97706;
+            --red: #dc2626;
+            --teal: #0891b2;
+            --pink: #db2777;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: #1e293b; }
+
+        /* HEADER */
+        header {
+            background: var(--primary); padding: 0 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2); height: 66px;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; color: white; text-decoration: none; }
+        .logo span { color: var(--accent); }
+        nav { display: flex; align-items: center; gap: 4px; }
+        nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 7px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: 0.2s; }
+        nav a:hover { color: white; background: rgba(255,255,255,0.12); }
+        nav a.active { color: var(--accent); font-weight: 700; }
+        .nav-cta { background: var(--accent) !important; color: var(--primary) !important; font-weight: 700 !important; border-radius: 10px !important; }
+        .hamburger { display: none; background: none; border: none; color: white; font-size: 26px; cursor: pointer; }
+        .mobile-nav { display: none; position: fixed; top: 66px; left: 0; right: 0; background: var(--primary); padding: 16px 6%; z-index: 999; flex-direction: column; gap: 4px; }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { color: rgba(255,255,255,0.85); text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 15px; }
+
+        /* BREADCRUMB */
+        .breadcrumb { background: white; border-bottom: 1px solid #e2e8f0; padding: 12px 6%; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+        .breadcrumb a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb i { font-size: 12px; color: #94a3b8; }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #071a3e 0%, #0e2f69 40%, #1e3a8a 100%);
+            padding: 64px 6% 120px; color: white; position: relative; overflow: hidden;
+        }
+        .hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 28px 28px; }
+        .hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 40%, rgba(250,204,21,0.07) 0%, transparent 55%); }
+        .hero-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .hero-left { max-width: 620px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(250,204,21,0.12); border: 1px solid rgba(250,204,21,0.3); color: var(--accent); padding: 7px 18px; border-radius: 30px; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+        .hero h1 { font-size: 46px; font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 16px; opacity: 0.8; line-height: 1.7; margin-bottom: 30px; }
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-accent { padding: 12px 24px; background: var(--accent); color: var(--primary); border: none; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-accent:hover { background: #f59e0b; transform: translateY(-2px); }
+        .btn-ghost { padding: 12px 24px; background: rgba(255,255,255,0.1); color: white; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-ghost:hover { background: rgba(255,255,255,0.18); }
+        .hero-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+        .h-stat { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 14px 20px; text-align: center; }
+        .h-stat .num { font-size: 22px; font-weight: 800; color: var(--accent); }
+        .h-stat .lbl { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+
+        /* WAVE */
+        .wave { display: block; width: 100%; height: 60px; background: var(--bg); clip-path: ellipse(55% 100% at 50% 100%); margin-top: -2px; }
+
+        /* BRANCH TABS */
+        .branch-wrap { max-width: 1160px; margin: -30px auto 0; padding: 0 20px; position: relative; z-index: 10; }
+        .branch-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .branch-tab {
+            background: white; border-radius: 16px; padding: 18px 16px;
+            text-align: center; cursor: pointer; transition: 0.25s;
+            border: 2px solid transparent; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+        .branch-tab:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+        .branch-tab.active { border-color: var(--accent); box-shadow: 0 6px 24px rgba(250,204,21,0.2); }
+        .branch-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 10px; }
+        .branch-tab h3 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 2px; }
+        .branch-tab p { font-size: 11px; color: #64748b; }
+
+        /* MAIN LAYOUT */
+        .main-wrap { max-width: 1160px; margin: 32px auto 80px; padding: 0 20px; display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: start; }
+
+        /* SEMESTER TABS */
+        .sem-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+        .sem-btn { padding: 9px 20px; border-radius: 50px; border: 2px solid #e2e8f0; background: white; font-family: inherit; font-size: 13px; font-weight: 600; color: #64748b; cursor: pointer; transition: 0.2s; }
+        .sem-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .sem-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 14px rgba(14,47,105,0.2); }
+
+        /* SUBJECT SECTION */
+        .subject-section { margin-bottom: 36px; }
+        .subj-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #e8edf5; }
+        .subj-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .subj-head h2 { font-size: 18px; font-weight: 800; color: var(--primary); }
+        .subj-head .subj-code { font-size: 12px; color: #94a3b8; font-weight: 600; margin-left: 4px; }
+        .subj-head .subj-credits { margin-left: auto; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: #eff6ff; color: #1746a2; }
+
+        /* MATERIAL CARDS */
+        .mat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+        .mat-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1.5px solid #f1f5f9;
+            transition: 0.25s; display: flex; flex-direction: column;
+        }
+        .mat-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(14,47,105,0.1); border-color: #bfdbfe; }
+        .mat-thumb { height: 90px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .mat-thumb i { font-size: 38px; color: white; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.2)); position: relative; z-index: 1; }
+        .mat-ribbon { position: absolute; top: 10px; left: -24px; background: var(--accent); color: var(--primary); font-size: 9px; font-weight: 800; padding: 3px 28px; transform: rotate(-45deg); }
+        .mat-free { position: absolute; top: 8px; right: 8px; background: rgba(22,163,74,0.9); color: white; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+        .mat-new { position: absolute; bottom: 8px; right: 8px; background: var(--accent); color: var(--primary); font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 20px; }
+        .mat-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+        .mat-type { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+        .mat-title { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 7px; line-height: 1.35; flex: 1; }
+        .mat-meta { display: flex; gap: 10px; font-size: 11px; color: #94a3b8; margin-bottom: 12px; flex-wrap: wrap; }
+        .mat-meta span { display: flex; align-items: center; gap: 3px; }
+        .mat-actions { display: flex; gap: 7px; }
+        .btn-dl { flex: 1; padding: 8px; background: var(--primary); border: none; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 700; color: white; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px; text-decoration: none; }
+        .btn-dl:hover { background: var(--secondary); }
+        .btn-dl.premium { background: linear-gradient(135deg, #d97706, #f59e0b); }
+        .btn-prev { padding: 8px 10px; border: 2px solid #e2e8f0; border-radius: 9px; background: none; font-size: 12px; color: #374151; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 3px; }
+        .btn-prev:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* THUMB COLORS */
+        .t-blue   { background: linear-gradient(135deg, #0e2f69, #1746a2); }
+        .t-purple { background: linear-gradient(135deg, #5b21b6, #7c3aed); }
+        .t-green  { background: linear-gradient(135deg, #065f46, #059669); }
+        .t-orange { background: linear-gradient(135deg, #92400e, #d97706); }
+        .t-teal   { background: linear-gradient(135deg, #0e7490, #0891b2); }
+        .t-pink   { background: linear-gradient(135deg, #9d174d, #db2777); }
+        .t-red    { background: linear-gradient(135deg, #991b1b, #dc2626); }
+        .t-indigo { background: linear-gradient(135deg, #3730a3, #6366f1); }
+
+        /* SIDEBAR */
+        .sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 16px; }
+        .s-card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
+        .s-head { padding: 13px 16px; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .s-body { padding: 14px; }
+
+        /* Quick Links */
+        .q-link { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 9px; text-decoration: none; color: #374151; font-size: 13px; font-weight: 500; transition: 0.15s; }
+        .q-link:hover { background: #f0f6ff; color: var(--primary); }
+        .q-link i { font-size: 16px; color: var(--secondary); }
+        .q-link .arrow { margin-left: auto; font-size: 14px; color: #94a3b8; }
+
+        /* Progress */
+        .prog-item { margin-bottom: 12px; }
+        .prog-item:last-child { margin-bottom: 0; }
+        .prog-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
+        .prog-top .subj { font-weight: 600; color: #374151; }
+        .prog-top .pct { font-weight: 800; color: var(--primary); }
+        .prog-track { height: 6px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
+        .prog-fill { height: 100%; border-radius: 10px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+
+        /* Tip widget */
+        .tip-widget { background: linear-gradient(135deg, #0e2f69, #1746a2); border-radius: 14px; padding: 18px; color: white; }
+        .tip-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 6px; }
+        .tip-widget h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+        .tip-widget p { font-size: 12px; opacity: 0.75; line-height: 1.5; margin-bottom: 12px; }
+        .tip-btn { display: block; text-align: center; padding: 9px; background: var(--accent); color: var(--primary); border-radius: 9px; font-weight: 800; font-size: 12px; text-decoration: none; transition: 0.2s; }
+        .tip-btn:hover { background: #f59e0b; }
+
+        /* FOOTER */
+        footer { background: var(--primary); color: white; padding: 50px 6% 28px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+        .footer-brand p { font-size: 14px; opacity: 0.65; line-height: 1.7; margin-top: 12px; }
+        .footer-col h4 { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.6px; }
+        .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; margin-bottom: 9px; transition: 0.2s; }
+        .footer-col a:hover { color: white; padding-left: 4px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; opacity: 0.6; }
+        .socials { display: flex; gap: 12px; }
+        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; }
+        .socials a:hover { color: var(--accent); }
+
+        @media (max-width: 960px) {
+            nav { display: none; } .hamburger { display: block; }
+            .branch-tabs { grid-template-columns: repeat(2, 1fr); }
+            .main-wrap { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+            .hero h1 { font-size: 32px; }
+        }
+        @media (max-width: 560px) {
+            .mat-grid { grid-template-columns: 1fr; }
+            .branch-tabs { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="study-material.html">Study Material</a>
+            <a href="btech-materials.html" class="active">B.Tech</a>
+            <a href="login.html" class="nav-cta">Portal</a>
+        </nav>
+        <button class="hamburger" onclick="document.getElementById('mobileNav').classList.toggle('open')">
+            <i class="ri-menu-line"></i>
+        </button>
+    </header>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="study-material.html">Study Material</a>
+        <a href="btech-materials.html">B.Tech</a>
+        <a href="login.html">Portal</a>
+    </div>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <a href="study-material.html">Study Material</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <span style="color:#0e2f69;font-weight:600;">B.Tech 1st Year</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-badge"><i class="ri-building-2-line"></i> Engineering · 1st Year</div>
+                <h1>B.Tech <span>1st Year</span><br>Study Materials</h1>
+                <p>Complete notes, lab manuals, question banks and PYQs for all B.Tech 1st year subjects — CSE, ECE, ME, CE and more. Aligned with AKTU, VTU, GTU & major universities.</p>
+                <div class="hero-actions">
+                    <a href="#materials" class="btn-accent"><i class="ri-download-line"></i> Browse Materials</a>
+                    <a href="courses.html" class="btn-ghost"><i class="ri-play-circle-line"></i> View Courses</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="h-stat"><div class="num">300+</div><div class="lbl">Study Files</div></div>
+                <div class="h-stat"><div class="num">8</div><div class="lbl">Core Subjects</div></div>
+                <div class="h-stat"><div class="num">4</div><div class="lbl">Branches</div></div>
+                <div class="h-stat"><div class="num">Free</div><div class="lbl">Basic Access</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="wave"></div>
+
+    <!-- BRANCH TABS -->
+    <div class="branch-wrap">
+        <div class="branch-tabs">
+            <div class="branch-tab active" onclick="setBranch('cse', this)">
+                <div class="branch-icon" style="background:#eff6ff;color:#1746a2;"><i class="ri-code-s-slash-line"></i></div>
+                <h3>CSE / IT</h3>
+                <p>Computer Science</p>
+            </div>
+            <div class="branch-tab" onclick="setBranch('ece', this)">
+                <div class="branch-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="ri-cpu-line"></i></div>
+                <h3>ECE / EEE</h3>
+                <p>Electronics & Electrical</p>
+            </div>
+            <div class="branch-tab" onclick="setBranch('me', this)">
+                <div class="branch-icon" style="background:#fff7ed;color:#d97706;"><i class="ri-settings-3-line"></i></div>
+                <h3>Mechanical</h3>
+                <p>ME / Auto / Aero</p>
+            </div>
+            <div class="branch-tab" onclick="setBranch('ce', this)">
+                <div class="branch-icon" style="background:#f0fdf4;color:#059669;"><i class="ri-building-line"></i></div>
+                <h3>Civil</h3>
+                <p>CE / Environmental</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-wrap" id="materials">
+        <div class="left-col">
+
+            <!-- SEMESTER TABS -->
+            <div class="sem-tabs">
+                <button class="sem-btn active" onclick="setSem(1, this)">Semester 1</button>
+                <button class="sem-btn" onclick="setSem(2, this)">Semester 2</button>
+            </div>
+
+            <!-- CONTENT AREA -->
+            <div id="contentArea"></div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <!-- Tip of the Day -->
+            <div class="tip-widget">
+                <div class="tip-label"><i class="ri-lightbulb-line"></i> Study Tip</div>
+                <h4>Master the Basics First</h4>
+                <p>1st year lays the foundation. Focus on Maths, Physics & Programming — they appear in every semester.</p>
+                <a href="courses.html" class="tip-btn"><i class="ri-rocket-line"></i> Explore Courses</a>
+            </div>
+
+            <!-- Progress -->
+            <div class="s-card">
+                <div class="s-head"><i class="ri-bar-chart-line"></i> Your Progress</div>
+                <div class="s-body">
+                    <div class="prog-item">
+                        <div class="prog-top"><span class="subj">Engineering Maths</span><span class="pct">72%</span></div>
+                        <div class="prog-track"><div class="prog-fill" style="width:0%;background:linear-gradient(90deg,#1746a2,#3b82f6);" data-w="72"></div></div>
+                    </div>
+                    <div class="prog-item">
+                        <div class="prog-top"><span class="subj">Engineering Physics</span><span class="pct">58%</span></div>
+                        <div class="prog-track"><div class="prog-fill" style="width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7);" data-w="58"></div></div>
+                    </div>
+                    <div class="prog-item">
+                        <div class="prog-top"><span class="subj">Programming (C/C++)</span><span class="pct">85%</span></div>
+                        <div class="prog-track"><div class="prog-fill" style="width:0%;background:linear-gradient(90deg,#059669,#10b981);" data-w="85"></div></div>
+                    </div>
+                    <div class="prog-item">
+                        <div class="prog-top"><span class="subj">Engineering Chemistry</span><span class="pct">44%</span></div>
+                        <div class="prog-track"><div class="prog-fill" style="width:0%;background:linear-gradient(90deg,#d97706,#f59e0b);" data-w="44"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="s-card">
+                <div class="s-head"><i class="ri-links-line"></i> Quick Access</div>
+                <div class="s-body">
+                    <a href="pyq-archive.html" class="q-link"><i class="ri-history-line"></i> PYQ Archive <i class="ri-arrow-right-s-line arrow"></i></a>
+                    <a href="study-material.html" class="q-link"><i class="ri-book-open-line"></i> Study Material <i class="ri-arrow-right-s-line arrow"></i></a>
+                    <a href="rank-predictor.html" class="q-link"><i class="ri-bar-chart-2-line"></i> Rank Predictor <i class="ri-arrow-right-s-line arrow"></i></a>
+                    <a href="courses.html" class="q-link"><i class="ri-play-circle-line"></i> All Courses <i class="ri-arrow-right-s-line arrow"></i></a>
+                    <a href="support.html" class="q-link"><i class="ri-customer-service-2-line"></i> Support <i class="ri-arrow-right-s-line arrow"></i></a>
+                </div>
+            </div>
+
+            <!-- University Tags -->
+            <div class="s-card">
+                <div class="s-head"><i class="ri-building-2-line"></i> Universities Covered</div>
+                <div class="s-body" style="display:flex;flex-wrap:wrap;gap:7px;">
+                    <span style="background:#eff6ff;color:#1746a2;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">AKTU</span>
+                    <span style="background:#f5f3ff;color:#7c3aed;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">VTU</span>
+                    <span style="background:#f0fdf4;color:#059669;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">GTU</span>
+                    <span style="background:#fff7ed;color:#d97706;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">RGPV</span>
+                    <span style="background:#fef2f2;color:#dc2626;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">SPPU</span>
+                    <span style="background:#ecfeff;color:#0891b2;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">MDU</span>
+                    <span style="background:#fdf4ff;color:#a21caf;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">JNTU</span>
+                    <span style="background:#f0fdf4;color:#15803d;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">GGSIPU</span>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo" style="font-size:20px;margin-bottom:12px;display:inline-flex;"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+                <p>India's trusted online learning platform for JEE, NEET, CUET, SSC & B.Tech aspirants.</p>
+            </div>
+            <div class="footer-col">
+                <h4>B.Tech Resources</h4>
+                <a href="#">CSE / IT Notes</a>
+                <a href="#">ECE / EEE Notes</a>
+                <a href="#">Mechanical Notes</a>
+                <a href="#">Civil Notes</a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="study-material.html">Study Material</a>
+                <a href="pyq-archive.html">PYQ Archive</a>
+                <a href="courses.html">All Courses</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 e-Gurukul. All rights reserved.</span>
+            <div class="socials">
+                <a href="#"><i class="ri-youtube-line"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-telegram-line"></i></a>
+                <a href="#"><i class="ri-whatsapp-line"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const DATA = {
+    cse: {
+        1: [
+            {
+                subject: 'Engineering Mathematics – I', code: 'BAS101', credits: '4L', icon: 'ri-functions', color: 't-blue',
+                materials: [
+                    { type: 'Notes', title: 'Unit 1–5 Complete Notes (Calculus, Matrices, ODE)', pages: 80, dl: '6.2k', size: '7.1 MB', free: true, isNew: false },
+                    { type: 'DPP', title: 'Maths DPP Set – Differential Equations', pages: 12, dl: '2.1k', size: '1.2 MB', free: true, isNew: true },
+                    { type: 'PYQ', title: 'AKTU Maths PYQ 2019–2024 (Solved)', pages: 48, dl: '8.4k', size: '4.8 MB', free: true, isNew: false },
+                    { type: 'Formula', title: 'Engineering Maths Formula Sheet', pages: 6, dl: '11.2k', size: '0.9 MB', free: true, isNew: false },
+                ]
+            },
+            {
+                subject: 'Engineering Physics', code: 'BAS102', credits: '3L+1P', icon: 'ri-flashlight-line', color: 't-purple',
+                materials: [
+                    { type: 'Notes', title: 'Quantum Mechanics & Wave Optics Notes', pages: 56, dl: '3.8k', size: '5.4 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'Engineering Physics Lab Manual (10 Experiments)', pages: 40, dl: '2.9k', size: '3.2 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Physics PYQ 2020–2024 with Solutions', pages: 36, dl: '5.1k', size: '3.6 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Programming in C', code: 'BCS101', credits: '3L+1P', icon: 'ri-code-s-slash-line', color: 't-teal',
+                materials: [
+                    { type: 'Notes', title: 'C Programming Complete Notes – All Units', pages: 72, dl: '9.2k', size: '6.8 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'C Programming Lab Manual (25 Programs)', pages: 60, dl: '7.4k', size: '4.1 MB', free: true, isNew: false },
+                    { type: 'DPP', title: 'C Programming Practice Problems Set', pages: 20, dl: '4.3k', size: '1.8 MB', free: true, isNew: true },
+                    { type: 'PYQ', title: 'C Programming PYQ 2019–2024', pages: 30, dl: '6.8k', size: '2.9 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Engineering Chemistry', code: 'BAS103', credits: '3L+1P', icon: 'ri-flask-line', color: 't-green',
+                materials: [
+                    { type: 'Notes', title: 'Polymer Chemistry & Electrochemistry Notes', pages: 64, dl: '3.1k', size: '5.9 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'Engineering Chemistry Lab Manual', pages: 35, dl: '2.4k', size: '2.8 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Chemistry PYQ 2020–2024 Solved', pages: 28, dl: '3.9k', size: '2.6 MB', free: false, isNew: false },
+                ]
+            },
+        ],
+        2: [
+            {
+                subject: 'Engineering Mathematics – II', code: 'BAS201', credits: '4L', icon: 'ri-functions', color: 't-blue',
+                materials: [
+                    { type: 'Notes', title: 'Laplace Transform, Fourier Series & PDE Notes', pages: 76, dl: '5.6k', size: '6.8 MB', free: true, isNew: false },
+                    { type: 'DPP', title: 'Maths-II DPP – Fourier & Laplace', pages: 14, dl: '1.8k', size: '1.4 MB', free: true, isNew: true },
+                    { type: 'PYQ', title: 'AKTU Maths-II PYQ 2019–2024 Solved', pages: 44, dl: '7.1k', size: '4.2 MB', free: true, isNew: false },
+                ]
+            },
+            {
+                subject: 'Data Structures', code: 'BCS201', credits: '3L+1P', icon: 'ri-node-tree', color: 't-indigo',
+                materials: [
+                    { type: 'Notes', title: 'Data Structures Complete Notes (Arrays to Graphs)', pages: 90, dl: '8.1k', size: '8.4 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'DS Lab Manual – 20 Programs in C', pages: 55, dl: '5.9k', size: '3.8 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Data Structures PYQ 2020–2024', pages: 32, dl: '6.2k', size: '3.1 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Digital Electronics', code: 'BEC201', credits: '3L+1P', icon: 'ri-cpu-line', color: 't-purple',
+                materials: [
+                    { type: 'Notes', title: 'Logic Gates, Flip-Flops & Combinational Circuits', pages: 68, dl: '4.4k', size: '6.1 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'Digital Electronics Lab Manual', pages: 42, dl: '3.2k', size: '3.0 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Digital Electronics PYQ 2020–2024', pages: 26, dl: '3.8k', size: '2.4 MB', free: false, isNew: false },
+                ]
+            },
+        ]
+    },
+    ece: {
+        1: [
+            {
+                subject: 'Engineering Mathematics – I', code: 'BAS101', credits: '4L', icon: 'ri-functions', color: 't-blue',
+                materials: [
+                    { type: 'Notes', title: 'Unit 1–5 Complete Notes (Calculus, Matrices, ODE)', pages: 80, dl: '6.2k', size: '7.1 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'AKTU Maths PYQ 2019–2024 (Solved)', pages: 48, dl: '8.4k', size: '4.8 MB', free: true, isNew: false },
+                ]
+            },
+            {
+                subject: 'Basic Electrical Engineering', code: 'BEE101', credits: '3L+1P', icon: 'ri-flashlight-line', color: 't-orange',
+                materials: [
+                    { type: 'Notes', title: 'DC Circuits, AC Circuits & Transformers Notes', pages: 70, dl: '4.6k', size: '6.3 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'BEE Lab Manual – 12 Experiments', pages: 38, dl: '3.1k', size: '2.9 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'BEE PYQ 2020–2024 Solved', pages: 32, dl: '4.8k', size: '3.0 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Electronic Devices & Circuits', code: 'BEC101', credits: '3L+1P', icon: 'ri-cpu-line', color: 't-purple',
+                materials: [
+                    { type: 'Notes', title: 'Diodes, BJT, FET & Amplifier Circuits Notes', pages: 74, dl: '5.2k', size: '6.7 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'EDC Lab Manual – 15 Experiments', pages: 45, dl: '3.6k', size: '3.4 MB', free: true, isNew: true },
+                    { type: 'PYQ', title: 'EDC PYQ 2020–2024 Solved', pages: 30, dl: '4.1k', size: '2.8 MB', free: false, isNew: false },
+                ]
+            },
+        ],
+        2: [
+            {
+                subject: 'Signals & Systems', code: 'BEC201', credits: '4L', icon: 'ri-pulse-line', color: 't-teal',
+                materials: [
+                    { type: 'Notes', title: 'Continuous & Discrete Signals, Fourier Transform', pages: 82, dl: '4.9k', size: '7.4 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Signals & Systems PYQ 2020–2024', pages: 34, dl: '3.7k', size: '3.2 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Analog Electronics', code: 'BEC202', credits: '3L+1P', icon: 'ri-radio-line', color: 't-pink',
+                materials: [
+                    { type: 'Notes', title: 'Op-Amp, Oscillators & Power Amplifiers Notes', pages: 66, dl: '3.8k', size: '5.9 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'Analog Electronics Lab Manual', pages: 40, dl: '2.9k', size: '3.1 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Analog Electronics PYQ 2020–2024', pages: 28, dl: '3.4k', size: '2.6 MB', free: false, isNew: false },
+                ]
+            },
+        ]
+    },
+    me: {
+        1: [
+            {
+                subject: 'Engineering Mathematics – I', code: 'BAS101', credits: '4L', icon: 'ri-functions', color: 't-blue',
+                materials: [
+                    { type: 'Notes', title: 'Unit 1–5 Complete Notes', pages: 80, dl: '6.2k', size: '7.1 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'AKTU Maths PYQ 2019–2024 Solved', pages: 48, dl: '8.4k', size: '4.8 MB', free: true, isNew: false },
+                ]
+            },
+            {
+                subject: 'Engineering Mechanics', code: 'BME101', credits: '3L+1T', icon: 'ri-settings-3-line', color: 't-orange',
+                materials: [
+                    { type: 'Notes', title: 'Statics, Dynamics & Friction – Complete Notes', pages: 78, dl: '4.2k', size: '7.0 MB', free: true, isNew: false },
+                    { type: 'DPP', title: 'Engineering Mechanics Problem Set', pages: 18, dl: '2.6k', size: '1.6 MB', free: true, isNew: true },
+                    { type: 'PYQ', title: 'Engineering Mechanics PYQ 2020–2024', pages: 36, dl: '4.9k', size: '3.3 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Engineering Drawing', code: 'BME102', credits: '1L+3P', icon: 'ri-pencil-ruler-2-line', color: 't-green',
+                materials: [
+                    { type: 'Notes', title: 'Orthographic Projection & Isometric View Notes', pages: 50, dl: '3.4k', size: '4.8 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'Engineering Drawing Practice Sheets (30 Sheets)', pages: 60, dl: '4.1k', size: '5.2 MB', free: true, isNew: false },
+                ]
+            },
+        ],
+        2: [
+            {
+                subject: 'Thermodynamics', code: 'BME201', credits: '4L', icon: 'ri-fire-line', color: 't-red',
+                materials: [
+                    { type: 'Notes', title: 'Laws of Thermodynamics & Cycles – Complete Notes', pages: 72, dl: '3.8k', size: '6.5 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Thermodynamics PYQ 2020–2024 Solved', pages: 30, dl: '3.2k', size: '2.8 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Manufacturing Processes', code: 'BME202', credits: '3L+1P', icon: 'ri-tools-line', color: 't-orange',
+                materials: [
+                    { type: 'Notes', title: 'Casting, Welding, Machining & Forming Notes', pages: 68, dl: '2.9k', size: '6.1 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'Manufacturing Lab Manual', pages: 36, dl: '2.1k', size: '2.7 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Manufacturing Processes PYQ 2020–2024', pages: 26, dl: '2.8k', size: '2.3 MB', free: false, isNew: false },
+                ]
+            },
+        ]
+    },
+    ce: {
+        1: [
+            {
+                subject: 'Engineering Mathematics – I', code: 'BAS101', credits: '4L', icon: 'ri-functions', color: 't-blue',
+                materials: [
+                    { type: 'Notes', title: 'Unit 1–5 Complete Notes', pages: 80, dl: '6.2k', size: '7.1 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'AKTU Maths PYQ 2019–2024 Solved', pages: 48, dl: '8.4k', size: '4.8 MB', free: true, isNew: false },
+                ]
+            },
+            {
+                subject: 'Engineering Mechanics', code: 'BCE101', credits: '3L+1T', icon: 'ri-building-line', color: 't-green',
+                materials: [
+                    { type: 'Notes', title: 'Statics, Dynamics & Structural Analysis Notes', pages: 76, dl: '3.6k', size: '6.8 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Engineering Mechanics PYQ 2020–2024', pages: 34, dl: '3.9k', size: '3.1 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Surveying', code: 'BCE102', credits: '2L+2P', icon: 'ri-map-2-line', color: 't-teal',
+                materials: [
+                    { type: 'Notes', title: 'Chain Surveying, Levelling & Theodolite Notes', pages: 58, dl: '2.8k', size: '5.2 MB', free: true, isNew: false },
+                    { type: 'Lab Manual', title: 'Surveying Lab Manual – 12 Practicals', pages: 44, dl: '2.2k', size: '3.6 MB', free: true, isNew: true },
+                ]
+            },
+        ],
+        2: [
+            {
+                subject: 'Fluid Mechanics', code: 'BCE201', credits: '3L+1P', icon: 'ri-drop-line', color: 't-teal',
+                materials: [
+                    { type: 'Notes', title: 'Fluid Properties, Bernoulli & Flow Measurement Notes', pages: 70, dl: '3.4k', size: '6.3 MB', free: true, isNew: false },
+                    { type: 'PYQ', title: 'Fluid Mechanics PYQ 2020–2024 Solved', pages: 28, dl: '3.0k', size: '2.6 MB', free: false, isNew: false },
+                ]
+            },
+            {
+                subject: 'Strength of Materials', code: 'BCE202', credits: '4L', icon: 'ri-bar-chart-grouped-line', color: 't-orange',
+                materials: [
+                    { type: 'Notes', title: 'Stress, Strain, Bending & Torsion Notes', pages: 80, dl: '4.1k', size: '7.2 MB', free: true, isNew: false },
+                    { type: 'DPP', title: 'SOM Problem Set – Beams & Columns', pages: 16, dl: '2.4k', size: '1.5 MB', free: true, isNew: true },
+                    { type: 'PYQ', title: 'Strength of Materials PYQ 2020–2024', pages: 32, dl: '3.6k', size: '2.9 MB', free: false, isNew: false },
+                ]
+            },
+        ]
+    }
+};
+
+const TYPE_COLORS = {
+    'Notes':    { bg: 't-blue',   label_color: '#1746a2' },
+    'DPP':      { bg: 't-purple', label_color: '#7c3aed' },
+    'PYQ':      { bg: 't-orange', label_color: '#d97706' },
+    'Lab Manual':{ bg: 't-green', label_color: '#059669' },
+    'Formula':  { bg: 't-teal',   label_color: '#0891b2' },
+};
+
+let activeBranch = 'cse';
+let activeSem = 1;
+
+function buildCard(m) {
+    const tc = TYPE_COLORS[m.type] || TYPE_COLORS['Notes'];
+    const lockHtml = m.free
+        ? `<span class="mat-free">FREE</span>`
+        : `<span class="mat-ribbon">PREMIUM</span>`;
+    const newHtml = m.isNew ? `<span class="mat-new">NEW</span>` : '';
+    const dlBtn = m.free
+        ? `<a href="#" class="btn-dl" onclick="event.preventDefault();dlAnim(this,'${m.title}')"><i class="ri-download-line"></i> Download</a>`
+        : `<a href="#" class="btn-dl premium" onclick="event.preventDefault();alert('Unlock with Premium plan')"><i class="ri-lock-line"></i> Unlock</a>`;
+    return `
+    <div class="mat-card">
+        <div class="mat-thumb ${m.color || tc.bg}">
+            ${lockHtml}${newHtml}
+            <i class="${m.icon || 'ri-file-text-line'}"></i>
+        </div>
+        <div class="mat-body">
+            <div class="mat-type" style="color:${tc.label_color};">${m.type}</div>
+            <div class="mat-title">${m.title}</div>
+            <div class="mat-meta">
+                <span><i class="ri-file-line"></i> ${m.pages} pages</span>
+                <span><i class="ri-download-line"></i> ${m.dl}</span>
+                <span><i class="ri-hard-drive-line"></i> ${m.size}</span>
+            </div>
+            <div class="mat-actions">
+                <button class="btn-prev"><i class="ri-eye-line"></i> Preview</button>
+                ${dlBtn}
+            </div>
+        </div>
+    </div>`;
+}
+
+function buildSection(subj) {
+    const cards = subj.materials.map(m => buildCard({ ...m, icon: subj.icon, color: subj.color })).join('');
+    return `
+    <div class="subject-section">
+        <div class="subj-head">
+            <div class="subj-icon" style="background:#eff6ff;color:#1746a2;"><i class="${subj.icon}"></i></div>
+            <h2>${subj.subject} <span class="subj-code">${subj.code}</span></h2>
+            <span class="subj-credits"><i class="ri-award-line"></i> ${subj.credits}</span>
+        </div>
+        <div class="mat-grid">${cards}</div>
+    </div>`;
+}
+
+function render() {
+    const subjects = (DATA[activeBranch] || {})[activeSem] || [];
+    const html = subjects.length
+        ? subjects.map(buildSection).join('')
+        : `<div style="text-align:center;padding:60px 20px;background:white;border-radius:18px;color:#94a3b8;"><i class="ri-folder-open-line" style="font-size:52px;display:block;margin-bottom:12px;"></i><h3 style="color:#374151;">Coming Soon</h3><p>Materials for this semester are being added.</p></div>`;
+    document.getElementById('contentArea').innerHTML = html;
+}
+
+function setBranch(branch, el) {
+    activeBranch = branch;
+    document.querySelectorAll('.branch-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    render();
+}
+
+function setSem(sem, el) {
+    activeSem = sem;
+    document.querySelectorAll('.sem-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    render();
+}
+
+function dlAnim(btn, title) {
+    btn.innerHTML = '<i class="ri-loader-4-line"></i> Preparing...';
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+        btn.innerHTML = '<i class="ri-check-line"></i> Downloaded';
+        btn.style.background = '#16a34a';
+        btn.style.opacity = '1';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="ri-download-line"></i> Download';
+            btn.style.background = '';
+        }, 2500);
+    }, 1200);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    render();
+    setTimeout(() => {
+        document.querySelectorAll('.prog-fill').forEach(el => {
+            el.style.width = el.dataset.w + '%';
+        });
+    }, 400);
+});
+</script>
+</body>
+</html>
