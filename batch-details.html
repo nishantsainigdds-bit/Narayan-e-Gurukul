@@ -448,6 +448,85 @@
             line-height: 1.6;
         }
 
+        /* Subject expand panel */
+        .subject-card { cursor: pointer; }
+        .subject-card.expanded { border-color: var(--secondary); background: #eff6ff; }
+
+        .subject-panel {
+            display: none;
+            grid-column: 1 / -1;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1.5px solid #e2e8f0;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .subject-panel.open { display: block; animation: fadeIn 0.3s ease; }
+
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+        }
+        .panel-tab {
+            flex: 1; padding: 12px; border: none; background: transparent;
+            font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+            color: var(--text-muted); cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 7px; transition: 0.2s;
+        }
+        .panel-tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+        .panel-tab:hover { color: var(--primary); }
+
+        .panel-body { padding: 20px; }
+        .panel-section { display: none; }
+        .panel-section.active { display: block; }
+
+        /* Video rows */
+        .vid-row {
+            display: flex; align-items: center; gap: 14px;
+            padding: 12px 14px; background: white; border-radius: 12px;
+            margin-bottom: 10px; border: 1px solid #e2e8f0; transition: 0.2s;
+        }
+        .vid-row:hover { border-color: #bfdbfe; box-shadow: 0 4px 12px rgba(14,47,105,0.07); }
+        .vid-thumb {
+            width: 48px; height: 48px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: white; flex-shrink: 0;
+        }
+        .vid-info { flex: 1; }
+        .vid-info h5 { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 3px; }
+        .vid-info span { font-size: 11px; color: var(--text-muted); }
+        .vid-action {
+            padding: 7px 14px; background: var(--primary); color: white;
+            border-radius: 8px; font-size: 12px; font-weight: 700;
+            text-decoration: none; display: flex; align-items: center; gap: 5px;
+            transition: 0.2s; white-space: nowrap;
+        }
+        .vid-action:hover { background: var(--secondary); }
+
+        /* PDF rows */
+        .pdf-row {
+            display: flex; align-items: center; gap: 14px;
+            padding: 12px 14px; background: white; border-radius: 12px;
+            margin-bottom: 10px; border: 1px solid #e2e8f0; transition: 0.2s;
+        }
+        .pdf-row:hover { border-color: #bbf7d0; box-shadow: 0 4px 12px rgba(5,150,105,0.07); }
+        .pdf-icon {
+            width: 48px; height: 48px; border-radius: 10px; background: #fef2f2;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: #ef4444; flex-shrink: 0;
+        }
+        .pdf-info { flex: 1; }
+        .pdf-info h5 { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 3px; }
+        .pdf-info span { font-size: 11px; color: var(--text-muted); }
+        .pdf-action {
+            padding: 7px 14px; background: #059669; color: white;
+            border-radius: 8px; font-size: 12px; font-weight: 700;
+            text-decoration: none; display: flex; align-items: center; gap: 5px;
+            transition: 0.2s; white-space: nowrap;
+        }
+        .pdf-action:hover { background: #047857; }
+
         /* Responsive */
         @media (max-width: 992px) {
             .sidebar {
@@ -613,22 +692,190 @@
             <div class="content-card">
                 <h2 class="section-title"><i class="ri-list-check-3"></i> Curriculum Coverage</h2>
                 <div class="subject-grid" id="subjectGrid">
-                    <!-- Dynamic Subjects -->
-                    <div class="subject-card">
-                        <div class="subject-icon"><i class="ri-microscope-line"></i></div>
+
+                    <!-- PHYSICS -->
+                    <div class="subject-card" onclick="toggleSubject('physics', this)">
+                        <div class="subject-icon"><i class="ri-flashlight-line"></i></div>
                         <h4>Physics</h4>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">15 Chapters Covered</p>
+                        <p style="font-size:12px;color:var(--text-muted);margin-top:5px;">15 Chapters Covered</p>
                     </div>
-                    <div class="subject-card">
-                        <div class="subject-icon"><i class="ri-test-tube-line"></i></div>
+
+                    <!-- CHEMISTRY -->
+                    <div class="subject-card" onclick="toggleSubject('chemistry', this)">
+                        <div class="subject-icon"><i class="ri-flask-line"></i></div>
                         <h4>Chemistry</h4>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">12 Chapters Covered</p>
+                        <p style="font-size:12px;color:var(--text-muted);margin-top:5px;">12 Chapters Covered</p>
                     </div>
-                    <div class="subject-card">
+
+                    <!-- MATHEMATICS -->
+                    <div class="subject-card" onclick="toggleSubject('maths', this)">
                         <div class="subject-icon"><i class="ri-functions-line"></i></div>
                         <h4>Mathematics</h4>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">18 Chapters Covered</p>
+                        <p style="font-size:12px;color:var(--text-muted);margin-top:5px;">18 Chapters Covered</p>
                     </div>
+
+                    <!-- PHYSICS PANEL -->
+                    <div class="subject-panel" id="panel-physics">
+                        <div class="panel-tabs">
+                            <button class="panel-tab active" onclick="switchPanel('physics','videos',this)"><i class="ri-video-line"></i> Video Lectures</button>
+                            <button class="panel-tab" onclick="switchPanel('physics','pdfs',this)"><i class="ri-file-pdf-2-line"></i> PDF Notes</button>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-section active" id="physics-videos">
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#0e2f69,#1746a2)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Laws of Motion — Newton's 3 Laws Explained</h5><span><i class="ri-time-line"></i> 48 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 12.4k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Laws+of+Motion" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#0e2f69,#1746a2)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Rotational Motion — Torque & Angular Momentum</h5><span><i class="ri-time-line"></i> 55 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 9.8k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Rotational+Motion" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#0e2f69,#1746a2)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Electrostatics — Electric Field & Potential</h5><span><i class="ri-time-line"></i> 62 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 15.1k views</span></div>
+                                    <a href="https://youtu.be/tDZgkJCBII8" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#0e2f69,#1746a2)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Optics — Ray & Wave Optics Full Lecture</h5><span><i class="ri-time-line"></i> 70 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 8.3k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Physics+Optics" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                            </div>
+                            <div class="panel-section" id="physics-pdfs">
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Laws of Motion — Handwritten Notes</h5><span>PDF &nbsp;•&nbsp; 4.2 MB &nbsp;•&nbsp; 38 pages</span></div>
+                                    <a href="https://drive.google.com/drive/folders/1VlJtxVg4KHpxcls8-4mEjB2LacWaJ0bV" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Electrostatics — Complete Chapter Notes</h5><span>PDF &nbsp;•&nbsp; 3.5 MB &nbsp;•&nbsp; 42 pages</span></div>
+                                    <a href="https://drive.google.com/file/d/19Q9_3503tnSBLUTe7aWSav3DAPdVhLrZ/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Physics Formula Sheet — All Chapters</h5><span>PDF &nbsp;•&nbsp; 1.1 MB &nbsp;•&nbsp; 8 pages</span></div>
+                                    <a href="https://drive.google.com/file/d/1pzZtJWQ5RJs69m7O2MRG475dkfhrBmT6/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Electric Charge & Field — Notes</h5><span>PDF &nbsp;•&nbsp; 2.8 MB &nbsp;•&nbsp; 30 pages</span></div>
+                                    <a href="https://drive.google.com/file/d/1SbGURCRT6eC-hYu12mOiuPrP-hUk9nxX/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHEMISTRY PANEL -->
+                    <div class="subject-panel" id="panel-chemistry">
+                        <div class="panel-tabs">
+                            <button class="panel-tab active" onclick="switchPanel('chemistry','videos',this)"><i class="ri-video-line"></i> Video Lectures</button>
+                            <button class="panel-tab" onclick="switchPanel('chemistry','pdfs',this)"><i class="ri-file-pdf-2-line"></i> PDF Notes</button>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-section active" id="chemistry-videos">
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#065f46,#059669)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Organic Chemistry — Reaction Mechanisms</h5><span><i class="ri-time-line"></i> 55 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 9.3k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Organic+Chemistry+Reaction+Mechanisms" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#065f46,#059669)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Chemical Bonding — VSEPR & Hybridization</h5><span><i class="ri-time-line"></i> 48 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 7.6k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Chemical+Bonding" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#065f46,#059669)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Electrochemistry — Nernst Equation & Cells</h5><span><i class="ri-time-line"></i> 52 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 6.9k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Electrochemistry" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#065f46,#059669)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Mole Concept & Stoichiometry — Full Lecture</h5><span><i class="ri-time-line"></i> 60 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 11.2k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Mole+Concept" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                            </div>
+                            <div class="panel-section" id="chemistry-pdfs">
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Complete Physical Chemistry Notes</h5><span>PDF &nbsp;•&nbsp; 5.1 MB &nbsp;•&nbsp; 58 pages</span></div>
+                                    <a href="https://drive.google.com/file/d/1pgEgROO1PvK8MdGhyf3NuOiZUIDhfmPR/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Complete Inorganic Chemistry Notes</h5><span>PDF &nbsp;•&nbsp; 4.8 MB &nbsp;•&nbsp; 52 pages</span></div>
+                                    <a href="https://drive.google.com/file/d/1fFq2AVGqJitid_tgasarxvZXnIIKF4fp/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Complete Organic Chemistry Notes</h5><span>PDF &nbsp;•&nbsp; 5.5 MB &nbsp;•&nbsp; 64 pages</span></div>
+                                    <a href="https://drive.google.com/file/d/1iSDW_JubvPQyDn52lHneBoCK9BQvgCpk/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Aldehydes, Ketones & Carboxylic Acids Notes</h5><span>PDF &nbsp;•&nbsp; 3.2 MB &nbsp;•&nbsp; 40 pages</span></div>
+                                    <a href="https://drive.google.com/drive/folders/1G-krtbKzmQDg2crt_uFzacnx3uwUadyf" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MATHEMATICS PANEL -->
+                    <div class="subject-panel" id="panel-maths">
+                        <div class="panel-tabs">
+                            <button class="panel-tab active" onclick="switchPanel('maths','videos',this)"><i class="ri-video-line"></i> Video Lectures</button>
+                            <button class="panel-tab" onclick="switchPanel('maths','pdfs',this)"><i class="ri-file-pdf-2-line"></i> PDF Notes</button>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-section active" id="maths-videos">
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#5b21b6,#7c3aed)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Definite Integration — Tricks & JEE PYQs</h5><span><i class="ri-time-line"></i> 62 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 15.1k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Definite+Integration" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#5b21b6,#7c3aed)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Coordinate Geometry — Circles & Conics</h5><span><i class="ri-time-line"></i> 58 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 10.4k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Coordinate+Geometry" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#5b21b6,#7c3aed)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Vectors & 3D Geometry — Full Lecture</h5><span><i class="ri-time-line"></i> 65 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 8.7k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Vectors+3D+Geometry" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                                <div class="vid-row">
+                                    <div class="vid-thumb" style="background:linear-gradient(135deg,#5b21b6,#7c3aed)"><i class="ri-play-fill"></i></div>
+                                    <div class="vid-info"><h5>Probability & Statistics — Complete Chapter</h5><span><i class="ri-time-line"></i> 50 min &nbsp;|&nbsp; <i class="ri-eye-line"></i> 7.2k views</span></div>
+                                    <a href="https://www.youtube.com/results?search_query=JEE+Probability+Statistics" target="_blank" class="vid-action"><i class="ri-play-circle-line"></i> Watch</a>
+                                </div>
+                            </div>
+                            <div class="panel-section" id="maths-pdfs">
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Complex Numbers DPP — 30 Questions</h5><span>PDF &nbsp;•&nbsp; 12.5 MB &nbsp;•&nbsp; 30 Qs</span></div>
+                                    <a href="https://drive.google.com/file/d/12eseYmMsSRQHXvEEjClslVopLXvONquV/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Basic Mathematics & Trigonometry Notes</h5><span>PDF &nbsp;•&nbsp; 3.8 MB &nbsp;•&nbsp; 45 pages</span></div>
+                                    <a href="https://drive.google.com/file/d/1sgVQ9CP5MtAmtIwo-1dLBJjZeGQjZiJb/view" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Maths Formula Booklet — JEE Advanced</h5><span>PDF &nbsp;•&nbsp; 1.6 MB &nbsp;•&nbsp; 12 pages</span></div>
+                                    <a href="#" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                                <div class="pdf-row">
+                                    <div class="pdf-icon"><i class="ri-file-pdf-2-line"></i></div>
+                                    <div class="pdf-info"><h5>Definite Integration — Short Tricks & PYQs</h5><span>PDF &nbsp;•&nbsp; 3.5 MB &nbsp;•&nbsp; 64 pages</span></div>
+                                    <a href="#" target="_blank" class="pdf-action"><i class="ri-download-line"></i> Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -838,16 +1085,34 @@
         };
 
         function switchTab(tabId) {
-            // Remove active class from all buttons and sections
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(section => section.classList.remove('active'));
-
-            // Add active class to selected
             const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn =>
                 btn.getAttribute('onclick').includes(tabId)
             );
             activeBtn.classList.add('active');
             document.getElementById(tabId).classList.add('active');
+        }
+
+        function toggleSubject(subj, card) {
+            const panel = document.getElementById('panel-' + subj);
+            const isOpen = panel.classList.contains('open');
+            // Close all panels and deselect all cards
+            document.querySelectorAll('.subject-panel').forEach(p => p.classList.remove('open'));
+            document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('expanded'));
+            if (!isOpen) {
+                panel.classList.add('open');
+                card.classList.add('expanded');
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function switchPanel(subj, type, btn) {
+            event.stopPropagation();
+            document.querySelectorAll(`#panel-${subj} .panel-tab`).forEach(t => t.classList.remove('active'));
+            document.querySelectorAll(`#panel-${subj} .panel-section`).forEach(s => s.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`${subj}-${type}`).classList.add('active');
         }
 
         function logout() {

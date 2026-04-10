@@ -162,6 +162,43 @@
         .btn-start { padding: 12px 24px; background: var(--accent); color: var(--primary); border: none; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: 0.2s; text-decoration: none; }
         .btn-start:hover { background: #f59e0b; transform: scale(1.03); }
 
+        /* VIDEO LECTURES */
+        .video-card {
+            background: white; border-radius: 18px; overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1.5px solid #f1f5f9;
+            transition: 0.25s; display: flex; flex-direction: column;
+        }
+        .video-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(14,47,105,0.12); border-color: #bfdbfe; }
+        .video-thumb {
+            height: 160px; position: relative; overflow: hidden; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .video-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .video-thumb .play-btn {
+            position: absolute; width: 52px; height: 52px; background: rgba(255,255,255,0.92);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: var(--primary); box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            transition: 0.2s;
+        }
+        .video-thumb:hover .play-btn { transform: scale(1.1); background: var(--accent); }
+        .video-thumb .vid-duration {
+            position: absolute; bottom: 8px; right: 10px;
+            background: rgba(0,0,0,0.75); color: white; font-size: 11px; font-weight: 700;
+            padding: 2px 8px; border-radius: 6px;
+        }
+        .video-thumb .mat-free-tag { top: 10px; right: 10px; }
+        .video-thumb .mat-ribbon { top: 12px; left: -28px; }
+        .video-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; }
+        .video-subject { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+        .video-title { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 8px; line-height: 1.4; flex: 1; }
+        .video-meta { display: flex; gap: 12px; font-size: 12px; color: #94a3b8; margin-bottom: 12px; flex-wrap: wrap; }
+        .video-meta span { display: flex; align-items: center; gap: 4px; }
+        .btn-watch { flex: 1; padding: 9px; background: var(--primary); border: none; border-radius: 10px; font-family: inherit; font-size: 13px; font-weight: 700; color: white; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px; text-decoration: none; }
+        .btn-watch:hover { background: var(--secondary); }
+        .btn-watch.premium { background: linear-gradient(135deg, #d97706, #f59e0b); }
+        .btn-watch.premium:hover { background: linear-gradient(135deg, #b45309, #d97706); }
+
         /* HELP BANNER */
         .help-banner { background: white; border-radius: 20px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border: 1.5px solid #e2e8f0; margin-top: 20px; }
         .help-banner h4 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
@@ -608,6 +645,100 @@
             </div>
         </div>
 
+        <!-- VIDEO LECTURES -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2>
+                    <div class="sec-icon" style="background:#fef3c7;color:#d97706;"><i class="ri-video-line"></i></div>
+                    Video Lectures
+                </h2>
+                <a href="#" class="view-all">View All <i class="ri-arrow-right-line"></i></a>
+            </div>
+            <div class="mat-grid" id="videoGrid">
+
+                <!-- Physics Video -->
+                <div class="video-card" data-subject="physics">
+                    <div class="video-thumb t-physics">
+                        <div class="mat-free-tag">FREE</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">48:22</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-subject type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="video-title">Rotational Motion — Torque & Angular Momentum</div>
+                        <div class="video-meta">
+                            <span><i class="ri-time-line"></i> 48 min</span>
+                            <span><i class="ri-eye-line"></i> 12.4k views</span>
+                        </div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/@eGurukul" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chemistry Video -->
+                <div class="video-card" data-subject="chemistry">
+                    <div class="video-thumb t-chemistry">
+                        <div class="mat-free-tag">FREE</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">55:10</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-subject type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="video-title">Organic Chemistry — Reaction Mechanisms Masterclass</div>
+                        <div class="video-meta">
+                            <span><i class="ri-time-line"></i> 55 min</span>
+                            <span><i class="ri-eye-line"></i> 9.8k views</span>
+                        </div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/@eGurukul" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maths Video -->
+                <div class="video-card" data-subject="maths">
+                    <div class="video-thumb t-maths">
+                        <div class="mat-ribbon">PREMIUM</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">1:02:45</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-subject type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="video-title">Definite Integration — Tricks & JEE PYQ Walkthrough</div>
+                        <div class="video-meta">
+                            <span><i class="ri-time-line"></i> 62 min</span>
+                            <span><i class="ri-eye-line"></i> 15.1k views</span>
+                        </div>
+                        <div class="mat-actions">
+                            <a href="#" class="btn-watch premium"><i class="ri-lock-line"></i> Unlock</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Physics Video 2 -->
+                <div class="video-card" data-subject="physics">
+                    <div class="video-thumb t-physics">
+                        <div class="mat-new-tag">NEW</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">38:55</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-subject type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="video-title">Electrostatics — Electric Field & Potential (JEE 2026)</div>
+                        <div class="video-meta">
+                            <span><i class="ri-time-line"></i> 39 min</span>
+                            <span><i class="ri-eye-line"></i> 7.3k views</span>
+                        </div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/@eGurukul" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <!-- HELP BANNER -->
         <div class="help-banner">
             <div>
@@ -665,7 +796,7 @@
         }
 
         function filterCards() {
-            document.querySelectorAll('.mat-card').forEach(card => {
+            document.querySelectorAll('.mat-card, .video-card').forEach(card => {
                 const subj = card.dataset.subject || 'all';
                 const show = activeSubject === 'all' || subj === activeSubject || subj === 'all';
                 card.style.display = show ? 'flex' : 'none';
