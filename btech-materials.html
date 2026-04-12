@@ -171,15 +171,20 @@
 
         /* FOOTER */
         footer { background: var(--primary); color: white; padding: 50px 6% 28px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
         .footer-brand p { font-size: 14px; opacity: 0.65; line-height: 1.7; margin-top: 12px; }
-        .footer-col h4 { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.6px; }
+        .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
         .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; margin-bottom: 9px; transition: 0.2s; }
         .footer-col a:hover { color: white; padding-left: 4px; }
+        .footer-socials { display: flex; gap: 12px; margin-top: 16px; }
+        .footer-socials a { width: 36px; height: 36px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; transition: 0.2s; text-decoration: none; }
+        .footer-socials a:hover { background: var(--accent); color: var(--primary); transform: translateY(-3px); }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; opacity: 0.6; }
         .socials { display: flex; gap: 12px; }
-        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; }
+        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; text-decoration: none; }
         .socials a:hover { color: var(--accent); }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+        @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
 
         @media (max-width: 960px) {
             nav { display: none; } .hamburger { display: block; }
@@ -281,10 +286,34 @@
     <div class="main-wrap" id="materials">
         <div class="left-col">
 
+            <!-- DRIVE DOWNLOAD BANNER -->
+            <div style="background:linear-gradient(135deg,#0e2f69,#1746a2);border-radius:16px;padding:18px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                <div style="color:white;">
+                    <div style="font-size:13px;font-weight:800;margin-bottom:3px;display:flex;align-items:center;gap:7px;"><i class="ri-google-fill" style="color:#facc15;"></i> Google Drive — All B.Tech PDFs</div>
+                    <div style="font-size:12px;opacity:0.75;">Semester-wise notes, PYQs, lab manuals &amp; more in one folder</div>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link" target="_blank"
+                   style="display:inline-flex;align-items:center;gap:7px;background:#facc15;color:#0e2f69;padding:10px 20px;border-radius:50px;font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap;">
+                    <i class="ri-folder-open-line"></i> Open Drive Folder
+                </a>
+            </div>
+
             <!-- SEMESTER TABS -->
             <div class="sem-tabs">
                 <button class="sem-btn active" onclick="setSem(1, this)">Semester 1</button>
                 <button class="sem-btn" onclick="setSem(2, this)">Semester 2</button>
+                <button class="sem-btn" onclick="setSem(3, this)">Semester 3</button>
+                <button class="sem-btn" onclick="setSem(4, this)">Semester 4</button>
+            </div>
+
+            <!-- SEM DRIVE LINK BAR -->
+            <div id="semDriveBar" style="margin-bottom:20px;display:flex;align-items:center;gap:10px;background:white;border-radius:12px;padding:12px 16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);border:1.5px solid #e2e8f0;">
+                <i class="ri-folder-2-line" style="color:#1746a2;font-size:20px;"></i>
+                <span style="font-size:13px;font-weight:600;color:#374151;flex:1;">Download all <b>Semester <span id="semLabel">1</span></b> PDFs from Google Drive</span>
+                <a id="semDriveLink" href="https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link" target="_blank"
+                   style="display:inline-flex;align-items:center;gap:6px;background:#0e2f69;color:white;padding:8px 16px;border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;">
+                    <i class="ri-download-cloud-line"></i> Download PDFs
+                </a>
             </div>
 
             <!-- CONTENT AREA -->
@@ -361,25 +390,39 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="index.html" class="logo" style="font-size:20px;margin-bottom:12px;display:inline-flex;"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
-                <p>India's trusted online learning platform for JEE, NEET, CUET, SSC & B.Tech aspirants.</p>
-            </div>
-            <div class="footer-col">
-                <h4>B.Tech Resources</h4>
-                <a href="#">CSE / IT Notes</a>
-                <a href="#">ECE / EEE Notes</a>
-                <a href="#">Mechanical Notes</a>
-                <a href="#">Civil Notes</a>
+                <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream entrance exams with ease.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+                </div>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <a href="study-material.html">Study Material</a>
-                <a href="pyq-archive.html">PYQ Archive</a>
-                <a href="courses.html">All Courses</a>
-                <a href="support.html">Support</a>
+                <a href="index.html"><i class="ri-home-line"></i> Home</a>
+                <a href="courses.html"><i class="ri-book-open-line"></i> Courses</a>
+                <a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a>
+                <a href="login.html"><i class="ri-user-heart-line"></i> Student Portal</a>
+                <a href="admin-login.html"><i class="ri-admin-line"></i> Admin Login</a>
+            </div>
+            <div class="footer-col">
+                <h4>Syllabus</h4>
+                <a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a>
+                <a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a>
+                <a href="cuet-syllabus.html"><i class="ri-graduation-cap-line"></i> CUET 2026</a>
+                <a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a>
+                <a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a>
+                <a href="support.html"><i class="ri-customer-service-2-line"></i> Support Center</a>
+                <a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© 2026 e-Gurukul. All rights reserved.</span>
+            <span>© 2026 e-Gurukul. All Rights Reserved. Designed for Excellence.</span>
             <div class="socials">
                 <a href="#"><i class="ri-youtube-line"></i></a>
                 <a href="#"><i class="ri-instagram-line"></i></a>
@@ -599,14 +642,54 @@ const TYPE_COLORS = {
 let activeBranch = 'cse';
 let activeSem = 1;
 
+// Master Drive folder
+const DRIVE_BASE = 'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link';
+
+// Semester-wise Drive folder links
+const SEM_DRIVE = {
+    1: 'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    2: 'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    3: 'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    4: 'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+};
+
+// Subject-wise Drive folder links — replace each URL with the specific subject subfolder
+const SUBJECT_DRIVE = {
+    // CSE Sem 1
+    'BAS101_CSE_1': 'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BAS102':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BCS101':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BAS103':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    // CSE Sem 2
+    'BAS201':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BCS201':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BEC201':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    // ECE
+    'BEE101':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BEC101':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BEC202':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    // ME
+    'BME101':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BME102':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BME201':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BME202':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    // CE
+    'BCE101':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BCE102':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BCE201':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+    'BCE202':       'https://drive.google.com/drive/folders/1yICsFA898qwVypRo3EuYsqVfXJP47gE_?usp=drive_link',
+};
+
 function buildCard(m) {
     const tc = TYPE_COLORS[m.type] || TYPE_COLORS['Notes'];
     const lockHtml = m.free
         ? `<span class="mat-free">FREE</span>`
         : `<span class="mat-ribbon">PREMIUM</span>`;
     const newHtml = m.isNew ? `<span class="mat-new">NEW</span>` : '';
+    // Priority: material-specific link → subject link → semester link → master
+    const driveLink = m.driveLink || SUBJECT_DRIVE[m.subjectCode] || SEM_DRIVE[activeSem] || DRIVE_BASE;
     const dlBtn = m.free
-        ? `<a href="#" class="btn-dl" onclick="event.preventDefault();dlAnim(this,'${m.title}')"><i class="ri-download-line"></i> Download</a>`
+        ? `<a href="${driveLink}" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>`
         : `<a href="#" class="btn-dl premium" onclick="event.preventDefault();alert('Unlock with Premium plan')"><i class="ri-lock-line"></i> Unlock</a>`;
     return `
     <div class="mat-card">
@@ -623,7 +706,7 @@ function buildCard(m) {
                 <span><i class="ri-hard-drive-line"></i> ${m.size}</span>
             </div>
             <div class="mat-actions">
-                <button class="btn-prev"><i class="ri-eye-line"></i> Preview</button>
+                <a href="${driveLink}" target="_blank" class="btn-prev"><i class="ri-eye-line"></i> View</a>
                 ${dlBtn}
             </div>
         </div>
@@ -631,13 +714,25 @@ function buildCard(m) {
 }
 
 function buildSection(subj) {
-    const cards = subj.materials.map(m => buildCard({ ...m, icon: subj.icon, color: subj.color })).join('');
+    const subjDriveLink = SUBJECT_DRIVE[subj.code] || SEM_DRIVE[activeSem] || DRIVE_BASE;
+    // Pass subjectCode down to each material card
+    const cards = subj.materials.map(m => buildCard({
+        ...m,
+        icon: subj.icon,
+        color: subj.color,
+        subjectCode: subj.code
+    })).join('');
     return `
     <div class="subject-section">
         <div class="subj-head">
             <div class="subj-icon" style="background:#eff6ff;color:#1746a2;"><i class="${subj.icon}"></i></div>
             <h2>${subj.subject} <span class="subj-code">${subj.code}</span></h2>
             <span class="subj-credits"><i class="ri-award-line"></i> ${subj.credits}</span>
+            <a href="${subjDriveLink}" target="_blank"
+               style="margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:#eff6ff;color:#1746a2;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;transition:0.2s;border:1.5px solid #bfdbfe;"
+               onmouseover="this.style.background='#1746a2';this.style.color='white'" onmouseout="this.style.background='#eff6ff';this.style.color='#1746a2'">
+                <i class="ri-folder-open-line"></i> Subject PDFs
+            </a>
         </div>
         <div class="mat-grid">${cards}</div>
     </div>`;
@@ -662,21 +757,10 @@ function setSem(sem, el) {
     activeSem = sem;
     document.querySelectorAll('.sem-btn').forEach(b => b.classList.remove('active'));
     el.classList.add('active');
+    // Update semester drive bar
+    const label = document.getElementById('semLabel');
+    if (label) label.textContent = sem;
     render();
-}
-
-function dlAnim(btn, title) {
-    btn.innerHTML = '<i class="ri-loader-4-line"></i> Preparing...';
-    btn.style.opacity = '0.7';
-    setTimeout(() => {
-        btn.innerHTML = '<i class="ri-check-line"></i> Downloaded';
-        btn.style.background = '#16a34a';
-        btn.style.opacity = '1';
-        setTimeout(() => {
-            btn.innerHTML = '<i class="ri-download-line"></i> Download';
-            btn.style.background = '';
-        }, 2500);
-    }, 1200);
 }
 
 // Init

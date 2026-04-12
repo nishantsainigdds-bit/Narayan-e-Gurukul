@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Exam Study Material | e-Gurukul</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary:#0e2f69; --secondary:#1746a2; --accent:#facc15; --bg:#f0f4fb; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:'Outfit',sans-serif; background:var(--bg); color:#1e293b; }
+
+        /* HEADER */
+        header { background:var(--primary); padding:0 6%; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000; box-shadow:0 2px 20px rgba(0,0,0,0.2); height:66px; }
+        .logo { display:flex; align-items:center; gap:10px; font-size:22px; font-weight:800; color:white; text-decoration:none; }
+        .logo span { color:var(--accent); }
+        nav { display:flex; align-items:center; gap:4px; }
+        nav a { color:rgba(255,255,255,0.8); text-decoration:none; padding:7px 14px; border-radius:8px; font-size:14px; font-weight:500; transition:0.2s; }
+        nav a:hover { color:white; background:rgba(255,255,255,0.12); }
+        .nav-cta { background:var(--accent)!important; color:var(--primary)!important; font-weight:700!important; border-radius:10px!important; }
+        .hamburger { display:none; background:none; border:none; color:white; font-size:26px; cursor:pointer; }
+        .mobile-nav { display:none; position:fixed; top:66px; left:0; right:0; background:var(--primary); padding:16px 6%; z-index:999; flex-direction:column; gap:4px; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+        .mobile-nav.open { display:flex; }
+        .mobile-nav a { color:rgba(255,255,255,0.85); text-decoration:none; padding:10px 14px; border-radius:8px; font-size:15px; }
+
+        /* BREADCRUMB */
+        .breadcrumb { background:white; border-bottom:1px solid #e2e8f0; padding:12px 6%; display:flex; align-items:center; gap:8px; font-size:13px; color:#64748b; }
+        .breadcrumb a { color:var(--secondary); text-decoration:none; font-weight:600; }
+        .breadcrumb a:hover { text-decoration:underline; }
+
+        /* HERO */
+        .hero { background:linear-gradient(135deg,#071a3e 0%,#0e2f69 45%,#1746a2 100%); padding:60px 6% 110px; color:white; position:relative; overflow:hidden; }
+        .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 80% 50%,rgba(124,58,237,0.12) 0%,transparent 60%); }
+        .hero::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:55px; background:var(--bg); clip-path:ellipse(55% 100% at 50% 100%); }
+        .hero-inner { position:relative; z-index:1; max-width:1160px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; }
+        .hero-badge { display:inline-flex; align-items:center; gap:7px; background:rgba(250,204,21,0.15); border:1px solid rgba(250,204,21,0.4); color:#fde68a; padding:6px 16px; border-radius:30px; font-size:13px; font-weight:600; margin-bottom:18px; }
+        .hero h1 { font-size:42px; font-weight:800; line-height:1.12; margin-bottom:14px; }
+        .hero h1 span { color:var(--accent); }
+        .hero p { font-size:16px; opacity:0.8; margin-bottom:28px; line-height:1.7; }
+        .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+        .btn-primary { padding:12px 24px; background:var(--accent); color:var(--primary); border:none; border-radius:12px; font-family:inherit; font-size:15px; font-weight:800; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:0.2s; }
+        .btn-primary:hover { background:#f59e0b; transform:translateY(-2px); }
+        .btn-outline-w { padding:12px 24px; background:rgba(255,255,255,0.1); color:white; border:2px solid rgba(255,255,255,0.25); border-radius:12px; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:0.2s; }
+        .btn-outline-w:hover { background:rgba(255,255,255,0.18); }
+        .hero-stats { display:flex; gap:20px; flex-wrap:wrap; }
+        .h-stat { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:14px 20px; text-align:center; }
+        .h-stat .num { font-size:22px; font-weight:800; color:var(--accent); }
+        .h-stat .lbl { font-size:11px; opacity:0.7; margin-top:2px; }
+
+        /* SUBJECT TABS */
+        .subject-wrap { max-width:1160px; margin:-30px auto 0; padding:0 20px; position:relative; z-index:10; }
+        .subject-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .subj-tab { background:white; border-radius:18px; padding:22px 20px; text-align:center; cursor:pointer; transition:0.25s; border:2px solid transparent; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
+        .subj-tab:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.1); }
+        .subj-tab.active { border-color:var(--accent); box-shadow:0 8px 30px rgba(250,204,21,0.2); }
+        .subj-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 12px; }
+        .subj-tab h3 { font-size:17px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+        .subj-tab p { font-size:12px; color:#64748b; }
+        .subj-count { display:inline-block; margin-top:8px; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+
+        /* MAIN */
+        .main-wrap { max-width:1160px; margin:36px auto 80px; padding:0 20px; }
+        .mat-section { margin-bottom:48px; }
+        .sec-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px; }
+        .sec-head h2 { font-size:20px; font-weight:800; color:var(--primary); display:flex; align-items:center; gap:10px; }
+        .sec-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+
+        /* MATERIAL CARDS */
+        .mat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+        .mat-card { background:white; border-radius:18px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.05); border:1.5px solid #f1f5f9; transition:0.25s; display:flex; flex-direction:column; }
+        .mat-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(14,47,105,0.12); border-color:#bfdbfe; }
+        .mat-thumb { height:110px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+        .mat-thumb i { font-size:44px; color:white; filter:drop-shadow(0 4px 10px rgba(0,0,0,0.2)); position:relative; z-index:1; }
+        .mat-free-tag { position:absolute; top:10px; right:10px; background:rgba(22,163,74,0.9); color:white; font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; }
+        .mat-new-tag { position:absolute; bottom:10px; right:10px; background:var(--accent); color:var(--primary); font-size:10px; font-weight:800; padding:3px 9px; border-radius:20px; }
+        .mat-body { padding:16px; flex:1; display:flex; flex-direction:column; }
+        .mat-type { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:5px; }
+        .mat-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; line-height:1.35; flex:1; }
+        .mat-meta { display:flex; gap:12px; font-size:12px; color:#94a3b8; margin-bottom:14px; flex-wrap:wrap; }
+        .mat-meta span { display:flex; align-items:center; gap:4px; }
+        .mat-actions { display:flex; gap:8px; }
+        .btn-dl { flex:1; padding:9px; background:var(--primary); border:none; border-radius:10px; font-family:inherit; font-size:13px; font-weight:700; color:white; cursor:pointer; transition:0.2s; display:flex; align-items:center; justify-content:center; gap:5px; text-decoration:none; }
+        .btn-dl:hover { background:var(--secondary); }
+        .btn-prev { padding:9px 12px; border:2px solid #e2e8f0; border-radius:10px; background:none; font-family:inherit; font-size:13px; color:#374151; cursor:pointer; transition:0.2s; display:flex; align-items:center; gap:4px; }
+        .btn-prev:hover { border-color:var(--primary); color:var(--primary); }
+
+        /* THUMB COLORS */
+        .t-physics   { background:linear-gradient(135deg,#0e2f69,#1746a2); }
+        .t-chemistry { background:linear-gradient(135deg,#065f46,#059669); }
+        .t-maths     { background:linear-gradient(135deg,#5b21b6,#7c3aed); }
+
+        /* TYPE COLORS */
+        .type-physics   { color:#1746a2; }
+        .type-chemistry { color:#059669; }
+        .type-maths     { color:#7c3aed; }
+
+        /* VIDEO CARDS */
+        .video-card { background:white; border-radius:18px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.05); border:1.5px solid #f1f5f9; transition:0.25s; display:flex; flex-direction:column; }
+        .video-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(14,47,105,0.12); border-color:#bfdbfe; }
+        .video-thumb { height:130px; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+        .play-btn { width:52px; height:52px; background:rgba(255,255,255,0.92); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--primary); box-shadow:0 4px 16px rgba(0,0,0,0.25); transition:0.2s; z-index:1; }
+        .video-thumb:hover .play-btn { transform:scale(1.1); background:var(--accent); }
+        .vid-duration { position:absolute; bottom:8px; right:10px; background:rgba(0,0,0,0.75); color:white; font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; }
+        .video-body { padding:14px 16px; flex:1; display:flex; flex-direction:column; }
+        .video-meta { display:flex; gap:12px; font-size:12px; color:#94a3b8; margin-bottom:12px; flex-wrap:wrap; }
+        .video-meta span { display:flex; align-items:center; gap:4px; }
+        .btn-watch { flex:1; padding:9px; background:var(--primary); border:none; border-radius:10px; font-family:inherit; font-size:13px; font-weight:700; color:white; cursor:pointer; transition:0.2s; display:flex; align-items:center; justify-content:center; gap:5px; text-decoration:none; }
+        .btn-watch:hover { background:var(--secondary); }
+
+        /* FOOTER */
+        footer { background:var(--primary); color:white; padding:50px 6% 28px; }
+        .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:36px; }
+        .footer-brand p { font-size:14px; opacity:0.65; line-height:1.7; margin-top:12px; }
+        .footer-col h4 { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px; }
+        .footer-col a { display:block; color:rgba(255,255,255,0.65); text-decoration:none; font-size:14px; margin-bottom:9px; transition:0.2s; }
+        .footer-col a:hover { color:white; padding-left:4px; }
+        .footer-socials { display:flex; gap:12px; margin-top:16px; }
+        .footer-socials a { width:36px; height:36px; background:rgba(255,255,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-size:18px; transition:0.2s; text-decoration:none; }
+        .footer-socials a:hover { background:var(--accent); color:var(--primary); transform:translateY(-3px); }
+        .footer-bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; opacity:0.6; }
+        .socials { display:flex; gap:12px; }
+        .socials a { color:rgba(255,255,255,0.65); font-size:20px; transition:0.2s; text-decoration:none; }
+        .socials a:hover { color:var(--accent); }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+        @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+
+        @media (max-width:900px) { nav { display:none; } .hamburger { display:block; } .hero h1 { font-size:28px; } .subject-tabs { grid-template-columns:1fr; } .footer-grid { grid-template-columns:1fr; gap:24px; } }
+        @media (max-width:600px) { .mat-grid { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="study-material.html">Study Material</a>
+            <a href="board-syllabus.html">Board Syllabus</a>
+            <a href="login.html" class="nav-cta">Portal</a>
+        </nav>
+        <button class="hamburger" onclick="document.getElementById('mobileNav').classList.toggle('open')"><i class="ri-menu-line"></i></button>
+    </header>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="study-material.html">Study Material</a>
+        <a href="board-syllabus.html">Board Syllabus</a>
+        <a href="login.html">Portal</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <a href="study-material.html">Study Material</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <a href="board-syllabus.html">Board Syllabus</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <span style="color:#0e2f69;font-weight:600;">Board Materials</span>
+    </div>
+
+    <div class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="hero-badge"><i class="ri-government-line"></i> Class 10 &amp; 12 Board Exams</div>
+                <h1>Board Exam <span>Study Material</span></h1>
+                <p>Chapter-wise notes, video lectures and PDFs for Physics, Chemistry &amp; Mathematics. Aligned with CBSE/State Board 2026 syllabus.</p>
+                <div class="hero-actions">
+                    <a href="board-syllabus.html" class="btn-primary"><i class="ri-list-check"></i> View Syllabus</a>
+                    <a href="courses.html" class="btn-outline-w"><i class="ri-rocket-line"></i> Enroll Now</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="h-stat"><div class="num">300+</div><div class="lbl">Study Files</div></div>
+                <div class="h-stat"><div class="num">80+</div><div class="lbl">Video Lectures</div></div>
+                <div class="h-stat"><div class="num">Class 10 &amp; 12</div><div class="lbl">Coverage</div></div>
+                <div class="h-stat"><div class="num">Free</div><div class="lbl">Basic Access</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBJECT TABS -->
+    <div class="subject-wrap">
+        <div class="subject-tabs">
+            <div class="subj-tab active" onclick="setSubject('physics',this)">
+                <div class="subj-icon" style="background:#eff6ff;color:#1746a2;"><i class="ri-flashlight-line"></i></div>
+                <h3>Physics</h3><p>Mechanics, Electricity, Optics &amp; more</p>
+                <span class="subj-count" style="background:#eff6ff;color:#1746a2;">15 Chapters</span>
+            </div>
+            <div class="subj-tab" onclick="setSubject('chemistry',this)">
+                <div class="subj-icon" style="background:#f0fdf4;color:#059669;"><i class="ri-flask-line"></i></div>
+                <h3>Chemistry</h3><p>Physical, Organic &amp; Inorganic</p>
+                <span class="subj-count" style="background:#f0fdf4;color:#059669;">12 Chapters</span>
+            </div>
+            <div class="subj-tab" onclick="setSubject('maths',this)">
+                <div class="subj-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="ri-calculator-line"></i></div>
+                <h3>Mathematics</h3><p>Algebra, Calculus, Geometry</p>
+                <span class="subj-count" style="background:#f5f3ff;color:#7c3aed;">18 Chapters</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-wrap">
+
+        <!-- VIDEO LECTURES -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2><div class="sec-icon" style="background:#fef3c7;color:#d97706;"><i class="ri-video-line"></i></div> Video Lectures</h2>
+            </div>
+            <div class="mat-grid" id="videoGrid">
+                <div class="video-card" data-subject="physics">
+                    <div class="video-thumb t-physics">
+                        <div class="mat-free-tag">FREE</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">45:10</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Laws of Motion — Newton's Laws &amp; Friction</div>
+                        <div class="video-meta"><span><i class="ri-time-line"></i> 45 min</span><span><i class="ri-eye-line"></i> 10.2k views</span></div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/results?search_query=Class+12+Physics+Laws+of+Motion+Board" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" data-subject="physics">
+                    <div class="video-thumb t-physics">
+                        <div class="mat-new-tag">NEW</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">52:30</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Electrostatics &amp; Current Electricity — Board 2026</div>
+                        <div class="video-meta"><span><i class="ri-time-line"></i> 52 min</span><span><i class="ri-eye-line"></i> 8.5k views</span></div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/results?search_query=Class+12+Physics+Electrostatics+Board+Exam" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" data-subject="chemistry">
+                    <div class="video-thumb t-chemistry">
+                        <div class="mat-free-tag">FREE</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">58:00</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Chemical Reactions &amp; Equations — Class 10</div>
+                        <div class="video-meta"><span><i class="ri-time-line"></i> 58 min</span><span><i class="ri-eye-line"></i> 9.3k views</span></div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/results?search_query=Class+10+Chemistry+Chemical+Reactions+Board" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" data-subject="chemistry">
+                    <div class="video-thumb t-chemistry">
+                        <div class="mat-free-tag">FREE</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">50:15</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Organic Chemistry — Haloalkanes &amp; Alcohols</div>
+                        <div class="video-meta"><span><i class="ri-time-line"></i> 50 min</span><span><i class="ri-eye-line"></i> 7.1k views</span></div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/results?search_query=Class+12+Chemistry+Organic+Board+Exam" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" data-subject="maths">
+                    <div class="video-thumb t-maths">
+                        <div class="mat-free-tag">FREE</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">62:00</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Integration — Definite &amp; Indefinite Board Tricks</div>
+                        <div class="video-meta"><span><i class="ri-time-line"></i> 62 min</span><span><i class="ri-eye-line"></i> 15.1k views</span></div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/results?search_query=Class+12+Maths+Integration+Board+Exam" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" data-subject="maths">
+                    <div class="video-thumb t-maths">
+                        <div class="mat-new-tag">NEW</div>
+                        <div class="play-btn"><i class="ri-play-fill"></i></div>
+                        <span class="vid-duration">48:20</span>
+                    </div>
+                    <div class="video-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Coordinate Geometry — Class 10 Full Chapter</div>
+                        <div class="video-meta"><span><i class="ri-time-line"></i> 48 min</span><span><i class="ri-eye-line"></i> 11.4k views</span></div>
+                        <div class="mat-actions">
+                            <a href="https://www.youtube.com/results?search_query=Class+10+Maths+Coordinate+Geometry+Board" target="_blank" class="btn-watch"><i class="ri-play-circle-line"></i> Watch Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PDF NOTES -->
+        <div class="mat-section">
+            <div class="sec-head">
+                <h2><div class="sec-icon" style="background:#fef2f2;color:#dc2626;"><i class="ri-file-pdf-2-line"></i></div> Chapter Notes &amp; PDFs</h2>
+            </div>
+            <div class="mat-grid" id="pdfGrid">
+                <div class="mat-card" data-subject="physics">
+                    <div class="mat-thumb t-physics"><div class="mat-free-tag">FREE</div><i class="ri-flashlight-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Electrostatics — Complete Chapter Notes</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 42 pages</span><span><i class="ri-hard-drive-line"></i> 3.5 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/19Q9_3503tnSBLUTe7aWSav3DAPdVhLrZ/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="physics">
+                    <div class="mat-thumb t-physics"><div class="mat-free-tag">FREE</div><i class="ri-flashlight-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Electric Charge &amp; Field — Handwritten Notes</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 30 pages</span><span><i class="ri-hard-drive-line"></i> 2.8 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1SbGURCRT6eC-hYu12mOiuPrP-hUk9nxX/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="physics">
+                    <div class="mat-thumb t-physics"><div class="mat-free-tag">FREE</div><i class="ri-flashlight-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-physics"><i class="ri-flashlight-line"></i> Physics</div>
+                        <div class="mat-title">Physics Formula Sheet — All Chapters</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 8 pages</span><span><i class="ri-hard-drive-line"></i> 1.1 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1pzZtJWQ5RJs69m7O2MRG475dkfhrBmT6/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="chemistry">
+                    <div class="mat-thumb t-chemistry"><div class="mat-free-tag">FREE</div><i class="ri-flask-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Complete Physical Chemistry Notes</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 58 pages</span><span><i class="ri-hard-drive-line"></i> 5.1 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1pgEgROO1PvK8MdGhyf3NuOiZUIDhfmPR/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="chemistry">
+                    <div class="mat-thumb t-chemistry"><div class="mat-free-tag">FREE</div><i class="ri-flask-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Organic Chemistry — Reactions &amp; Mechanisms</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 64 pages</span><span><i class="ri-hard-drive-line"></i> 5.5 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1iSDW_JubvPQyDn52lHneBoCK9BQvgCpk/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="chemistry">
+                    <div class="mat-thumb t-chemistry"><div class="mat-free-tag">FREE</div><i class="ri-flask-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-chemistry"><i class="ri-flask-line"></i> Chemistry</div>
+                        <div class="mat-title">Inorganic Chemistry — p-Block &amp; d-Block Notes</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 52 pages</span><span><i class="ri-hard-drive-line"></i> 4.8 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1fFq2AVGqJitid_tgasarxvZXnIIKF4fp/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="maths">
+                    <div class="mat-thumb t-maths"><div class="mat-free-tag">FREE</div><i class="ri-calculator-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Basic Mathematics &amp; Trigonometry Notes</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 45 pages</span><span><i class="ri-hard-drive-line"></i> 3.8 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/1sgVQ9CP5MtAmtIwo-1dLBJjZeGQjZiJb/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="maths">
+                    <div class="mat-thumb t-maths"><div class="mat-free-tag">FREE</div><i class="ri-calculator-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Complex Numbers DPP — 30 Questions</div>
+                        <div class="mat-meta"><span><i class="ri-question-line"></i> 30 Qs</span><span><i class="ri-hard-drive-line"></i> 12.5 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/file/d/12eseYmMsSRQHXvEEjClslVopLXvONquV/view" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-card" data-subject="maths">
+                    <div class="mat-thumb t-maths"><div class="mat-new-tag">NEW</div><i class="ri-calculator-line"></i></div>
+                    <div class="mat-body">
+                        <div class="mat-type type-maths"><i class="ri-calculator-line"></i> Mathematics</div>
+                        <div class="mat-title">Maths Formula Booklet — Class 10 &amp; 12</div>
+                        <div class="mat-meta"><span><i class="ri-file-line"></i> 12 pages</span><span><i class="ri-hard-drive-line"></i> 1.6 MB</span></div>
+                        <div class="mat-actions">
+                            <button class="btn-prev"><i class="ri-eye-line"></i></button>
+                            <a href="https://drive.google.com/drive/folders/1byphlO1KEFcUl-cdEfV7X5KpgsX6jiLl" target="_blank" class="btn-dl"><i class="ri-download-line"></i> Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo" style="font-size:20px;margin-bottom:12px;display:inline-flex;"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
+                <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream entrance exams with ease.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="index.html"><i class="ri-home-line"></i> Home</a>
+                <a href="courses.html"><i class="ri-book-open-line"></i> Courses</a>
+                <a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a>
+                <a href="login.html"><i class="ri-user-heart-line"></i> Student Portal</a>
+                <a href="admin-login.html"><i class="ri-admin-line"></i> Admin Login</a>
+            </div>
+            <div class="footer-col">
+                <h4>Syllabus</h4>
+                <a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a>
+                <a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a>
+                <a href="cuet-syllabus.html"><i class="ri-graduation-cap-line"></i> CUET 2026</a>
+                <a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a>
+                <a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a>
+                <a href="support.html"><i class="ri-customer-service-2-line"></i> Support Center</a>
+                <a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 e-Gurukul. All Rights Reserved. Designed for Excellence.</span>
+            <div class="socials">
+                <a href="#"><i class="ri-youtube-line"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-telegram-line"></i></a>
+                <a href="#"><i class="ri-whatsapp-line"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let activeSubject = 'all';
+        function setSubject(subj, el) {
+            activeSubject = subj;
+            document.querySelectorAll('.subj-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            filterCards();
+            document.querySelector('.main-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        function filterCards() {
+            document.querySelectorAll('.mat-card, .video-card').forEach(card => {
+                const subj = card.dataset.subject || 'all';
+                const show = activeSubject === 'all' || subj === activeSubject;
+                card.style.display = show ? 'flex' : 'none';
+            });
+            document.querySelectorAll('.mat-section').forEach(section => {
+                const visible = [...section.querySelectorAll('.mat-card, .video-card')].some(c => c.style.display !== 'none');
+                section.style.display = visible ? 'block' : 'none';
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => filterCards());
+    </script>
+</body>
+</html>

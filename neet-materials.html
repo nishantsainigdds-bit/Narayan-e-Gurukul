@@ -152,15 +152,20 @@
 
         /* FOOTER */
         footer { background: var(--primary); color: white; padding: 50px 6% 28px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
         .footer-brand p { font-size: 14px; opacity: 0.65; line-height: 1.7; margin-top: 12px; }
         .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
         .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; margin-bottom: 9px; transition: 0.2s; }
         .footer-col a:hover { color: white; padding-left: 4px; }
+        .footer-socials { display: flex; gap: 12px; margin-top: 16px; }
+        .footer-socials a { width: 36px; height: 36px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; transition: 0.2s; text-decoration: none; }
+        .footer-socials a:hover { background: var(--accent); color: var(--primary); transform: translateY(-3px); }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; opacity: 0.6; }
         .socials { display: flex; gap: 12px; }
-        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; }
+        .socials a { color: rgba(255,255,255,0.65); font-size: 20px; transition: 0.2s; text-decoration: none; }
         .socials a:hover { color: var(--accent); }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+        @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
 
         @media (max-width: 900px) {
             nav { display: none; }
@@ -605,25 +610,39 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="index.html" class="logo" style="font-size:20px;margin-bottom:12px;display:inline-flex;"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
-                <p>India's trusted online learning platform for JEE, NEET, CUET & SSC aspirants.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Study Resources</h4>
-                <a href="study-material.html">Study Material</a>
-                <a href="neet-syllabus.html">NEET Syllabus</a>
-                <a href="jee-materials.html">JEE Material</a>
-                <a href="pyq-archive.html">PYQ Archive</a>
+                <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream entrance exams with ease.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+                </div>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <a href="courses.html">All Courses</a>
-                <a href="rank-predictor.html">Rank Predictor</a>
-                <a href="enroll-neet.html">Enroll for NEET</a>
-                <a href="support.html">Support</a>
+                <a href="index.html"><i class="ri-home-line"></i> Home</a>
+                <a href="courses.html"><i class="ri-book-open-line"></i> Courses</a>
+                <a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a>
+                <a href="login.html"><i class="ri-user-heart-line"></i> Student Portal</a>
+                <a href="admin-login.html"><i class="ri-admin-line"></i> Admin Login</a>
+            </div>
+            <div class="footer-col">
+                <h4>Syllabus</h4>
+                <a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a>
+                <a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a>
+                <a href="cuet-syllabus.html"><i class="ri-graduation-cap-line"></i> CUET 2026</a>
+                <a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a>
+                <a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a>
+                <a href="support.html"><i class="ri-customer-service-2-line"></i> Support Center</a>
+                <a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© 2026 e-Gurukul. All rights reserved.</span>
+            <span>© 2026 e-Gurukul. All Rights Reserved. Designed for Excellence.</span>
             <div class="socials">
                 <a href="#"><i class="ri-youtube-line"></i></a>
                 <a href="#"><i class="ri-instagram-line"></i></a>
