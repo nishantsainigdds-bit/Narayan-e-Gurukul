@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>e-Gurukul | Smart Learning Platform</title>
@@ -188,7 +188,9 @@
     .team-card { background:white; border-radius:24px; overflow:hidden; box-shadow:0 4px 20px rgba(14,47,105,0.07); transition:0.3s; text-align:center; border:1.5px solid #e8edf5; }
     .team-card:hover { transform:translateY(-8px); box-shadow:0 20px 48px rgba(14,47,105,0.14); border-color:#bfdbfe; }
     .team-photo { width:100%; height:200px; object-fit:cover; object-position:top; display:block; }
-    .team-photo-placeholder { width:100%; height:200px; background:linear-gradient(135deg,#0e2f69,#1746a2); display:flex; align-items:center; justify-content:center; font-size:64px; color:rgba(255,255,255,0.3); }
+    .team-photo-placeholder { width:100%; height:200px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    .team-avatar { width:100px; height:100px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:800; color:white; letter-spacing:-1px; box-shadow:0 8px 24px rgba(0,0,0,0.25); border:4px solid rgba(255,255,255,0.3); z-index:1; }
+    .team-photo-placeholder::before { content:''; position:absolute; inset:0; opacity:0.9; }
     .team-body { padding:20px 18px 22px; }
     .team-body h4 { font-size:17px; font-weight:800; color:#0e2f69; margin-bottom:4px; }
     .team-role { font-size:12px; font-weight:700; color:#1746a2; background:#eff6ff; padding:3px 12px; border-radius:20px; display:inline-block; margin-bottom:10px; }
@@ -618,7 +620,9 @@
     <div class="team-grid">
 
       <div class="team-card">
-        <div class="team-photo-placeholder"><i class="ri-user-3-line"></i></div>
+        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#0e2f69,#1746a2);">
+          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">NS</div>
+        </div>
         <div class="team-body">
           <h4>Nishant Saini</h4>
           <span class="team-role">Founder</span>
@@ -633,7 +637,9 @@
       </div>
 
       <div class="team-card">
-        <div class="team-photo-placeholder"><i class="ri-user-3-line"></i></div>
+        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#5b21b6,#7c3aed);">
+          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">SJ</div>
+        </div>
         <div class="team-body">
           <h4>Sanidhya Jain</h4>
           <span class="team-role">Founder</span>
@@ -648,7 +654,9 @@
       </div>
 
       <div class="team-card">
-        <div class="team-photo-placeholder"><i class="ri-user-3-line"></i></div>
+        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#be123c,#f43f5e);">
+          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">PV</div>
+        </div>
         <div class="team-body">
           <h4>Pakhi Verma</h4>
           <span class="team-role">Founder</span>
@@ -663,7 +671,9 @@
       </div>
 
       <div class="team-card">
-        <div class="team-photo-placeholder"><i class="ri-user-3-line"></i></div>
+        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#065f46,#059669);">
+          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">NA</div>
+        </div>
         <div class="team-body">
           <h4>Naidisht Asopa</h4>
           <span class="team-role">Founder</span>
@@ -671,14 +681,16 @@
 </p>
           <div class="team-socials">
             <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-            <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+            <a href="https://www.instagram.com/egurukul2026?utm_source=qr&igsh=enA4djA1YWMzNmNy" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
             <a href="mailto:egurukul@gmail.com" aria-label="Email"><i class="ri-mail-line"></i></a>
           </div>
         </div>
       </div>
 
       <div class="team-card">
-        <div class="team-photo-placeholder"><i class="ri-user-3-line"></i></div>
+        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#92400e,#d97706);">
+          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">SJ</div>
+        </div>
         <div class="team-body">
           <h4>Sandhya Jain</h4>
           <span class="team-role">Founder</span>
@@ -689,10 +701,6 @@
             <a href="#" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
             <a href="mailto:egurukul@gmail.com" aria-label="Email"><i class="ri-mail-line"></i></a>
           </div>
-        </div>
-      </div>
-
-      
         </div>
       </div>
 
@@ -708,7 +716,7 @@
         <div class="footer-socials">
           <a href="#" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
           <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
-          <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+          <a href="https://www.instagram.com/egurukul2026?utm_source=qr&igsh=enA4djA1YWMzNmNy" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
           <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
         </div>
       </div>
