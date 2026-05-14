@@ -1,892 +1,182 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>e-Gurukul | India's Smart Learning Platform for JEE, NEET, CUET & Board</title>
-  <meta name="description" content="e-Gurukul — India's trusted online learning platform for JEE, NEET, CUET, SSC & Board exams. Live classes, video lectures, PDFs, mock tests and expert mentorship.">
-  <meta name="keywords" content="JEE preparation, NEET preparation, CUET 2026, Board exam, online coaching, e-Gurukul">
-  <meta property="og:title" content="e-Gurukul | Smart Learning Platform">
-  <meta property="og:description" content="India's trusted platform for JEE, NEET, CUET & Board exam preparation.">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Outfit', sans-serif; background: #f4f6fb; color: #1a1a2e; }
-
-    /* ── HEADER ── */
-    header {
-      position: sticky; top: 0; width: 100%;
-      background: rgba(14,47,105,0.97); backdrop-filter: blur(12px);
-      color: white; padding: 14px 6%;
-      display: flex; justify-content: space-between; align-items: center;
-      z-index: 1000; box-shadow: 0 4px 30px rgba(0,0,0,0.15);
-    }
-    .logo { display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 700; text-decoration: none; color: white; }
-    .logo i { font-size: 30px; color: #facc15; background: rgba(250,204,21,0.12); padding: 6px; border-radius: 10px; }
-    .logo span { color: #facc15; }
-    nav { display: flex; align-items: center; gap: 28px; }
-    nav a { color: rgba(255,255,255,0.88); text-decoration: none; font-weight: 500; font-size: 15px; position: relative; transition: .3s; display: inline-flex; align-items: center; gap: 5px; }
-    nav a:not(.nav-btn)::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#facc15; transition:.3s; }
-    nav a:not(.nav-btn):hover::after { width:100%; }
-    nav a:hover { color: #facc15; }
-    .nav-btn { background: #facc15; color: #0e2f69 !important; padding: 9px 22px; border-radius: 50px; font-weight: 700; transition: .3s; box-shadow: 0 4px 15px rgba(250,204,21,0.3); }
-    .nav-btn:hover { background: white; transform: translateY(-2px); }
-    .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
-    @media(max-width:900px){
-      .menu-toggle { display: block; }
-      nav { display:none; flex-direction:column; position:absolute; top:100%; left:0; width:100%; background:#0e2f69; padding:28px 0; text-align:center; z-index:999; box-shadow:0 10px 20px rgba(0,0,0,.2); gap:18px; }
-      nav.active { display:flex; }
-      nav a { font-size:17px; }
-      .courses-grid, .exam-grid, .features-grid, .testimonials-grid { grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); }
-      .team-grid { grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); }
-    }
-    @media(max-width:768px){
-      .carousel-slide { height:auto; padding:60px 6% 50px; flex-direction:column; text-align:center; gap:30px; }
-      .slide-actions { justify-content:center; }
-      .slide-visual img { width:160px; }
-      .slide-bg::after { background:linear-gradient(180deg,rgba(14,47,105,0.9) 60%,rgba(14,47,105,0.5)); }
-      .stats-bar { grid-template-columns:repeat(2,1fr); }
-      .section-title h2 { font-size:26px; }
-      .courses-grid, .exam-grid, .features-grid, .testimonials-grid, .team-grid { grid-template-columns: 1fr 1fr; gap:16px; }
-      section, .testimonials-section, .team-section { padding:50px 4%; }
-    }
-    @media(max-width:560px){
-      .footer-grid { grid-template-columns:1fr; }
-      .footer-socials { justify-content:center; }
-      .footer-col h4::after { left:50%; transform:translateX(-50%); }
-      .courses-grid, .exam-grid, .features-grid, .testimonials-grid, .team-grid { grid-template-columns: 1fr; }
-      .stats-bar { grid-template-columns:1fr; }
-      .carousel-btn { width:36px; height:36px; font-size:18px; }
-      .carousel-prev { left:8px; }
-      .carousel-next { right:8px; }
-      section, .testimonials-section, .team-section { padding:40px 4%; }
-      .section-title h2 { font-size:22px; }
-      .team-avatar { width:80px; height:80px; font-size:28px; }
-      .team-photo-placeholder { height:160px; }
-    }
-    @media(max-width:480px){
-      .stats-bar { padding:24px 4%; }
-      .stat-item h2 { font-size:26px; }
-      .ticker span { font-size:12px; }
-    }
-
-
-    /* ── HERO CAROUSEL ── */
-    .hero-carousel { position: relative; width: 100%; overflow: hidden; background: #0e2f69; }
-    .carousel-track { display: flex; transition: transform 0.7s cubic-bezier(.77,0,.18,1); will-change: transform; }
-    .carousel-slide {
-      min-width: 100%; position: relative; height: 480px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 8%; overflow: hidden;
-    }
-    .slide-bg { position:absolute; inset:0; background-size:cover; background-position:center; z-index:0; }
-    .slide-bg::after { content:''; position:absolute; inset:0; background: linear-gradient(90deg, rgba(14,47,105,0.92) 40%, rgba(14,47,105,0.3)); }
-    .slide-content { position:relative; z-index:1; max-width:560px; color:white; }
-    .slide-badge { display:inline-block; background:rgba(250,204,21,0.2); border:1px solid #facc15; color:#facc15; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 14px; border-radius:50px; margin-bottom:16px; }
-    .slide-content h1 { font-size: clamp(26px,4vw,46px); font-weight:800; line-height:1.2; margin-bottom:14px; }
-    .slide-content h1 span { color:#facc15; }
-    .slide-content p { font-size:16px; opacity:.85; margin-bottom:28px; line-height:1.6; }
-    .slide-actions { display:flex; gap:14px; flex-wrap:wrap; }
-    .slide-actions a { text-decoration:none; padding:12px 26px; border-radius:50px; font-weight:700; font-size:15px; transition:.3s; }
-    .btn-yellow { background:#facc15; color:#0e2f69; }
-    .btn-yellow:hover { background:white; transform:translateY(-2px); box-shadow:0 8px 20px rgba(250,204,21,0.4); }
-    .btn-ghost { border:2px solid rgba(255,255,255,0.6); color:white; }
-    .btn-ghost:hover { background:white; color:#0e2f69; }
-    .slide-visual { position:relative; z-index:1; display:flex; align-items:center; justify-content:center; }
-    .slide-visual img { width:220px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4)); animation:float 3.5s ease-in-out infinite; }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
-
-    /* carousel controls */
-    .carousel-btn { position:absolute; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.15); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.25); color:white; width:46px; height:46px; border-radius:50%; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.3s; }
-    .carousel-btn:hover { background:rgba(250,204,21,0.9); color:#0e2f69; }
-    .carousel-prev { left:20px; }
-    .carousel-next { right:20px; }
-    .carousel-dots { position:absolute; bottom:18px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10; }
-    .dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; transition:.3s; }
-    .dot.active { background:#facc15; width:24px; border-radius:4px; }
-    @media(max-width:768px){
-      .carousel-slide { height:auto; padding:60px 6% 50px; flex-direction:column; text-align:center; gap:30px; }
-      .slide-actions { justify-content:center; }
-      .slide-visual img { width:160px; }
-      .slide-bg::after { background:linear-gradient(180deg,rgba(14,47,105,0.9) 60%,rgba(14,47,105,0.5)); }
-    }
-
-    /* ── MARQUEE TICKER ── */
-    .ticker-wrap { background:#facc15; padding:10px 0; overflow:hidden; }
-    .ticker { display:flex; gap:60px; animation:ticker 30s linear infinite; white-space:nowrap; }
-    .ticker span { font-weight:600; color:#0e2f69; font-size:14px; display:inline-flex; align-items:center; gap:8px; }
-    .ticker span i { font-size:16px; }
-    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-    /* ── STATS BAR ── */
-    .stats-bar { background:white; padding:36px 6%; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
-    .stat-item { text-align:center; padding:20px; border-radius:16px; background:#f8faff; transition:.3s; }
-    .stat-item:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(14,47,105,0.1); }
-    .stat-item i { font-size:32px; color:#0e2f69; margin-bottom:10px; display:block; }
-    .stat-item h2 { font-size:32px; font-weight:800; color:#0e2f69; }
-    .stat-item p { color:#666; font-size:14px; margin-top:4px; }
-    @media(max-width:768px){ .stats-bar { grid-template-columns:repeat(2,1fr); } }
-    @media(max-width:480px){ .stats-bar { grid-template-columns:1fr; } }
-
-
-    /* ── SECTION TITLES ── */
-    .section-title { text-align:center; margin-bottom:48px; }
-    .section-title .tag { display:inline-block; background:#eff6ff; color:#0e2f69; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 14px; border-radius:50px; margin-bottom:12px; }
-    .section-title h2 { font-size:clamp(24px,3vw,36px); font-weight:800; color:#0e2f69; }
-    .section-title p { color:#666; margin-top:10px; font-size:16px; }
-
-    /* ── COURSES ── */
-    .courses-section { padding:80px 6%; background:#f4f6fb; }
-    .course-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:28px; }
-    .course-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,0.07); transition:.35s; }
-    .course-card:hover { transform:translateY(-8px); box-shadow:0 16px 40px rgba(14,47,105,0.14); }
-    .course-card-top { padding:28px 24px 20px; position:relative; }
-    .course-icon { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:16px; }
-    .course-card h3 { font-size:20px; font-weight:700; color:#0e2f69; margin-bottom:8px; }
-    .course-card p { color:#666; font-size:14px; line-height:1.6; }
-    .course-card-bottom { padding:16px 24px 24px; border-top:1px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between; }
-    .course-price { font-size:22px; font-weight:800; color:#0e2f69; }
-    .course-price span { font-size:13px; font-weight:400; color:#999; text-decoration:line-through; margin-left:6px; }
-    .enroll-btn { background:#0e2f69; color:white; text-decoration:none; padding:9px 20px; border-radius:50px; font-weight:600; font-size:14px; transition:.3s; }
-    .enroll-btn:hover { background:#facc15; color:#0e2f69; }
-    .course-badge { position:absolute; top:16px; right:16px; background:#facc15; color:#0e2f69; font-size:11px; font-weight:700; padding:4px 10px; border-radius:50px; }
-
-    /* ── EXAM INFO ── */
-    .exam-section { padding:80px 6%; background:white; }
-    .exam-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; }
-    .exam-card { border-radius:20px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,0.07); transition:.35s; }
-    .exam-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(14,47,105,0.12); }
-    .exam-card-header { padding:24px; color:white; display:flex; align-items:center; gap:14px; }
-    .exam-card-header i { font-size:32px; }
-    .exam-card-header h3 { font-size:20px; font-weight:700; }
-    .exam-card-header p { font-size:13px; opacity:.8; margin-top:2px; }
-    .exam-card-body { background:white; padding:20px 24px 24px; }
-    .exam-detail { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f5f5f5; font-size:14px; color:#444; }
-    .exam-detail:last-of-type { border-bottom:none; }
-    .exam-detail i { color:#0e2f69; font-size:16px; width:20px; }
-    .exam-detail strong { color:#0e2f69; margin-right:4px; }
-    .syllabus-btn { display:inline-flex; align-items:center; gap:6px; margin-top:16px; background:#eff6ff; color:#0e2f69; text-decoration:none; padding:10px 20px; border-radius:50px; font-weight:600; font-size:14px; transition:.3s; }
-    .syllabus-btn:hover { background:#0e2f69; color:white; }
-
-    /* ── UPDATES ── */
-    .updates-section { padding:80px 6%; background:#f4f6fb; }
-    .updates-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
-    @media(max-width:768px){ .updates-grid { grid-template-columns:1fr; } }
-    .update-panel { background:white; border-radius:20px; padding:28px; box-shadow:0 6px 24px rgba(0,0,0,0.06); }
-    .update-panel h3 { font-size:18px; font-weight:700; color:#0e2f69; margin-bottom:20px; display:flex; align-items:center; gap:8px; }
-    .update-item { display:flex; align-items:flex-start; gap:12px; padding:14px 0; border-bottom:1px solid #f5f5f5; }
-    .update-item:last-child { border-bottom:none; }
-    .update-dot { width:8px; height:8px; border-radius:50%; background:#facc15; margin-top:6px; flex-shrink:0; }
-    .update-item p { font-size:14px; color:#333; line-height:1.5; flex:1; }
-    .update-tag { font-size:11px; font-weight:700; padding:3px 10px; border-radius:50px; white-space:nowrap; }
-    .tag-new { background:#dcfce7; color:#16a34a; }
-    .tag-hot { background:#fee2e2; color:#dc2626; }
-    .tag-info { background:#eff6ff; color:#2563eb; }
-
-    /* ── FEATURES ── */
-    .features-section { padding:80px 6%; background:linear-gradient(135deg,#0e2f69,#1746a2); color:white; }
-    .features-section .section-title .tag { background:rgba(250,204,21,0.15); color:#facc15; }
-    .features-section .section-title h2 { color:white; }
-    .features-section .section-title p { color:rgba(255,255,255,0.7); }
-    .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; }
-    .feature-card { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:28px 24px; text-align:center; transition:.35s; }
-    .feature-card:hover { background:rgba(255,255,255,0.14); transform:translateY(-6px); }
-    .feature-card i { font-size:36px; color:#facc15; margin-bottom:16px; display:block; }
-    .feature-card h4 { font-size:17px; font-weight:700; margin-bottom:8px; }
-    .feature-card p { font-size:14px; opacity:.75; line-height:1.6; }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials-section { padding:80px 6%; background:white; }
-    .testimonials-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; }
-    .testimonial-card { background:#f8faff; border-radius:20px; padding:28px; border-left:4px solid #facc15; transition:.3s; }
-    .testimonial-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(14,47,105,0.1); }
-    .stars { color:#facc15; font-size:16px; margin-bottom:14px; }
-    .testimonial-card p { color:#444; font-size:15px; line-height:1.7; font-style:italic; }
-    .testimonial-author { display:flex; align-items:center; gap:12px; margin-top:20px; }
-    .author-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#0e2f69,#1746a2); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:16px; }
-    .author-info h5 { font-size:15px; font-weight:700; color:#0e2f69; }
-    .author-info span { font-size:13px; color:#888; }
-
-    /* ── CTA BANNER ── */
-    .cta-section { padding:80px 6%; background:linear-gradient(135deg,#facc15,#f59e0b); text-align:center; }
-    .cta-section h2 { font-size:clamp(26px,3.5vw,42px); font-weight:800; color:#0e2f69; margin-bottom:14px; }
-    .cta-section p { color:#0e2f69; opacity:.8; font-size:17px; margin-bottom:32px; }
-    .cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
-    .cta-btn-primary { background:#0e2f69; color:white; text-decoration:none; padding:14px 32px; border-radius:50px; font-weight:700; font-size:16px; transition:.3s; }
-    .cta-btn-primary:hover { background:#1746a2; transform:translateY(-2px); box-shadow:0 8px 24px rgba(14,47,105,0.3); }
-    .cta-btn-secondary { background:white; color:#0e2f69; text-decoration:none; padding:14px 32px; border-radius:50px; font-weight:700; font-size:16px; transition:.3s; }
-    .cta-btn-secondary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.15); }
-
-    /* ── TEAM ── */
-    .team-section { padding:80px 6%; background:#f0f4fb; }
-    .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:28px; margin-top:48px; }
-    .team-card { background:white; border-radius:24px; overflow:hidden; box-shadow:0 4px 20px rgba(14,47,105,0.07); transition:0.3s; text-align:center; border:1.5px solid #e8edf5; }
-    .team-card:hover { transform:translateY(-8px); box-shadow:0 20px 48px rgba(14,47,105,0.14); border-color:#bfdbfe; }
-    .team-photo { width:100%; height:200px; object-fit:cover; object-position:top; display:block; }
-    .team-photo-placeholder { width:100%; height:200px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-    .team-avatar { width:100px; height:100px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:800; color:white; letter-spacing:-1px; box-shadow:0 8px 24px rgba(0,0,0,0.25); border:4px solid rgba(255,255,255,0.3); z-index:1; }
-    .team-photo-placeholder::before { content:''; position:absolute; inset:0; opacity:0.9; }
-    .team-body { padding:20px 18px 22px; }
-    .team-body h4 { font-size:17px; font-weight:800; color:#0e2f69; margin-bottom:4px; }
-    .team-role { font-size:12px; font-weight:700; color:#1746a2; background:#eff6ff; padding:3px 12px; border-radius:20px; display:inline-block; margin-bottom:10px; }
-    .team-body p { font-size:13px; color:#64748b; line-height:1.6; margin-bottom:14px; }
-    .team-socials { display:flex; justify-content:center; gap:10px; }
-    .team-socials a { width:32px; height:32px; border-radius:8px; background:#f0f4fb; display:flex; align-items:center; justify-content:center; color:#1746a2; font-size:15px; text-decoration:none; transition:0.2s; }
-    .team-socials a:hover { background:#0e2f69; color:white; }
-
-    /* ── FOOTER ── */
-    footer { background:#0e2f69; color:white; padding:70px 6% 36px; }
-    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.1); }
-    @media(max-width:900px){ .footer-grid { grid-template-columns:1fr 1fr; } }
-    @media(max-width:560px){ .footer-grid { grid-template-columns:1fr; text-align:center; } }
-    .footer-brand .logo { margin-bottom:16px; display:inline-flex; }
-    .footer-brand p { font-size:14px; opacity:.7; line-height:1.7; max-width:280px; }
-    .footer-socials { display:flex; gap:12px; margin-top:22px; }
-    @media(max-width:560px){ .footer-socials { justify-content:center; } }
-    .footer-socials a { width:38px; height:38px; background:rgba(255,255,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; text-decoration:none; font-size:18px; transition:.3s; }
-    .footer-socials a:hover { background:#facc15; color:#0e2f69; transform:translateY(-4px); }
-    .footer-col h4 { font-size:16px; font-weight:700; color:#facc15; margin-bottom:20px; position:relative; padding-bottom:10px; }
-    .footer-col h4::after { content:''; position:absolute; bottom:0; left:0; width:32px; height:2px; background:#facc15; }
-    @media(max-width:560px){ .footer-col h4::after { left:50%; transform:translateX(-50%); } }
-    .footer-col ul { list-style:none; }
-    .footer-col ul li { margin-bottom:12px; }
-    .footer-col ul li a { color:rgba(255,255,255,0.75); text-decoration:none; font-size:14px; display:inline-flex; align-items:center; gap:8px; transition:.3s; }
-    .footer-col ul li a:hover { color:#facc15; padding-left:4px; }
-    .footer-bottom { padding-top:28px; text-align:center; font-size:13px; opacity:.55; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narayan e-Gurukul - B.Tech Study Material</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
-
-
-  <!-- HEADER -->
-  <header id="main-header">
-    <a href="index.html" class="logo">
-      <i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span>
-    </a>
-    <div class="menu-toggle" id="mobile-menu"><i class="ri-menu-3-line"></i></div>
-    <nav id="nav-menu">
-      <a href="index.html"><i class="ri-home-4-line"></i> Home</a>
-      <a href="courses.html"><i class="ri-book-open-line"></i> Courses</a>
-      <a href="my-batches.html" id="myBatchesNavLink" style="display:none;"><i class="ri-stack-line"></i> My Batches</a>
-      <a href="rank-predictor.html"><i class="ri-bar-chart-line"></i> Rank Predictor</a>
-      <a href="app.html"><i class="ri-bar-chart-line"></i> Get App </a>
-      <a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a>
-      <a href="login.html" class="nav-btn" id="loginBtn"><i class="ri-user-line"></i> Get Started</a>
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">
+            <h1>Narayan <span>e-Gurukul Platform</span></h1>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="#batches">Batch</a></li>
+            <li><a href="#colleges">Colleges</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
-  </header>
 
-  <!-- HERO CAROUSEL -->
-  <section class="hero-carousel" aria-label="Featured courses">
-    <div class="carousel-track" id="carouselTrack">
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <span class="badge">B.Tech Excellence</span>
+                <h2>Elevate Your Engineering Journey</h2>
+                <p>Access premium study materials, expert-curated notes, and previous year questions. A unified platform designed to make learning intuitive and highly effective for modern engineers.</p>
+                <div class="hero-actions">
+                    <a href="btech-studymaterial.html" class="btn primary-btn"><i class="ri-search-line"></i> Explore Materials</a>
+                    <a href="#batches" class="btn secondary-btn">View Batches</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Visual asset placeholder or generated image -->
+                <img src="https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg?t=st=1715694200~exp=1715697800~hmac=5c6f8f7f8f..." alt="Academic Growth" style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl);">
+            </div>
+        </section>
 
-      <!-- Slide 1: JEE -->
-      <div class="carousel-slide">
-        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1400&q=80');"></div>
-        <div class="slide-content">
-          <div class="slide-badge"><i class="ri-fire-line"></i> Most Popular</div>
-          <h1>Crack <span>JEE 2026</span><br>With Expert Guidance</h1>
-          <p>Live classes, DPPs, mock tests & personal mentorship — everything you need to ace IIT-JEE.</p>
-          <div class="slide-actions">
-            <a href="enroll-jee.html" class="btn-yellow">Enroll Now</a>
-            <a href="jee-syllabus.html" class="btn-ghost">View Syllabus</a>
-          </div>
-        </div>
-        <div class="slide-visual">
-          <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" alt="JEE Preparation">
-        </div>
-      </div>
+        <!-- UNIVERSITY PORTALS -->
+        <section class="section" id="colleges">
+            <div class="section-header">
+                <span class="badge">College Specific</span>
+                <h2>University Portals</h2>
+                <p>Direct access to university-specific syllabi, notes, and resources.</p>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon"><i class="ri-building-4-line"></i></div>
+                    <h3>Poornima University</h3>
+                    <p>Exclusive repository for Poornima University B.Tech & BCA students.</p>
+                    <ul class="feature-list">
+                        <li><i class="ri-checkbox-circle-fill"></i> PU Course Syllabi</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Faculty Handouts</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> PU Previous Papers</li>
+                    </ul>
+                    <a href="btech-studymaterial.html" class="btn primary-btn">Access PU Material</a>
+                </div>
+                <!-- Other universities -->
+            </div>
+        </section>
 
-      <!-- Slide 2: NEET -->
-      <div class="carousel-slide">
-        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&q=80');"></div>
-        <div class="slide-content">
-          <div class="slide-badge"><i class="ri-heart-pulse-line"></i> Medical</div>
-          <h1>Achieve Your <span>NEET UG</span><br>Dream Score</h1>
-          <p>Comprehensive Biology, Physics & Chemistry preparation with India's top educators.</p>
-          <div class="slide-actions">
-            <a href="enroll-neet.html" class="btn-yellow">Enroll Now</a>
-            <a href="neet-syllabus.html" class="btn-ghost">View Syllabus</a>
-          </div>
-        </div>
-        <div class="slide-visual">
-          <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="NEET Preparation">
-        </div>
-      </div>
+        <!-- ABOUT -->
+        <section class="section" id="about">
+            <div class="about-section">
+                <div class="about-content">
+                    <span class="badge">Our Mission</span>
+                    <h2>Empowering Engineering Minds</h2>
+                    <p>Narayan e-Gurukul is a dedicated digital repository specifically crafted for B.Tech students. We democratize education by providing high-quality, organized, and easily accessible study materials across all major branches.</p>
+                    <div class="about-stats" style="margin-bottom: 2rem;">
+                        <div class="stat-item">
+                            <h3>500+</h3>
+                            <p>Digital Notes</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>200+</h3>
+                            <p>Solved PYQs</p>
+                        </div>
+                    </div>
+                    <a href="founder.html" class="btn secondary-btn"><i class="ri-team-line"></i> Meet the Founders</a>
+                </div>
+                <div class="about-features">
+                    <div class="card" style="padding: 1.5rem; margin-bottom: 1rem;">
+                        <i class="ri-shield-check-line" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem;"></i>
+                        <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Curated Quality</h4>
+                        <p style="font-size: 0.85rem; margin-bottom: 0;">Verified by toppers and faculty.</p>
+                    </div>
+                    <div class="card" style="padding: 1.5rem;">
+                        <i class="ri-flashlight-line" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem;"></i>
+                        <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Instant Access</h4>
+                        <p style="font-size: 0.85rem; margin-bottom: 0;">Direct Google Drive integration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <!-- Slide 3: CUET -->
-      <div class="carousel-slide">
-        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1400&q=80');"></div>
-        <div class="slide-content">
-          <div class="slide-badge"><i class="ri-graduation-cap-line"></i> University Entrance</div>
-          <h1>Get Into <span>Top Universities</span><br>via CUET 2026</h1>
-          <p>Structured crash course covering all CUET domains — score high, get your dream college.</p>
-          <div class="slide-actions">
-            <a href="enroll-cuet.html" class="btn-yellow">Enroll Now</a>
-            <a href="cuet-syllabus.html" class="btn-ghost">View Syllabus</a>
-          </div>
-        </div>
-        <div class="slide-visual">
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="CUET Preparation">
-        </div>
-      </div>
+        <!-- CONTACT -->
+        <section class="section" id="contact">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p>Have questions about the material or want to contribute? Our team is here to help.</p>
+                    <div style="margin-top: 2rem;">
+                        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+                            <i class="ri-mail-line" style="font-size: 1.5rem; color: var(--accent);"></i>
+                            <div>
+                                <h4 style="font-size: 0.9rem;">Email Support</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">contact@narayanegurukul.com</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <i class="ri-map-pin-line" style="font-size: 1.5rem; color: var(--accent);"></i>
+                            <div>
+                                <h4 style="font-size: 0.9rem;">Location</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Education Hub, Digital India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="card">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="How can we help you?" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Send Message <i class="ri-send-plane-line"></i></button>
+                </form>
+            </div>
+        </section>
+    </main>
 
-      <!-- Slide 4: SSC -->
-      <div class="carousel-slide">
-        <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1400&q=80');"></div>
-        <div class="slide-content">
-          <div class="slide-badge"><i class="ri-government-line"></i> Government Jobs</div>
-          <h1>Secure Your <span>Government Job</span><br>with SSC Prep</h1>
-          <p>Complete SSC CGL, CHSL & MTS preparation with previous year papers and live doubt sessions.</p>
-          <div class="slide-actions">
-            <a href="enroll-ssc.html" class="btn-yellow">Enroll Now</a>
-            <a href="courses.html" class="btn-ghost">All Courses</a>
-          </div>
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">Narayan <span>e-Gurukul Platform</span></a>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#batches">Batch</a>
+                <a href="#colleges">Colleges</a>
+                <a href="founder.html">Founders</a>
+            </div>
         </div>
-        <div class="slide-visual">
-          <img src="https://cdn-icons-png.flaticon.com/512/3281/3281289.png" alt="SSC Preparation">
-        </div>
-      </div>
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.4);">
+            &copy; 2026 Narayan e-Gurukul Educational Platform. All Rights Reserved.
+        </p>
+    </footer>
 
-    </div>
+    <script>
+        // Simple Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
 
-    <button class="carousel-btn carousel-prev" id="prevBtn" aria-label="Previous slide"><i class="ri-arrow-left-s-line"></i></button>
-    <button class="carousel-btn carousel-next" id="nextBtn" aria-label="Next slide"><i class="ri-arrow-right-s-line"></i></button>
-    <div class="carousel-dots" id="carouselDots"></div>
-  </section>
-
-  <div class="ticker-wrap" aria-label="Latest updates">
-    <div class="ticker" id="ticker">
-      <span><i class="ri-fire-line"></i> JEE Main 2026 Crash Course — Enroll Now!</span>
-      <span><i class="ri-notification-3-line"></i> NEET UG 2026 New Batch Starting Soon</span>
-      <span><i class="ri-trophy-line"></i> 50,000+ Students Already Enrolled on e-Gurukul</span>
-      <span><i class="ri-book-2-line"></i> CUET 2026 Batch Registrations Open</span>
-      <span><i class="ri-star-line"></i> Board Exam 2026 Study Material Now Available</span>
-      <span><i class="ri-video-line"></i> Free Video Lectures for Physics, Chemistry &amp; Maths</span>
-      <span><i class="ri-download-line"></i> Download Free PDFs — JEE, NEET, Board Syllabus</span>
-      <span><i class="ri-fire-line"></i> JEE Main 2026 Crash Course — Enroll Now!</span>
-      <span><i class="ri-notification-3-line"></i> NEET UG 2026 New Batch Starting Soon</span>
-      <span><i class="ri-trophy-line"></i> 50,000+ Students Already Enrolled on e-Gurukul</span>
-      <span><i class="ri-book-2-line"></i> CUET 2026 Batch Registrations Open</span>
-      <span><i class="ri-star-line"></i> Board Exam 2026 Study Material Now Available</span>
-      <span><i class="ri-video-line"></i> Free Video Lectures for Physics, Chemistry &amp; Maths</span>
-      <span><i class="ri-download-line"></i> Download Free PDFs — JEE, NEET, Board Syllabus</span>
-    </div>
-  </div>
-
-  <div class="stats-bar">
-    <div class="stat-item">
-      <i class="ri-user-star-line"></i>
-      <h2 id="statStudents">0</h2>
-      <p>Students Enrolled</p>
-    </div>
-    <div class="stat-item">
-      <i class="ri-book-3-line"></i>
-      <h2 id="statCourses">0</h2>
-      <p>Expert Courses</p>
-    </div>
-    <div class="stat-item">
-      <i class="ri-trophy-line"></i>
-      <h2 id="statSuccess">0%</h2>
-      <p>Success Rate</p>
-    </div>
-    <div class="stat-item">
-      <i class="ri-video-line"></i>
-      <h2 id="statVideos">0</h2>
-      <p>Video Lectures</p>
-    </div>
-  </div>
-
-  <!-- COURSES SECTION -->
-  <section class="courses-section">
-    <div class="section-title">
-      <div class="tag"><i class="ri-book-mark-line"></i> Popular Courses</div>
-      <h2>Start Learning Today</h2>
-      <p>Curated courses designed by top educators for India's most competitive exams</p>
-    </div>
-    <div class="course-grid">
-      <div class="course-card">
-        <div class="course-card-top">
-          <div class="course-badge">Bestseller</div>
-          <div class="course-icon" style="background:#eff6ff;"><i class="ri-flask-line" style="color:#0e2f69;"></i></div>
-          <h3>JEE Preparation</h3>
-          <p>Complete PCM preparation with live classes, DPPs, mock tests & personal mentorship.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-price">₹1,500 <span>₹4,999</span></div>
-          <a href="enroll-jee.html" class="enroll-btn">Enroll Now</a>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="course-card-top">
-          <div class="course-badge">Popular</div>
-          <div class="course-icon" style="background:#fef2f2;"><i class="ri-heart-pulse-line" style="color:#dc2626;"></i></div>
-          <h3>NEET Preparation</h3>
-          <p>Full PCB syllabus with test series, NCERT focus, and expert biology sessions.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-price">₹1,500 <span>₹4,999</span></div>
-          <a href="enroll-neet.html" class="enroll-btn">Enroll Now</a>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="course-card-top">
-          <div class="course-icon" style="background:#f0fdf4;"><i class="ri-graduation-cap-line" style="color:#16a34a;"></i></div>
-          <h3>CUET Course</h3>
-          <p>Crash course for CUET entrance exam covering all domains with practice sets.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-price">₹999 <span>₹2,999</span></div>
-          <a href="enroll-cuet.html" class="enroll-btn">Enroll Now</a>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="course-card-top">
-          <div class="course-icon" style="background:#fefce8;"><i class="ri-government-line" style="color:#ca8a04;"></i></div>
-          <h3>SSC Preparation</h3>
-          <p>SSC CGL, CHSL & MTS complete preparation with previous year papers.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-price">₹999 <span>₹2,499</span></div>
-          <a href="enroll-ssc.html" class="enroll-btn">Enroll Now</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXAM INFO SECTION -->
-  <section class="exam-section">
-    <div class="section-title">
-      <div class="tag"><i class="ri-file-list-3-line"></i> Exam Calendar</div>
-      <h2>Upcoming Exams 2026</h2>
-      <p>Stay updated with dates, eligibility and syllabus for all major exams</p>
-    </div>
-    <div class="exam-grid">
-      <div class="exam-card">
-        <div class="exam-card-header" style="background:linear-gradient(135deg,#0e2f69,#1746a2);">
-          <i class="ri-flask-line"></i>
-          <div><h3>JEE Main 2026</h3><p>Engineering Entrance</p></div>
-        </div>
-        <div class="exam-card-body">
-          <div class="exam-detail"><i class="ri-calendar-event-line"></i><span><strong>Date:</strong> Jan 24 – Feb 01, 2026</span></div>
-          <div class="exam-detail"><i class="ri-user-star-line"></i><span><strong>Eligibility:</strong> Class 12th Pass/Appearing</span></div>
-          <div class="exam-detail"><i class="ri-computer-line"></i><span><strong>Mode:</strong> Online (CBT)</span></div>
-          <a href="jee-syllabus.html" class="syllabus-btn"><i class="ri-file-list-line"></i> View Syllabus</a>
-        </div>
-      </div>
-      <div class="exam-card">
-        <div class="exam-card-header" style="background:linear-gradient(135deg,#dc2626,#ef4444);">
-          <i class="ri-heart-pulse-line"></i>
-          <div><h3>NEET UG 2026</h3><p>Medical Entrance</p></div>
-        </div>
-        <div class="exam-card-body">
-          <div class="exam-detail"><i class="ri-calendar-event-line"></i><span><strong>Date:</strong> May 03, 2026</span></div>
-          <div class="exam-detail"><i class="ri-parent-line"></i><span><strong>Eligibility:</strong> 17+ Years Age</span></div>
-          <div class="exam-detail"><i class="ri-edit-line"></i><span><strong>Mode:</strong> Offline (Pen & Paper)</span></div>
-          <a href="neet-syllabus.html" class="syllabus-btn"><i class="ri-file-list-line"></i> View Syllabus</a>
-        </div>
-      </div>
-      <div class="exam-card">
-        <div class="exam-card-header" style="background:linear-gradient(135deg,#16a34a,#22c55e);">
-          <i class="ri-graduation-cap-line"></i>
-          <div><h3>CUET 2026</h3><p>University Entrance</p></div>
-        </div>
-        <div class="exam-card-body">
-          <div class="exam-detail"><i class="ri-calendar-event-line"></i><span><strong>Date:</strong> May 15 – May 31, 2026</span></div>
-          <div class="exam-detail"><i class="ri-graduation-cap-line"></i><span><strong>Eligibility:</strong> Class 12th Pass</span></div>
-          <div class="exam-detail"><i class="ri-laptop-line"></i><span><strong>Mode:</strong> Hybrid Mode</span></div>
-          <a href="cuet-syllabus.html" class="syllabus-btn"><i class="ri-file-list-line"></i> View Syllabus</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- UPDATES SECTION -->
-  <section class="updates-section">
-    <div class="section-title">
-      <div class="tag"><i class="ri-notification-3-line"></i> Latest</div>
-      <h2>Updates & Study Material</h2>
-    </div>
-    <div class="updates-grid">
-      <div class="update-panel">
-        <h3><i class="ri-megaphone-line"></i> Notifications</h3>
-        <div class="update-item">
-          <div class="update-dot"></div>
-          <p>JEE Main 2026 Crash Course starting from next Monday!</p>
-          <span class="update-tag tag-new">New</span>
-        </div>
-        <div class="update-item">
-          <div class="update-dot"></div>
-          <p>NEET Admit Cards have been released. Download now.</p>
-          <span class="update-tag tag-hot">Hot</span>
-        </div>
-        <div class="update-item">
-          <div class="update-dot"></div>
-          <p>Scholarship Test results are out. Check your rank.</p>
-          <span class="update-tag tag-info">Info</span>
-        </div>
-        <div class="update-item">
-          <div class="update-dot"></div>
-          <p>New batch for CUET 2026 registrations open.</p>
-          <span class="update-tag tag-new">New</span>
-        </div>
-      </div>
-      <div class="update-panel">
-        <h3><i class="ri-book-3-line"></i> Latest Study Material</h3>
-        <div class="update-item">
-          <div class="update-dot" style="background:#dc2626;"></div>
-          <p><i class="ri-file-pdf-2-line" style="color:#dc2626;"></i> JEE Main 2026: Physics Laws of Motion Notes</p>
-          <span class="update-tag tag-new">New</span>
-        </div>
-        <div class="update-item">
-          <div class="update-dot" style="background:#2563eb;"></div>
-          <p><i class="ri-file-list-check-line" style="color:#2563eb;"></i> NEET UG 2026: Biology DPP - Cell Biology</p>
-          <span class="update-tag tag-info">Updated</span>
-        </div>
-        <div class="update-item">
-          <div class="update-dot" style="background:#dc2626;"></div>
-          <p><i class="ri-video-line" style="color:#dc2626;"></i> JEE Main 2026: Physics Full Playlist</p>
-          <span class="update-tag tag-hot">Popular</span>
-        </div>
-        <div class="update-item">
-          <div class="update-dot" style="background:#16a34a;"></div>
-          <p><i class="ri-file-text-line" style="color:#16a34a;"></i> CUET 2026: General Test Practice Set</p>
-          <span class="update-tag tag-new">New</span>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:36px;">
-      <a href="study-material.html" class="cta-btn-primary" style="display:inline-flex;align-items:center;gap:8px;"><i class="ri-book-open-line"></i> View All Resources</a>
-    </div>
-  </section>
-
-  <!-- FEATURES SECTION -->
-  <section class="features-section">
-    <div class="section-title">
-      <div class="tag"><i class="ri-star-line"></i> Why e-Gurukul</div>
-      <h2>Everything You Need to Succeed</h2>
-      <p>A complete learning ecosystem built for competitive exam aspirants</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <i class="ri-live-line"></i>
-        <h4>Live Classes</h4>
-        <p>Interactive live sessions with India's top educators and real-time doubt solving.</p>
-      </div>
-      <div class="feature-card">
-        <i class="ri-file-list-3-line"></i>
-        <h4>Daily Practice</h4>
-        <p>Structured DPPs and weekly tests to keep your preparation on track.</p>
-      </div>
-      <div class="feature-card">
-        <i class="ri-bar-chart-grouped-line"></i>
-        <h4>Performance Analytics</h4>
-        <p>Detailed insights into your strengths and areas that need improvement.</p>
-      </div>
-      <div class="feature-card">
-        <i class="ri-robot-line"></i>
-        <h4>AI Guru</h4>
-        <p>Get instant answers to your doubts with our AI-powered study assistant.</p>
-      </div>
-      <div class="feature-card">
-        <i class="ri-smartphone-line"></i>
-        <h4>Learn Anywhere</h4>
-        <p>Access all content on any device — study at your own pace, anytime.</p>
-      </div>
-      <div class="feature-card">
-        <i class="ri-shield-check-line"></i>
-        <h4>Trusted Platform</h4>
-        <p>50,000+ students trust e-Gurukul for their exam preparation journey.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials-section">
-    <div class="section-title">
-      <div class="tag"><i class="ri-chat-quote-line"></i> Student Stories</div>
-      <h2>What Our Students Say</h2>
-      <p>Real results from real students who cracked their dream exams</p>
-    </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"e-Gurukul's JEE course completely transformed my preparation. The live classes and DPPs are top-notch. I cleared JEE Main with 97 percentile!"</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">R</div>
-          <div class="author-info"><h5>Rahul S.</h5><span>JEE Main 2025 — 97 Percentile</span></div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"The NEET preparation here is incredible. Biology sessions are so detailed and the test series helped me identify my weak areas quickly."</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">P</div>
-          <div class="author-info"><h5>Priya M.</h5><span>NEET UG 2025 — 650/720</span></div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"Affordable pricing with premium quality content. The AI Guru feature is a game-changer for clearing doubts at midnight before exams!"</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">A</div>
-          <div class="author-info"><h5>Arjun K.</h5><span>CUET 2025 — DU Admission</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA BANNER -->
-  <section class="cta-section">
-    <h2>Ready to Start Your Journey?</h2>
-    <p>Join 50,000+ students already learning on e-Gurukul. Your dream exam is one step away.</p>
-    <div class="cta-actions">
-      <a href="register.html" class="cta-btn-primary"><i class="ri-user-add-line"></i> Register Free</a>
-      <a href="courses.html" class="cta-btn-secondary"><i class="ri-book-open-line"></i> Explore Courses</a>
-    </div>
-  </section>
-
-  <!-- TEAM -->
-  <section class="team-section">
-    <div class="section-title">
-      <div class="tag"><i class="ri-team-line"></i> Our Team</div>
-      <h2>The People Behind <span>e-Gurukul</span></h2>
-      <p>Passionate educators and engineers building India's smartest learning platform</p>
-    </div>
-    <div class="team-grid">
-
-      <div class="team-card">
-        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#0e2f69,#1746a2);">
-          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">NS</div>
-        </div>
-        <div class="team-body">
-          <h4>Nishant Saini</h4>
-          <span class="team-role">Founder</span>
-          <p>Nishant Saini, founder of e-Gurukul, leads a smart learning platform empowering students with accessible, innovative, technology-driven education for future success.
-</p>
-          <div class="team-socials">
-            <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-            <a href="#" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
-            <a href="mailto:egurukul@gmail.com" aria-label="Email"><i class="ri-mail-line"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="team-card">
-        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#5b21b6,#7c3aed);">
-          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">SJ</div>
-        </div>
-        <div class="team-body">
-          <h4>Sanidhya Jain</h4>
-          <span class="team-role">Founder</span>
-          <p>Sanidhya Jain founded e-Gurukul, a learning platform offering innovative digital education, personalized guidance, and accessible resources for students’ academic success.
-</p>
-          <div class="team-socials">
-            <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-            <a href="https://www.youtube.com/@eGurukul" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
-            <a href="mailto:egurukul@gmail.com" aria-label="Email"><i class="ri-mail-line"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="team-card">
-        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#be123c,#f43f5e);">
-          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">PV</div>
-        </div>
-        <div class="team-body">
-          <h4>Pakhi Verma</h4>
-          <span class="team-role">Founder</span>
-          <p>e-Gurukul, founded by Pakhi Verma, is an innovative digital learning platform empowering students through smart education, accessible resources globally today.
-</p>
-          <div class="team-socials">
-            <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-            <a href="https://www.youtube.com/@eGurukul" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
-            <a href="mailto:egurukul@gmail.com" aria-label="Email"><i class="ri-mail-line"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="team-card">
-        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#065f46,#059669);">
-          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">NA</div>
-        </div>
-        <div class="team-body">
-          <h4>Naidisht Asopa</h4>
-          <span class="team-role">Founder</span>
-          <p>Naidisht Asopa, founder of e-Gurukul, leads an innovative platform delivering smart, accessible, and personalized digital education for modern learners everywhere.
-</p>
-          <div class="team-socials">
-            <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-            <a href="https://www.instagram.com/egurukul2026?utm_source=qr&igsh=enA4djA1YWMzNmNy" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
-            <a href="mailto:egurukul@gmail.com" aria-label="Email"><i class="ri-mail-line"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="team-card">
-        <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#92400e,#d97706);">
-          <div class="team-avatar" style="background:rgba(255,255,255,0.15);">SJ</div>
-        </div>
-        <div class="team-body">
-          <h4>Sandhya Jain</h4>
-          <span class="team-role">Founder</span>
-          <p>Sandhya Jain is the founder of e-Gurukul, a smart learning platform empowering students through innovative, accessible, and technology-driven education solutions.
-</p>
-          <div class="team-socials">
-            <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-            <a href="https://www.youtube.com/@eGurukul" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
-            <a href="mailto:egurukul@gmail.com" aria-label="Email"><i class="ri-mail-line"></i></a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo"><i class="ri-graduation-cap-fill"></i>e-<span>Gurukul</span></a>
-        <p>Empowering students with high-quality education and smart learning tools. Join e-Gurukul to clear your dream entrance exams with ease.</p>
-        <div class="footer-socials">
-          <a href="https://www.instagram.com/egurukul2026?utm_source=qr&igsh=enA4djA1YWMzNmNy" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
-          <a href="https://www.youtube.com/@eGurukul" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
-          <a href="https://t.me/egurukul2026" aria-label="Telegram"><i class="ri-telegram-line"></i></a>
-          <a href="https://wa.me/919468974044" aria-label="WhatsApp"><i class="ri-whatsapp-line"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html"><i class="ri-home-line"></i> Home</a></li>
-          <li><a href="courses.html"><i class="ri-book-open-line"></i> Courses</a></li>
-          <li><a href="study-material.html"><i class="ri-file-text-line"></i> Study Material</a></li>
-          <li><a href="login.html"><i class="ri-user-heart-line"></i> Student Portal</a></li>
-          <li><a href="admin-login.html"><i class="ri-admin-line"></i> Admin Login</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Syllabus</h4>
-        <ul>
-          <li><a href="jee-syllabus.html"><i class="ri-pencil-ruler-line"></i> JEE Main</a></li>
-          <li><a href="neet-syllabus.html"><i class="ri-pulse-line"></i> NEET UG</a></li>
-          <li><a href="cuet-syllabus.html"><i class="ri-graduation-cap-line"></i> CUET 2026</a></li>
-          <li><a href="board-syllabus.html"><i class="ri-government-line"></i> Board Exams</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="mailto:egurukul@gmail.com"><i class="ri-mail-send-line"></i> egurukul@gmail.com</a></li>
-          <li><a href="tel:+919468974044"><i class="ri-phone-line"></i> +91 9468974044</a></li>
-          <li><a href="support.html"><i class="ri-customer-service-2-line"></i> Support Center</a></li>
-          <li><a href="#"><i class="ri-shield-user-line"></i> Privacy Policy</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 e-Gurukul. All Rights Reserved. Designed for Excellence.</p>
-    </div>
-  </footer>
-
-
-  <script>
-    // ── CAROUSEL ──
-    const track = document.getElementById('carouselTrack');
-    const dotsContainer = document.getElementById('carouselDots');
-    const slides = track.querySelectorAll('.carousel-slide');
-    let current = 0, autoTimer;
-
-    // build dots
-    slides.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'dot' + (i === 0 ? ' active' : '');
-      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-      d.addEventListener('click', () => goTo(i));
-      dotsContainer.appendChild(d);
-    });
-
-    function goTo(n) {
-      current = (n + slides.length) % slides.length;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      dotsContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
-    }
-
-    document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
-    document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
-
-    function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(() => goTo(current + 1), 5000); }
-    resetAuto();
-
-    // ── MOBILE MENU ──
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navMenu = document.getElementById('nav-menu');
-    mobileMenu.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      const icon = mobileMenu.querySelector('i');
-      icon.className = navMenu.classList.contains('active') ? 'ri-close-line' : 'ri-menu-3-line';
-    });
-
-    // ── AUTH STATE ──
-    document.addEventListener('DOMContentLoaded', () => {
-      const user = JSON.parse(localStorage.getItem('currentUser'));
-      if (user) {
-        const navBtn = document.querySelector('.nav-btn');
-        const myBatchesLink = document.getElementById('myBatchesNavLink');
-        if (navBtn) { navBtn.innerHTML = '<i class="ri-dashboard-line"></i> Dashboard'; navBtn.href = 'student-dashboard.html'; }
-        if (myBatchesLink) myBatchesLink.style.display = 'inline-flex';
-      }
-    });
-
-    // ── SCROLL REVEAL ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.course-card, .exam-card, .feature-card, .testimonial-card, .update-panel, .stat-item, .team-card').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(24px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      observer.observe(el);
-    });
-
-    // ── ANIMATED COUNTERS ──
-    function animateCount(el, target, suffix) {
-      let start = 0;
-      const step = Math.ceil(target / 60);
-      const timer = setInterval(() => {
-        start += step;
-        if (start >= target) { start = target; clearInterval(timer); }
-        el.textContent = (start >= 1000 ? (start/1000).toFixed(0)+'K+' : start) + (suffix || '');
-      }, 25);
-    }
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          animateCount(document.getElementById('statStudents'), 50, 'K+');
-          animateCount(document.getElementById('statCourses'), 200, '+');
-          animateCount(document.getElementById('statSuccess'), 95, '%');
-          animateCount(document.getElementById('statVideos'), 500, '+');
-          statsObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-    const statsBar = document.querySelector('.stats-bar');
-    if (statsBar) statsObserver.observe(statsBar);
-
-    // ── BACK TO TOP ──
-    const backTop = document.getElementById('backTop');
-    window.addEventListener('scroll', () => {
-      backTop.style.opacity = window.scrollY > 400 ? '1' : '0';
-      backTop.style.pointerEvents = window.scrollY > 400 ? 'auto' : 'none';
-    });
-    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
-
-  <!-- BACK TO TOP -->
-  <button id="backTop" aria-label="Back to top" style="position:fixed;bottom:28px;right:28px;width:46px;height:46px;border-radius:50%;background:#0e2f69;color:white;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(14,47,105,0.35);opacity:0;transition:opacity 0.3s;z-index:999;">
-    <i class="ri-arrow-up-line"></i>
-  </button>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
 </body>
+
 </html>
